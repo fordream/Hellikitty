@@ -59,6 +59,7 @@ public class WaypointGrid : MonoBehaviour
 
     GameObject waypoint_bg;
     GameObject waypoint_debug_box;
+    GameObject waypoint_debug_group;
     Bounds waypoint_bg_bounds;
     Vector3 waypoint_node_start;
 
@@ -75,6 +76,7 @@ public class WaypointGrid : MonoBehaviour
     {
         waypoint_bg = GameObject.Find("waypoint_bg");
         waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
+        waypoint_debug_group = GameObject.Find("waypoint_debug_group");
 
         //sets the start point position at the top left point of the waypoint bg
         waypoint_bg_bounds = waypoint_bg.GetComponent<Renderer>().bounds;
@@ -167,7 +169,7 @@ public class WaypointGrid : MonoBehaviour
         //destroys all debug box sprites
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("waypoint_debug_box"))
         {
-            GameObject.DestroyObject(obj);
+            GameObject.Destroy(obj);
         }
 
         //creates a debug box sprite for every node on the grid
@@ -180,6 +182,7 @@ public class WaypointGrid : MonoBehaviour
                 if (!node.walkable) colour = Color.red;
 
                 GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box, node.world_pos, Quaternion.identity);
+                box.transform.parent = waypoint_debug_group.transform;
                 box.GetComponent<SpriteRenderer>().color = colour;
             }
         }
