@@ -65,6 +65,7 @@ public class WaypointGrid : MonoBehaviour
 
     List<GridTerrain> grid_terrain = new List<GridTerrain>();
     List<WaypointNode> waypoint_nodes = new List<WaypointNode>();
+    List<GameObject> debug_boxes = new List<GameObject>();
     private int grid_width;
     private int grid_height;
 
@@ -114,6 +115,18 @@ public class WaypointGrid : MonoBehaviour
         {
             grid_terrain.Add(new GridTerrain(terrain_group.transform.GetChild(n).gameObject));
         }
+
+        //creates a debug box sprite for every node on the grid
+        for (int y = 0; y < grid_height; ++y)
+        {
+            for (int x = 0; x < grid_width; ++x)
+            {
+                GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box, 
+                                                                    get_node(x, y).world_pos, Quaternion.identity);
+                box.transform.parent = waypoint_debug_group.transform;
+                debug_boxes.Add(box);
+            }
+        }
     }
 
     void Update()
@@ -127,7 +140,7 @@ public class WaypointGrid : MonoBehaviour
         }
 
         recalc_waypoint_nodes();
-        recreate_debug_grid();
+        refresh_debug_boxes();
     }
 
     void recalc_waypoint_nodes()
@@ -164,14 +177,8 @@ public class WaypointGrid : MonoBehaviour
         }
     }
 
-    void recreate_debug_grid()
+    void refresh_debug_boxes()
     {
-        //destroys all debug box sprites
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("waypoint_debug_box"))
-        {
-            GameObject.Destroy(obj);
-        }
-
         //creates a debug box sprite for every node on the grid
         for (int y = 0; y < grid_height; ++y)
         {
@@ -181,9 +188,7 @@ public class WaypointGrid : MonoBehaviour
                 Color colour = Color.blue;
                 if (!node.walkable) colour = Color.red;
 
-                GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box, node.world_pos, Quaternion.identity);
-                box.transform.parent = waypoint_debug_group.transform;
-                box.GetComponent<SpriteRenderer>().color = colour;
+                debug_boxes[(y * grid_width) + x].GetComponent<SpriteRenderer>().color = colour;
             }
         }
     }
