@@ -8,8 +8,6 @@ using System.Collections;
 */
 public static class Debug
 {
-    public static bool VERBOSE_LOG = true;
-
     /*
     * Logs an info message to the console
     */
@@ -59,19 +57,19 @@ public static class Debug
     }
 
     /*
-    * Logs a verbose message to the console if VERBOSE_LOG is true
+    * Logs a verbose message to the console if verbose_log is true
     */
     public static void LogVerbose(object message)
     {
-        if (VERBOSE_LOG) UnityEngine.Debug.Log("[verbose]: " + message);
+        if (InspectorConfig.debug_verbose_log) UnityEngine.Debug.Log("[verbose]: " + message);
     }
 
     /*
-    * Logs a verbose message to the console if VERBOSE_LOG is true
+    * Logs a verbose message to the console if verbose_log is true
     */
     public static void LogVerbose(object message, UnityEngine.Object context)
     {
-        if (VERBOSE_LOG) UnityEngine.Debug.LogWarning(message, context);
+        if (InspectorConfig.debug_verbose_log) UnityEngine.Debug.LogWarning(message, context);
     }
 
     /*
