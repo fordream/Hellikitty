@@ -38,6 +38,7 @@ public class WaypointNode
     public Vector2 grid_pos;
     public Vector3 world_pos;
     public bool walkable = true;
+    public bool closed = false;
     public bool debug_path = false;
     public bool debug_close = false;
 
@@ -214,8 +215,13 @@ public class WaypointGrid : MonoBehaviour
 
         WaypointNode start_node = get_node(start_x, start_y);
         WaypointNode end_node = get_node(end_x, end_y);
-        if (!start_node.walkable || !end_node.walkable) return path;
+        if (!start_node.walkable || !end_node.walkable)
+        {
+            Debug.LogVerbose("could not find path: start node or end node is not walkable.");
+            return path;
+        }
         closed_list.Add(start_node);
+        start_node.closed = true;
 
         WaypointNode close_node = start_node;
 
@@ -230,20 +236,17 @@ public class WaypointGrid : MonoBehaviour
                 if (y < 0 || y >= grid_height) continue;
 
                 WaypointNode node = get_node(x, y);
-                if (!node.walkable) continue;
+                if (!node.walkable || node.closed) continue;
 
-                if (closed_list.Find(item => item == node) == null)
+                if (open_list.Find(item => item == node) == null)
                 {
-                    if (open_list.Find(item => item == node) == null)
-                    {
-                        node.parent = close_node;
-                        node.g = node.parent.g + 1;
-                        node.h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
-                        node.f = node.g + node.h;
-                        open_list.Add(node);
-                        node.debug_path = true;
-                    }else {
-                    }
+                    node.parent = close_node;
+                    node.g = node.parent.g + 1;
+                    node.h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
+                    node.f = node.g + node.h;
+                    open_list.Add(node);
+                    node.debug_path = true;
+                }else {
                 }
             }
 
@@ -258,18 +261,28 @@ public class WaypointGrid : MonoBehaviour
                     close_node = n;
                 }
             }
-            if (close_node == null) break;
+            if (close_node == null)
+            {
+                Debug.LogVerbose("could not find path: close node is null");
+                break;
+            }
             open_list.Remove(close_node);
             closed_list.Add(close_node);
+            close_node.closed = true;
 
             if (close_node == end_node)
             {
                 WaypointNode parent = close_node;
                 while (parent != null)
                 {
+                    if (path.Find(item => item == parent) != null) {
+                        Debug.LogError("error: infinite loop parent detected (should not happen)");
+                        break;
+                    }
                     parent.debug_close = true;
                     path.Add(parent);
                     parent = parent.parent;
+                    if (parent == start_node) break;
                 }
                 break;
             }
