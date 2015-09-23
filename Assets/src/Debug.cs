@@ -1,55 +1,99 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
-using System.IO;
-using System.Text.RegularExpressions;
-using UnityEngineInternal;
 
+/*
+* Class that overrides UnityEngine's Debug methods.
+* This allows us to have more freedom when logging, such as writing to a file
+* or having a verbose log that can be turned on or off
+*/
 public static class Debug
 {
-    public static bool isDebugBuild = true;
+    public static bool VERBOSE_LOG = true;
 
-    public static new void Log(object message)
+    /*
+    * Logs an info message to the console
+    */
+    public static void Log(object message)
     {
-        UnityEngine.Debug.Log (message.ToString ());
+        UnityEngine.Debug.Log(message.ToString ());
     }
 
-    public static new void Log(object message, UnityEngine.Object context)
+    /*
+    * Logs an info message to the console
+    */
+    public static void Log(object message, UnityEngine.Object context)
     {
-        UnityEngine.Debug.Log (message.ToString (), context);
+        UnityEngine.Debug.Log(message.ToString (), context);
     }
 
-    public static new void LogError(object message)
+    /*
+    * Logs an error message to the console
+    */
+    public static void LogError(object message)
     {
-        UnityEngine.Debug.LogError (message.ToString ());
+        UnityEngine.Debug.LogError(message.ToString ());
     }
 
-    public static new void LogError(object message, UnityEngine.Object context)
+    /*
+    * Logs an error message to the console
+    */
+    public static void LogError(object message, UnityEngine.Object context)
     {
-        UnityEngine.Debug.LogError (message.ToString (), context);
+        UnityEngine.Debug.LogError(message.ToString (), context);
     }
 
-    public static new void LogWarning(object message)
+    /*
+    * Logs a warning message to the console
+    */
+    public static void LogWarning(object message)
     {
         UnityEngine.Debug.LogWarning(message.ToString());
     }
 
-    public static new void LogWarning(object message, UnityEngine.Object context)
+    /*
+    * Logs a warning message to the console
+    */
+    public static void LogWarning(object message, UnityEngine.Object context)
     {
         UnityEngine.Debug.LogWarning(message.ToString(), context);
     }
 
-    public static new void Assert(bool condition)
+    /*
+    * Logs a verbose message to the console if VERBOSE_LOG is true
+    */
+    public static void LogVerbose(object message)
+    {
+        if (VERBOSE_LOG) UnityEngine.Debug.Log("[verbose]: " + message.ToString());
+    }
+
+    /*
+    * Logs a verbose message to the console if VERBOSE_LOG is true
+    */
+    public static void LogVerbose(object message, UnityEngine.Object context)
+    {
+        if (VERBOSE_LOG) UnityEngine.Debug.LogWarning(message.ToString(), context);
+    }
+
+    /*
+    * Unity assert
+    */
+    public static void Assert(bool condition)
     {
         UnityEngine.Debug.Assert(condition);
     }
 
-    public static new void Assert(bool condition, string message)
+    /*
+    * Unity assert
+    */
+    public static void Assert(bool condition, string message)
     {
         UnityEngine.Debug.Assert(condition, message);
     }
 
-    public static new void Assert(bool condition, string message, params object[] args)
+    /*
+    * Unity assert
+    */
+    public static void Assert(bool condition, string message, params object[] args)
     {
         UnityEngine.Debug.Assert(condition, message, args);
     }

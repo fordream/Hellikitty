@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 /*
 * All terrain objects are put into this object so any attributes can
@@ -39,8 +40,8 @@ public class WaypointNode
     public Vector3 world_pos;
     public bool walkable = true;
     public bool closed = false;
-    public bool debug_path = false;
-    public bool debug_close = false;
+    public bool open = false;
+    public bool debug_draw_path = false;
 
     public float g = 0;
     public float h = 0;
@@ -146,11 +147,11 @@ public class WaypointGrid : MonoBehaviour
 
             recalc_waypoint_nodes();
 
-            Debug.Log(WaypointGrid.find_path(15, 2, 50, 35).Count);
         }
 
         recalc_waypoint_nodes();
         refresh_debug_boxes();
+        Debug.Log(WaypointGrid.find_path((int)(Mathf.Cos(Time.timeSinceLevelLoad) * 15.0f), 2, 30, 30).Count);
     }
 
     void recalc_waypoint_nodes()
@@ -197,8 +198,7 @@ public class WaypointGrid : MonoBehaviour
                 WaypointNode node = get_node(x, y);
                 Color colour = Color.blue;
                 if (!node.walkable) colour = Color.red;
-                if (node.debug_path) colour = Color.cyan;
-                if (node.debug_close) colour = Color.green;
+                if (node.debug_draw_path) colour = Color.cyan;
 
                 debug_boxes[(y * grid_width) + x].GetComponent<SpriteRenderer>().color = colour;
             }
@@ -209,13 +209,16 @@ public class WaypointGrid : MonoBehaviour
 
     public static List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y)
     {
+        Stopwatch watch = new Stopwatch();
+        watch.Start();
+
         List<WaypointNode> open_list = new List<WaypointNode>();
         List<WaypointNode> closed_list = new List<WaypointNode>();
         List<WaypointNode> path = new List<WaypointNode>();
 
         WaypointNode start_node = get_node(start_x, start_y);
         WaypointNode end_node = get_node(end_x, end_y);
-        if (!start_node.walkable || !end_node.walkable)
+        if (start_node == null || end_node == null || !start_node.walkable || !end_node.walkable)
         {
             Debug.LogVerbose("could not find path: start node or end node is not walkable.");
             return path;
@@ -238,18 +241,19 @@ public class WaypointGrid : MonoBehaviour
                 WaypointNode node = get_node(x, y);
                 if (!node.walkable || node.closed) continue;
 
-                if (open_list.Find(item => item == node) == null)
+                if (!node.open)
                 {
                     node.parent = close_node;
                     node.g = node.parent.g + 1;
                     node.h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
                     node.f = node.g + node.h;
                     open_list.Add(node);
-                    node.debug_path = true;
+                    node.open = true;
                 }else {
                 }
             }
 
+            //finds lowest cost node sorted by most recently added
             close_node = null;
             float lowf = float.MaxValue;
             for (int i = open_list.Count - 1; i > -1; --i)
@@ -269,6 +273,7 @@ public class WaypointGrid : MonoBehaviour
             open_list.Remove(close_node);
             closed_list.Add(close_node);
             close_node.closed = true;
+            close_node.open = false;
 
             if (close_node == end_node)
             {
@@ -279,7 +284,6 @@ public class WaypointGrid : MonoBehaviour
                         Debug.LogError("error: infinite loop parent detected (should not happen)");
                         break;
                     }
-                    parent.debug_close = true;
                     path.Add(parent);
                     parent = parent.parent;
                     if (parent == start_node) break;
@@ -287,6 +291,18 @@ public class WaypointGrid : MonoBehaviour
                 break;
             }
         }
+
+        foreach (WaypointNode n in closed_list)
+        {
+            n.closed = false;
+        }
+        foreach (WaypointNode n in open_list)
+        {
+            n.open = false;
+        }
+
+        watch.Stop();
+        Debug.LogVerbose("took " + (watch.ElapsedTicks / 10000.0f) + " ms to find path");
 
         return path;
     }
@@ -298,12 +314,12 @@ public class WaypointGrid : MonoBehaviour
     {
         if (_x >= grid_width || _x < 0)
         {
-            Debug.Log(_x + " is out of bounds of grid width (" + grid_width + ")");
+            Debug.LogError(_x + " is out of bounds of grid width (" + grid_width + ")");
             return null;
         }
         if (_y >= grid_height || _y < 0)
         {
-            Debug.Log(_y + " is out of bounds of grid height (" + grid_height + ")");
+            Debug.LogError(_y + " is out of bounds of grid height (" + grid_height + ")");
             return null;
         }
         return waypoint_nodes[(_y * grid_width) + _x];
