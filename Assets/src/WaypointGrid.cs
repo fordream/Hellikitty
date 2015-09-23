@@ -8,7 +8,7 @@ using System.Collections.Generic;
 * For example, the original collider offsets (which are calculated on startup) is stored
 * here and used when updating the waypoint grid.
 */
-class GridTerrain
+public class GridTerrain
 {
     public GameObject terrain;
     public Ferr2DT_PathTerrain path_terrain;
@@ -33,11 +33,18 @@ class GridTerrain
 * A grid node that contains attributes such as its grid pos, world pos and whether
 * it is walkable or not.
 */
-class WaypointNode
+public class WaypointNode
 {
     public Vector2 grid_pos;
     public Vector3 world_pos;
     public bool walkable = true;
+    public bool debug_path = false;
+    public bool debug_close = false;
+
+    public float g = 0;
+    public float h = 0;
+    public float f = 0;
+    public WaypointNode parent;
 
     public WaypointNode(int _x, int _y, Vector3 _world_pos)
     {
@@ -63,11 +70,11 @@ public class WaypointGrid : MonoBehaviour
     Bounds waypoint_bg_bounds;
     Vector3 waypoint_node_start;
 
-    List<GridTerrain> grid_terrain = new List<GridTerrain>();
-    List<WaypointNode> waypoint_nodes = new List<WaypointNode>();
-    List<GameObject> debug_boxes = new List<GameObject>();
-    private int grid_width;
-    private int grid_height;
+    public static List<GridTerrain> grid_terrain = new List<GridTerrain>();
+    public static List<WaypointNode> waypoint_nodes = new List<WaypointNode>();
+    static List<GameObject> debug_boxes = new List<GameObject>();
+    public static int grid_width;
+    public static int grid_height;
 
     //editor variables
     public float point_seperation;          //the seperation value between each point in the grid
@@ -137,6 +144,8 @@ public class WaypointGrid : MonoBehaviour
             init = true;
 
             recalc_waypoint_nodes();
+
+            Debug.Log(WaypointGrid.find_path(15, 2, 50, 35).Count);
         }
 
         recalc_waypoint_nodes();
@@ -187,16 +196,92 @@ public class WaypointGrid : MonoBehaviour
                 WaypointNode node = get_node(x, y);
                 Color colour = Color.blue;
                 if (!node.walkable) colour = Color.red;
+                if (node.debug_path) colour = Color.cyan;
+                if (node.debug_close) colour = Color.green;
 
                 debug_boxes[(y * grid_width) + x].GetComponent<SpriteRenderer>().color = colour;
             }
         }
     }
 
+    static int[] neighbours = { -1, 0, 0, -1, 1, 0, 0, 1 };
+
+    public static List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y)
+    {
+        List<WaypointNode> open_list = new List<WaypointNode>();
+        List<WaypointNode> closed_list = new List<WaypointNode>();
+        List<WaypointNode> path = new List<WaypointNode>();
+
+        WaypointNode start_node = get_node(start_x, start_y);
+        WaypointNode end_node = get_node(end_x, end_y);
+        if (!start_node.walkable || !end_node.walkable) return path;
+        closed_list.Add(start_node);
+
+        WaypointNode close_node = start_node;
+
+        while (true)
+        {
+            for (int n = 0; n < neighbours.Length; n += 2)
+            {
+                int x = (int)close_node.grid_pos.x + neighbours[n];
+                int y = (int)close_node.grid_pos.y + neighbours[n + 1];
+
+                if (x < 0 || x >= grid_width) continue;
+                if (y < 0 || y >= grid_height) continue;
+
+                WaypointNode node = get_node(x, y);
+                if (!node.walkable) continue;
+
+                if (closed_list.Find(item => item == node) == null)
+                {
+                    if (open_list.Find(item => item == node) == null)
+                    {
+                        node.parent = close_node;
+                        node.g = node.parent.g + 1;
+                        node.h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
+                        node.f = node.g + node.h;
+                        open_list.Add(node);
+                        node.debug_path = true;
+                    }else {
+                    }
+                }
+            }
+
+            close_node = null;
+            float lowf = float.MaxValue;
+            for (int i = open_list.Count - 1; i > -1; --i)
+            {
+                WaypointNode n = open_list[i];
+                if (n.f < lowf)
+                {
+                    lowf = n.f;
+                    close_node = n;
+                }
+            }
+            if (close_node == null) break;
+            open_list.Remove(close_node);
+            closed_list.Add(close_node);
+
+            if (close_node == end_node)
+            {
+                WaypointNode parent = close_node;
+                while (parent != null)
+                {
+                    parent.debug_close = true;
+                    path.Add(parent);
+                    parent = parent.parent;
+                }
+                break;
+            }
+        }
+
+        return path;
+    }
+
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    WaypointNode get_node(int _x, int _y)
+    public static WaypointNode get_node(int _x, int _y)
     {
         if (_x >= grid_width || _x < 0)
         {
@@ -214,7 +299,7 @@ public class WaypointGrid : MonoBehaviour
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    WaypointNode get_node(float _x, float _y)
+    public static WaypointNode get_node(float _x, float _y)
     {
         return get_node((int)_x, (int)_y);
     }
@@ -222,9 +307,8 @@ public class WaypointGrid : MonoBehaviour
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    WaypointNode get_node(Vector3 v)
+    public static WaypointNode get_node(Vector3 v)
     {
         return get_node((int)v.x, (int)v.y);
     }
-
 }
