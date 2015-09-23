@@ -15,7 +15,7 @@ public static class Debug
     */
     public static void Log(object message)
     {
-        UnityEngine.Debug.Log(message.ToString ());
+        UnityEngine.Debug.Log(message);
     }
 
     /*
@@ -23,7 +23,7 @@ public static class Debug
     */
     public static void Log(object message, UnityEngine.Object context)
     {
-        UnityEngine.Debug.Log(message.ToString (), context);
+        UnityEngine.Debug.Log(message, context);
     }
 
     /*
@@ -31,7 +31,7 @@ public static class Debug
     */
     public static void LogError(object message)
     {
-        UnityEngine.Debug.LogError(message.ToString ());
+        UnityEngine.Debug.LogError(message);
     }
 
     /*
@@ -39,7 +39,7 @@ public static class Debug
     */
     public static void LogError(object message, UnityEngine.Object context)
     {
-        UnityEngine.Debug.LogError(message.ToString (), context);
+        UnityEngine.Debug.LogError(message, context);
     }
 
     /*
@@ -47,7 +47,7 @@ public static class Debug
     */
     public static void LogWarning(object message)
     {
-        UnityEngine.Debug.LogWarning(message.ToString());
+        UnityEngine.Debug.LogWarning(message);
     }
 
     /*
@@ -55,7 +55,7 @@ public static class Debug
     */
     public static void LogWarning(object message, UnityEngine.Object context)
     {
-        UnityEngine.Debug.LogWarning(message.ToString(), context);
+        UnityEngine.Debug.LogWarning(message, context);
     }
 
     /*
@@ -63,7 +63,7 @@ public static class Debug
     */
     public static void LogVerbose(object message)
     {
-        if (VERBOSE_LOG) UnityEngine.Debug.Log("[verbose]: " + message.ToString());
+        if (VERBOSE_LOG) UnityEngine.Debug.Log("[verbose]: " + message);
     }
 
     /*
@@ -71,7 +71,7 @@ public static class Debug
     */
     public static void LogVerbose(object message, UnityEngine.Object context)
     {
-        if (VERBOSE_LOG) UnityEngine.Debug.LogWarning(message.ToString(), context);
+        if (VERBOSE_LOG) UnityEngine.Debug.LogWarning(message, context);
     }
 
     /*

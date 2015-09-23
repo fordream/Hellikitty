@@ -48,10 +48,10 @@ public class WaypointNode
     public float f = 0;
     public WaypointNode parent;
 
-    public WaypointNode(int _x, int _y, Vector3 _world_pos)
+    public WaypointNode(int x, int y, Vector3 world_pos)
     {
-        grid_pos = new Vector2(_x, _y);
-        world_pos = _world_pos;
+        grid_pos = new Vector2(x, y);
+        this.world_pos = world_pos;
     }
 };
 
@@ -61,28 +61,31 @@ public class WaypointNode
 * with any objects. This data can then be used by enemies to move around non-walkable
 * objects by using a pathfinding algorithm instead of performing mesh collisions.
 */
-public class WaypointGrid : MonoBehaviour
+public class WaypointGrid
 {
-
-    bool init = false;
-
     GameObject waypoint_bg;
     GameObject waypoint_debug_box;
     GameObject waypoint_debug_group;
     Bounds waypoint_bg_bounds;
     Vector3 waypoint_node_start;
 
-    public static List<GridTerrain> grid_terrain = new List<GridTerrain>();
-    public static List<WaypointNode> waypoint_nodes = new List<WaypointNode>();
-    static List<GameObject> debug_boxes = new List<GameObject>();
-    public static int grid_width;
-    public static int grid_height;
+    public List<WaypointNode> waypoint_nodes = new List<WaypointNode>();
+    public int grid_width;
+    public int grid_height;
 
-    //editor variables
-    public float point_seperation;          //the seperation value between each point in the grid
-    public float collider_offset;           //the larger the collider offset, the larger objects will be when calculating grid points
+    List<GridTerrain> grid_terrain = new List<GridTerrain>();
+    List<GameObject> debug_boxes = new List<GameObject>();
 
-    void Start()
+    //singleton instance
+    public static WaypointGrid instance = null;
+
+    public static WaypointGrid get()
+    {
+        if (instance == null) instance = new WaypointGrid();
+        return instance;
+    }
+
+    public void init()
     {
         waypoint_bg = GameObject.Find("waypoint_bg");
         waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
@@ -91,11 +94,11 @@ public class WaypointGrid : MonoBehaviour
         //sets the start point position at the top left point of the waypoint bg
         waypoint_bg_bounds = waypoint_bg.GetComponent<Renderer>().bounds;
         waypoint_node_start = new Vector3(waypoint_bg_bounds.min.x, waypoint_bg_bounds.max.y, -.2f);
-        waypoint_node_start.x += point_seperation;
-        waypoint_node_start.y -= point_seperation;
+        waypoint_node_start.x += InspectorConfig.grid_point_seperation;
+        waypoint_node_start.y -= InspectorConfig.grid_point_seperation;
 
-        grid_width = (int)(waypoint_bg_bounds.size.x / point_seperation - 2);
-        grid_height = (int)(waypoint_bg_bounds.size.y / point_seperation - 1);
+        grid_width = (int)(waypoint_bg_bounds.size.x / InspectorConfig.grid_point_seperation - 2);
+        grid_height = (int)(waypoint_bg_bounds.size.y / InspectorConfig.grid_point_seperation - 1);
 
         //creates the waypoint grid nodes with the width and height of the grid
         int row = 0;
@@ -105,12 +108,12 @@ public class WaypointGrid : MonoBehaviour
         {
             waypoint_nodes.Add(new WaypointNode(row, column, world_pos));
 
-            world_pos.x += point_seperation;
+            world_pos.x += InspectorConfig.grid_point_seperation;
             ++row;
             if (row >= grid_width)
             {
                 world_pos.x = waypoint_node_start.x;
-                world_pos.y -= point_seperation;
+                world_pos.y -= InspectorConfig.grid_point_seperation;
 
                 row = 0;
                 ++column;
@@ -136,22 +139,14 @@ public class WaypointGrid : MonoBehaviour
                 debug_boxes.Add(box);
             }
         }
-    }
-
-    void Update()
-    {
-        //raycast2d must be performed once the game is updating, it does not work in start, so only init once
-        if (!init)
-        {
-            init = true;
-
-            recalc_waypoint_nodes();
-
-        }
 
         recalc_waypoint_nodes();
+    }
+
+    public void update()
+    {
+        recalc_waypoint_nodes();
         refresh_debug_boxes();
-        Debug.Log(WaypointGrid.find_path((int)(Mathf.Cos(Time.timeSinceLevelLoad) * 15.0f), 2, 30, 30).Count);
     }
 
     void recalc_waypoint_nodes()
@@ -161,7 +156,7 @@ public class WaypointGrid : MonoBehaviour
         {
             for (int n = 0; n < t.origin_collider_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = collider_offset;
+                t.path_terrain.surfaceOffset[n] = InspectorConfig.grid_collider_offset;
             }
             t.path_terrain.RecreateCollider();
         }
@@ -205,9 +200,11 @@ public class WaypointGrid : MonoBehaviour
         }
     }
 
-    static int[] neighbours = { -1, 0, 0, -1, 1, 0, 0, 1 };
+    static readonly int[] square_neighbours = { -1, 0, 0, -1, 1, 0, 0, 1 };
+    static readonly int[] diag_neighbours = { -1, 0, -1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1 };
+    static readonly int[] neighbours = diag_neighbours;
 
-    public static List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y)
+    public List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y)
     {
         Stopwatch watch = new Stopwatch();
         watch.Start();
@@ -241,16 +238,29 @@ public class WaypointGrid : MonoBehaviour
                 WaypointNode node = get_node(x, y);
                 if (!node.walkable || node.closed) continue;
 
+                float h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
                 if (!node.open)
                 {
                     node.parent = close_node;
                     node.g = node.parent.g + 1;
-                    node.h = Mathf.Abs(end_x - node.grid_pos.x) + Mathf.Abs(end_y - node.grid_pos.y);
+                    node.h = h;
                     node.f = node.g + node.h;
                     open_list.Add(node);
                     node.open = true;
                 }else {
+                    if (node.g < close_node.g)
+                    {
+                        node.parent = close_node;
+                        node.g = node.parent.g + 1;
+                        node.f = node.g + node.h;
+                    }
                 }
+            }
+
+            if (open_list.Count == 0)
+            {
+                Debug.LogVerbose("no path can be found");
+                break;
             }
 
             //finds lowest cost node sorted by most recently added
@@ -265,11 +275,6 @@ public class WaypointGrid : MonoBehaviour
                     close_node = n;
                 }
             }
-            if (close_node == null)
-            {
-                Debug.LogVerbose("could not find path: close node is null");
-                break;
-            }
             open_list.Remove(close_node);
             closed_list.Add(close_node);
             close_node.closed = true;
@@ -280,6 +285,7 @@ public class WaypointGrid : MonoBehaviour
                 WaypointNode parent = close_node;
                 while (parent != null)
                 {
+                    parent.debug_draw_path = true;
                     if (path.Find(item => item == parent) != null) {
                         Debug.LogError("error: infinite loop parent detected (should not happen)");
                         break;
@@ -310,7 +316,7 @@ public class WaypointGrid : MonoBehaviour
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    public static WaypointNode get_node(int _x, int _y)
+    public WaypointNode get_node(int _x, int _y)
     {
         if (_x >= grid_width || _x < 0)
         {
@@ -328,7 +334,7 @@ public class WaypointGrid : MonoBehaviour
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    public static WaypointNode get_node(float _x, float _y)
+    public WaypointNode get_node(float _x, float _y)
     {
         return get_node((int)_x, (int)_y);
     }
@@ -336,7 +342,7 @@ public class WaypointGrid : MonoBehaviour
     /*
     * Returns a waypoint node from the grid if x and y is in bounds, if one of them is not, then return null
     */
-    public static WaypointNode get_node(Vector3 v)
+    public WaypointNode get_node(Vector3 v)
     {
         return get_node((int)v.x, (int)v.y);
     }

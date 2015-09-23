@@ -34,3 +34,4 @@ Assets/ferr/2DTerrain/TerrainMaterials/ForegroundTerrainMaterial.prefab
 Assets/ferr/2DTerrain/Examples/Assets/FerrlibLogoSmall.prefab
 Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
+Assets/test.prefab
