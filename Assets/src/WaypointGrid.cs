@@ -316,12 +316,11 @@ public class WaypointGrid : Singleton<WaypointGrid>
                 WaypointNode parent = close_node;
                 while (parent != null)
                 {
-                    parent.debug_draw_path = true;
                     if (path.Find(item => item == parent) != null) {
                         Debug.LogError("error: infinite loop parent detected (should not happen)");
                         break;
                     }
-                    path.Add(parent);
+                    path.Insert(0, parent);
                     parent = parent.parent;
                     if (parent == start_node) break;
                 }
@@ -366,12 +365,14 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
     public Vector2 world_to_grid(Vector2 world_pos)
     {
-        Debug.Log(world_pos);
-        Debug.Log(waypoint_bg_bounds.max.x);
         world_pos.x = worldx_to_gridx(world_pos.x);
         world_pos.y = worldy_to_gridy(world_pos.y);
-        Debug.Log(world_pos);
         return world_pos;
+    }
+
+    public Vector2 grid_to_world(Vector2 grid_pos)
+    {
+        return get_node(grid_pos).world_pos;
     }
 
     /*
