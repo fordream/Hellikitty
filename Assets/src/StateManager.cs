@@ -6,17 +6,18 @@ public class StateManager : MonoBehaviour {
     bool init = false;
 
 	void Start() {
-
+        WaypointGrid.instance.init();
+        EnemySpawner.instance.init();
 	}
 
 	void Update() {
-        //init once on update instead of start (to make sure all scripts have been initialised themselves)
+        //recalc waypoint nodes after all other scripts have been initialised
+        //this is because raycast2d cannot run in the start call
         if (!init)
         {
             init = true;
 
-            WaypointGrid.instance.init();
-            EnemySpawner.instance.init();
+            WaypointGrid.instance.recalc_waypoint_nodes();
         }
         WaypointGrid.instance.update();
         EnemySpawner.instance.update();
