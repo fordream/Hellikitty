@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InspectorConfig : MonoBehaviour
+public class InspectorConfig : Singleton<InspectorConfig>
 {
     /* grid config */
     public bool grid_debug_display = false;
@@ -15,12 +15,4 @@ public class InspectorConfig : MonoBehaviour
 
     /* debug config */
     public bool debug_verbose_log = true;
-
-
-    //singleton instance
-    public static InspectorConfig instance = null;
-
-    void Start() { instance = this; }
-
-    public static InspectorConfig get() { return instance; }
 }

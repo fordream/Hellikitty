@@ -56,7 +56,9 @@ public class InspectorConfigEditor : Editor
                 {
                     if (config.grid_last_debug_display != config.grid_debug_display && config.grid_debug_display)
                     {
-                        WaypointGrid.get().recreate_grid();
+                        WaypointGrid.instance.recreate_grid();
+                    }else {
+                        WaypointGrid.instance.recalc_waypoint_nodes();
                     }
                 }
                 config.grid_last_debug_display = config.grid_debug_display;

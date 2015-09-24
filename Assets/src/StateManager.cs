@@ -15,9 +15,10 @@ public class StateManager : MonoBehaviour {
         {
             init = true;
 
-            Debug.Log(WaypointGrid.get());
-            WaypointGrid.get().init();
+            WaypointGrid.instance.init();
+            EnemySpawner.instance.init();
         }
-        WaypointGrid.get().update();
+        WaypointGrid.instance.update();
+        EnemySpawner.instance.update();
 	}
 }

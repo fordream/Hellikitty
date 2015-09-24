@@ -61,7 +61,7 @@ public static class Debug
     */
     public static void LogVerbose(object message)
     {
-        if (InspectorConfig.get().debug_verbose_log) UnityEngine.Debug.Log("[verbose]: " + message);
+        if (InspectorConfig.instance.debug_verbose_log) UnityEngine.Debug.Log("[verbose]: " + message);
     }
 
     /*
@@ -69,7 +69,7 @@ public static class Debug
     */
     public static void LogVerbose(object message, UnityEngine.Object context)
     {
-        if (InspectorConfig.get().debug_verbose_log) UnityEngine.Debug.LogWarning(message, context);
+        if (InspectorConfig.instance.debug_verbose_log) UnityEngine.Debug.LogWarning(message, context);
     }
 
     /*
