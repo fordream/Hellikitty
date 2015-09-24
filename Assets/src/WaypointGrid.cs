@@ -13,7 +13,7 @@ public class GridTerrain
 {
     public GameObject terrain;
     public Ferr2DT_PathTerrain path_terrain;
-    public float[] origin_collider_offsets;
+    public float[] origin_size_offsets;
 
     public GridTerrain(GameObject _terrain)
     {
@@ -21,11 +21,11 @@ public class GridTerrain
         path_terrain = terrain.GetComponent<Ferr2DT_PathTerrain>();
 
         //gets the collider offsets that can be changed in the editor and stores it in an array
-        origin_collider_offsets = new float[path_terrain.surfaceOffset.Length];
+        origin_size_offsets = new float[path_terrain.surfaceOffset.Length];
 
         for (int n = 0; n < path_terrain.surfaceOffset.Length; ++n)
         {
-            origin_collider_offsets[n] = path_terrain.surfaceOffset[n];
+            origin_size_offsets[n] = path_terrain.surfaceOffset[n];
         }
     }
 };
@@ -142,33 +142,34 @@ public class WaypointGrid
         Debug.Log("waypoint grid created (" + grid_width + "x" + grid_height + ")");
 
         //creates a debug box sprite for every node on the grid
-        foreach (GameObject box in debug_boxes)
+        remove_debug_boxes();
+        if (InspectorConfig.get().grid_debug_display)
         {
-            GameObject.Destroy(box);
-        }
-        debug_boxes.Clear();
-        for (int y = 0; y < grid_height; ++y)
-        {
-            for (int x = 0; x < grid_width; ++x)
+            for (int y = 0; y < grid_height; ++y)
             {
-                GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box,
-                                                                    get_node(x, y).world_pos, Quaternion.identity);
-                box.transform.parent = waypoint_debug_group.transform;
-                debug_boxes.Add(box);
+                for (int x = 0; x < grid_width; ++x)
+                {
+                    GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box,
+                                                                        get_node(x, y).world_pos, Quaternion.identity);
+                    box.transform.parent = waypoint_debug_group.transform;
+                    debug_boxes.Add(box);
+                }
             }
+            if (has_init) refresh_debug_boxes();
         }
 
-        if (has_init)
-        {
-            recalc_waypoint_nodes();
-            refresh_debug_boxes();
-        }
+        if (has_init) recalc_waypoint_nodes();
     }
 
     public void update()
     {
-        recalc_waypoint_nodes();
-        refresh_debug_boxes();
+        if (InspectorConfig.get().grid_debug_display)
+        {
+            recalc_waypoint_nodes();
+            refresh_debug_boxes();
+        }else {
+            remove_debug_boxes();
+        }
     }
 
     void recalc_waypoint_nodes()
@@ -176,9 +177,9 @@ public class WaypointGrid
         //sets the collider offset to all grid terrain surface collider offsets
         foreach (GridTerrain t in grid_terrain)
         {
-            for (int n = 0; n < t.origin_collider_offsets.Length; ++n)
+            for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = InspectorConfig.get().grid_collider_offset;
+                t.path_terrain.surfaceOffset[n] = InspectorConfig.get().grid_size_offset;
             }
             t.path_terrain.RecreateCollider();
         }
@@ -194,15 +195,28 @@ public class WaypointGrid
             }
         }
 
+        if (InspectorConfig.get().grid_debug_display) return;
+
         //sets all grid terrain surface collider offsets to their original values
         foreach (GridTerrain t in grid_terrain)
         {
-            for (int n = 0; n < t.origin_collider_offsets.Length; ++n)
+            for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = t.origin_collider_offsets[n];
+                t.path_terrain.surfaceOffset[n] = t.origin_size_offsets[n];
             }
             t.path_terrain.RecreateCollider();
         }
+    }
+
+    void remove_debug_boxes()
+    {
+        if (debug_boxes.Count == 0) return;
+
+        foreach (GameObject box in debug_boxes)
+        {
+            GameObject.Destroy(box);
+        }
+        debug_boxes.Clear();
     }
 
     void refresh_debug_boxes()

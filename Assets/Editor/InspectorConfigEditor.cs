@@ -49,18 +49,33 @@ public class InspectorConfigEditor : Editor
             EditorGUI.indentLevel = 2;
             Ferr_EditorTools.Box(4, () =>
             {
+                config.grid_debug_display = EditorGUILayout.Toggle(new GUIContent("Debug display",
+                    "Displays and updates waypoint grid every frame and shows all terrain collider size offsets"),
+                config.grid_debug_display);
+                if (Application.isPlaying)
+                {
+                    if (config.grid_last_debug_display != config.grid_debug_display && config.grid_debug_display)
+                    {
+                        WaypointGrid.get().recreate_grid();
+                    }
+                }
+                config.grid_last_debug_display = config.grid_debug_display;
+
                 config.grid_point_sep = EditorGUILayout.FloatField(new GUIContent("Point seperation",
                     "Determines how far apart each point is from each other on the grid " +
                     "(in world space units). The smaller the value, the more nodes there are on the pathfinding grid"),
                     config.grid_point_sep);
                 config.grid_point_sep = Mathf.Clamp(config.grid_point_sep, .25f, 5.0f);
-                if (config.grid_last_point_sep != config.grid_point_sep) WaypointGrid.instance.recreate_grid();
+                if (Application.isPlaying)
+                {
+                    if (config.grid_last_point_sep != config.grid_point_sep) WaypointGrid.instance.recreate_grid();
+                }
                 config.grid_last_point_sep = config.grid_point_sep;
 
-                config.grid_collider_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
+                config.grid_size_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
                     "When checking whether an object is collidable or not on the grid, this value determines how much " +
                     "larger the area around the terrain is (in world space units)"),
-                    config.grid_collider_offset);
+                    config.grid_size_offset);
             });
         }
     }
