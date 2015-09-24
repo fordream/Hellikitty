@@ -63,6 +63,7 @@ public class WaypointNode
 */
 public class WaypointGrid
 {
+    bool has_init = false;
     GameObject waypoint_bg;
     GameObject waypoint_debug_box;
     GameObject waypoint_debug_group;
@@ -94,32 +95,6 @@ public class WaypointGrid
         //sets the start point position at the top left point of the waypoint bg
         waypoint_bg_bounds = waypoint_bg.GetComponent<Renderer>().bounds;
         waypoint_node_start = new Vector3(waypoint_bg_bounds.min.x, waypoint_bg_bounds.max.y, -.2f);
-        waypoint_node_start.x += InspectorConfig.grid_point_seperation;
-        waypoint_node_start.y -= InspectorConfig.grid_point_seperation;
-
-        grid_width = (int)(waypoint_bg_bounds.size.x / InspectorConfig.grid_point_seperation - 2);
-        grid_height = (int)(waypoint_bg_bounds.size.y / InspectorConfig.grid_point_seperation - 1);
-
-        //creates the waypoint grid nodes with the width and height of the grid
-        int row = 0;
-        int column = 0;
-        Vector3 world_pos = waypoint_node_start;
-        for (int n = 0; n < grid_width * grid_height; ++n)
-        {
-            waypoint_nodes.Add(new WaypointNode(row, column, world_pos));
-
-            world_pos.x += InspectorConfig.grid_point_seperation;
-            ++row;
-            if (row >= grid_width)
-            {
-                world_pos.x = waypoint_node_start.x;
-                world_pos.y -= InspectorConfig.grid_point_seperation;
-
-                row = 0;
-                ++column;
-            }
-        }
-        Debug.Log("waypoint grid created (" + grid_width + "x" + grid_height + ")");
 
         //gets all terrain objects, makes them a grid terrain and adds them to the grid terrain list
         GameObject terrain_group = GameObject.Find("terrain_group");
@@ -128,19 +103,66 @@ public class WaypointGrid
             grid_terrain.Add(new GridTerrain(terrain_group.transform.GetChild(n).gameObject));
         }
 
+        recreate_grid();
+
+        recalc_waypoint_nodes();
+        has_init = true;
+    }
+
+    public void recreate_grid()
+    {
+        waypoint_nodes.Clear();
+
+        Vector3 start_pos = waypoint_node_start;
+        start_pos.x += InspectorConfig.get().grid_point_sep;
+        start_pos.y -= InspectorConfig.get().grid_point_sep;
+
+        grid_width = (int)(waypoint_bg_bounds.size.x / InspectorConfig.get().grid_point_sep - 2);
+        grid_height = (int)(waypoint_bg_bounds.size.y / InspectorConfig.get().grid_point_sep - 1);
+
+        //creates the waypoint grid nodes with the width and height of the grid
+        int row = 0;
+        int column = 0;
+        Vector3 world_pos = start_pos;
+        for (int n = 0; n < grid_width * grid_height; ++n)
+        {
+            waypoint_nodes.Add(new WaypointNode(row, column, world_pos));
+
+            world_pos.x += InspectorConfig.get().grid_point_sep;
+            ++row;
+            if (row >= grid_width)
+            {
+                world_pos.x = start_pos.x;
+                world_pos.y -= InspectorConfig.get().grid_point_sep;
+
+                row = 0;
+                ++column;
+            }
+        }
+        Debug.Log("waypoint grid created (" + grid_width + "x" + grid_height + ")");
+
         //creates a debug box sprite for every node on the grid
+        foreach (GameObject box in debug_boxes)
+        {
+            GameObject.Destroy(box);
+        }
+        debug_boxes.Clear();
         for (int y = 0; y < grid_height; ++y)
         {
             for (int x = 0; x < grid_width; ++x)
             {
-                GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box, 
+                GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box,
                                                                     get_node(x, y).world_pos, Quaternion.identity);
                 box.transform.parent = waypoint_debug_group.transform;
                 debug_boxes.Add(box);
             }
         }
 
-        recalc_waypoint_nodes();
+        if (has_init)
+        {
+            recalc_waypoint_nodes();
+            refresh_debug_boxes();
+        }
     }
 
     public void update()
@@ -156,7 +178,7 @@ public class WaypointGrid
         {
             for (int n = 0; n < t.origin_collider_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = InspectorConfig.grid_collider_offset;
+                t.path_terrain.surfaceOffset[n] = InspectorConfig.get().grid_collider_offset;
             }
             t.path_terrain.RecreateCollider();
         }

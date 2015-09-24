@@ -7,11 +7,19 @@ public class InspectorConfigEditor : Editor
 {
     bool show_debug_config = true;
     bool show_grid_config = true;
+    InspectorConfig config;
+
+    void OnEnable()
+    {
+        config = (InspectorConfig)target;
+    }
 
     public override void OnInspectorGUI()
     {
         draw_debug_gui();
         draw_grid_gui();
+
+        if (GUI.changed) EditorUtility.SetDirty(target);
     }
 
     void draw_debug_gui()
@@ -24,9 +32,9 @@ public class InspectorConfigEditor : Editor
             EditorGUI.indentLevel = 2;
             Ferr_EditorTools.Box(4, () =>
             {
-                InspectorConfig.debug_verbose_log = EditorGUILayout.Toggle(new GUIContent("Verbose logging", 
+                config.debug_verbose_log = EditorGUILayout.Toggle(new GUIContent("Verbose logging", 
                     "If enabled, calls to Debug.LogVerbose will activate (more detailed info messages)"),
-                InspectorConfig.debug_verbose_log);
+                config.debug_verbose_log);
             });
         }
     }
@@ -41,15 +49,18 @@ public class InspectorConfigEditor : Editor
             EditorGUI.indentLevel = 2;
             Ferr_EditorTools.Box(4, () =>
             {
-                InspectorConfig.grid_point_seperation = EditorGUILayout.FloatField(new GUIContent("Point seperation", 
+                config.grid_point_sep = EditorGUILayout.FloatField(new GUIContent("Point seperation",
                     "Determines how far apart each point is from each other on the grid " +
-                    "(in world space units). The smaller the value, the more nodes there are on the pathfinding grid"), 
-                    InspectorConfig.grid_point_seperation);
+                    "(in world space units). The smaller the value, the more nodes there are on the pathfinding grid"),
+                    config.grid_point_sep);
+                config.grid_point_sep = Mathf.Clamp(config.grid_point_sep, .25f, 5.0f);
+                if (config.grid_last_point_sep != config.grid_point_sep) WaypointGrid.instance.recreate_grid();
+                config.grid_last_point_sep = config.grid_point_sep;
 
-                InspectorConfig.grid_collider_offset = EditorGUILayout.FloatField(new GUIContent("Size offset", 
-                    "When checking whether an object is collidable or not on the grid, this value determines how much " + 
-                    "larger the area around the terrain is (in world space units)"), 
-                    InspectorConfig.grid_collider_offset);
+                config.grid_collider_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
+                    "When checking whether an object is collidable or not on the grid, this value determines how much " +
+                    "larger the area around the terrain is (in world space units)"),
+                    config.grid_collider_offset);
             });
         }
     }
