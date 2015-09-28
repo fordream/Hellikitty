@@ -317,12 +317,12 @@ public class WaypointGrid : Singleton<WaypointGrid>
                 while (parent != null)
                 {
                     if (path.Find(item => item == parent) != null) {
-                        Debug.LogError("error: infinite loop parent detected (should not happen)");
+                        Debug.LogError("infinite loop parent detected (should not happen)");
                         break;
                     }
-                    path.Insert(0, parent);
-                    parent = parent.parent;
-                    if (parent == start_node) break;
+					path.Insert(0, parent);
+					if (parent == start_node) break;
+					parent = parent.parent;
                 }
                 break;
             }

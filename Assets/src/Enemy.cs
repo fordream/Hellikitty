@@ -12,8 +12,9 @@ public class Enemy : MonoBehaviour {
     float angle;
     Vector2 accel;
 
-    float friction = .99f;
-    float max_accel = .05f;
+    float friction = .9f;
+	float max_accel = .1f;
+	float speed_multiplier = .01f;
 
 	void Start() {
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
@@ -37,6 +38,17 @@ public class Enemy : MonoBehaviour {
 
         if (temp_path.Count >= 2)
         {
+			if (path != null)
+			{
+				foreach (WaypointNode n in path)
+				{
+					n.debug_draw_path = false;
+				}
+			}
+			foreach (WaypointNode n in temp_path)
+			{
+				n.debug_draw_path = true;
+			}
             path = temp_path;
             return true;
         }
@@ -55,8 +67,8 @@ public class Enemy : MonoBehaviour {
 
     void Update() {
         update_angle();
-        accel.x += Mathf.Cos(angle) * (smoothness * max_accel);
-        accel.y += Mathf.Sin(angle) * (smoothness * max_accel);
+		accel.x += Mathf.Cos(angle) * speed_multiplier;
+		accel.y += Mathf.Sin(angle) * speed_multiplier;
         accel.x *= friction;
         accel.y *= friction;
         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
@@ -67,14 +79,15 @@ public class Enemy : MonoBehaviour {
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         float dist = Mathf.Sqrt(Mathf.Pow(pos.x - next_node.world_pos.x, 2) + Mathf.Pow(pos.y - next_node.world_pos.y, 2));
-        if (dist < .5f)
+        if (dist < .2f)
         {
             //++current_path_index;
             //get_next_path_node();
 
+			current_node = next_node;
             if (update_path())
-            {
-                current_path_index = 1;
+			{
+				current_path_index = 1;
                 get_next_path_node();
             }
         }
