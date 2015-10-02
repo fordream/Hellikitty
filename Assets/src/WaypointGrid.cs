@@ -119,6 +119,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
         int row = 0;
         int column = 0;
         Vector3 world_pos = start_pos;
+        world_pos.z = -25;
         for (int n = 0; n < grid_width * grid_height; ++n)
         {
             waypoint_nodes.Add(new WaypointNode(row, column, world_pos));
@@ -144,8 +145,9 @@ public class WaypointGrid : Singleton<WaypointGrid>
             {
                 for (int x = 0; x < grid_width; ++x)
                 {
-                    GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box,
-                                                                        get_node(x, y).world_pos, Quaternion.identity);
+                    Vector3 pos = get_node(x, y).world_pos;
+                    pos.z = -20;
+                    GameObject box = (GameObject)GameObject.Instantiate(waypoint_debug_box, pos, Quaternion.identity);
                     box.transform.parent = waypoint_debug_group.transform;
                     debug_boxes.Add(box);
                 }

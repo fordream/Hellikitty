@@ -39,5 +39,4 @@ Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
 Assets/materials/trigger_terrain.prefab
 Assets/materials/area_terrain.prefab
-Assets/resources/jetpack_enemy.prefab
 Assets/resources/flying_enemy.prefab

@@ -298,7 +298,7 @@ Transform:
   m_PrefabInternal: {fileID: 1132231984}
   m_GameObject: {fileID: 85230572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.28999996, y: 9.06999969, z: -10}
+  m_LocalPosition: {x: 3.28999996, y: 9.06999969, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -316,11 +316,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.78999996
+      value: -1.92999995
       objectReference: {fileID: 0}
     - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -20
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -340,7 +340,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 188546, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
       propertyPath: m_Name
@@ -757,10 +757,6 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
---- !u!4 &567751787 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-  m_PrefabInternal: {fileID: 1238678853}
 --- !u!1 &694919941
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +829,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 426276, guid: fc5f19ca36fd44e4888d42665a7978de, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 426276, guid: fc5f19ca36fd44e4888d42665a7978de, type: 2}
       propertyPath: m_LocalRotation.x
@@ -858,6 +854,10 @@ Prefab:
     - target: {fileID: 177722, guid: fc5f19ca36fd44e4888d42665a7978de, type: 2}
       propertyPath: m_Name
       value: cam
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091478, guid: fc5f19ca36fd44e4888d42665a7978de, type: 2}
+      propertyPath: near clip plane
+      value: .300000012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc5f19ca36fd44e4888d42665a7978de, type: 2}
@@ -974,56 +974,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3daa0d801a29fc34a9612f3427ff66b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1238678853
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1400170231}
-    m_Modifications:
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.50999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -5.21000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 417354, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6153686, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 188546, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-      propertyPath: m_Name
-      value: flying_enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f5e93e3c67781cf47bebbdf2c31f843b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1393286311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,7 +1054,6 @@ Transform:
   m_LocalPosition: {x: 7.73000002, y: .850000024, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 567751787}
   - {fileID: 1803017672}
   m_Father: {fileID: 694919942}
   m_RootOrder: 0
@@ -1355,7 +1304,7 @@ MonoBehaviour:
   grid_last_debug_display: 1
   grid_point_sep: 1
   grid_last_point_sep: 1
-  grid_size_offset: 1
+  grid_size_offset: 0
   grid_collidable_layers:
     serializedVersion: 2
     m_Bits: 264

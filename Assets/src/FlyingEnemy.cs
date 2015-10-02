@@ -17,6 +17,7 @@ public class FlyingEnemy : MonoBehaviour {
     WaypointNode current_node = null;
     int current_path_index;
     Vector3 pos;
+    Vector3 prev_pos;
     float angle;
     Vector2 accel;
 
@@ -32,6 +33,7 @@ public class FlyingEnemy : MonoBehaviour {
 
 	void Start() {
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
+        pos.z = -10;
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
     }
     
@@ -55,10 +57,24 @@ public class FlyingEnemy : MonoBehaviour {
         angle = Mathf.Atan2(next_node.world_pos.y - pos.y, next_node.world_pos.x - pos.x);
     }
 
+    void check_max_raycast(ref float max_dist, ref float best_angle, float target_angle) {
+        RaycastHit2D hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)), 
+            FIRE_RADIUS, InspectorConfig.instance.grid_collidable_layers);
+        if (hit && hit.distance > max_dist) {
+            max_dist = hit.distance;
+            best_angle = target_angle;
+        }else if (!hit) {
+            max_dist = float.MaxValue;
+            best_angle = target_angle;
+        }
+    }
+
     void Update()
     {
         float dist;
+        WaypointNode node;
         AIState temp_prev_ai_state = ai_state;
+        prev_pos = pos;
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
@@ -104,14 +120,22 @@ public class FlyingEnemy : MonoBehaviour {
             case AIState.FIRE_AND_KEEP_DISTANCE:
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
                 if (dist >= FIRE_RADIUS) {
-                    ai_state = AIState.MOVE_NEXT_NODE;
+                    ai_state = AIState.CALCULTING_PATH;
                 }else if (dist < FIRE_RADIUS - .5f) {
-                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x) - 90;
+                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x) + Mathf.PI;
+                    float max_dist = -1;
+                    float best_angle = angle;
 
-                    accel.x += Mathf.Cos(angle) * speed_multiplier;
-                    accel.y += Mathf.Sin(angle) * speed_multiplier;
-                    accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
-                    accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
+                    check_max_raycast(ref max_dist, ref best_angle, angle);
+                    check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .125f));
+                    check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .125f));
+
+                    if (max_dist == -1 || max_dist >= 2.5f) {
+                        accel.x += Mathf.Cos(best_angle) * speed_multiplier;
+                        accel.y += Mathf.Sin(best_angle) * speed_multiplier;
+                        accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
+                        accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
+                    }
                 }
                 break;
         }
@@ -122,6 +146,10 @@ public class FlyingEnemy : MonoBehaviour {
         pos.x += accel.x;
         pos.y += accel.y;
 
+        //WaypointNode temp_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+        //if (!temp_node.walkable) {
+        //    accel.x = 0; accel.y = 0; pos = prev_pos;
+        //}
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         transform.position = pos;
