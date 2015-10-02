@@ -984,7 +984,7 @@ GameObject:
   - 4: {fileID: 1393286312}
   - 114: {fileID: 1393286313}
   - 61: {fileID: 1393286314}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

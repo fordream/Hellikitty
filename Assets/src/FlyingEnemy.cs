@@ -110,9 +110,11 @@ public class FlyingEnemy : MonoBehaviour {
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - next_node.world_pos.x, 2) + Mathf.Pow(pos.y - next_node.world_pos.y, 2));
                 if (dist < .2f) ai_state = AIState.CALCULTING_PATH;
 
-                dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
-                if (dist < 4)
-                {
+                angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
+                RaycastHit2D hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
+                                                     FIRE_RADIUS, 1024 | InspectorConfig.instance.grid_collidable_layers);
+
+                if (hit && hit.collider == Player.instance.GetComponent<Collider2D>()) {
                     ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
                 }
 
@@ -130,9 +132,10 @@ public class FlyingEnemy : MonoBehaviour {
                     check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .125f));
                     check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .125f));
 
-                    if (max_dist == -1 || max_dist >= 2.5f) {
-                        accel.x += Mathf.Cos(best_angle) * speed_multiplier;
-                        accel.y += Mathf.Sin(best_angle) * speed_multiplier;
+                    if (max_dist == -1 || max_dist >= 1.5f) {
+                        angle = best_angle;
+                        accel.x += Mathf.Cos(angle) * speed_multiplier;
+                        accel.y += Mathf.Sin(angle) * speed_multiplier;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
