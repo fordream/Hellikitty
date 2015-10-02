@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy : MonoBehaviour {
+public class FlyingEnemy : MonoBehaviour {
 
     List<WaypointNode> path = null;
     WaypointNode next_node = null;
@@ -12,19 +12,15 @@ public class Enemy : MonoBehaviour {
     float angle;
     Vector2 accel;
 
-    float friction = .9f;
+    float friction = .96f;
 	float max_accel = .1f;
-	float speed_multiplier = .01f;
+	float speed_multiplier = .001f;
 
 	void Start() {
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         update_path();
-        foreach (WaypointNode n in path)
-        {
-            n.debug_draw_path = true;
-        }
         current_path_index = 0;
         get_next_path_node();
         update_angle();
@@ -38,17 +34,6 @@ public class Enemy : MonoBehaviour {
 
         if (temp_path.Count >= 2)
         {
-			if (path != null)
-			{
-				foreach (WaypointNode n in path)
-				{
-					n.debug_draw_path = false;
-				}
-			}
-			foreach (WaypointNode n in temp_path)
-			{
-				n.debug_draw_path = true;
-			}
             path = temp_path;
             return true;
         }
@@ -65,7 +50,8 @@ public class Enemy : MonoBehaviour {
         angle = Mathf.Atan2(next_node.world_pos.y - pos.y, next_node.world_pos.x - pos.x);
     }
 
-    void Update() {
+    void Update()
+    {
         update_angle();
 		accel.x += Mathf.Cos(angle) * speed_multiplier;
 		accel.y += Mathf.Sin(angle) * speed_multiplier;
@@ -90,6 +76,11 @@ public class Enemy : MonoBehaviour {
 				current_path_index = 1;
                 get_next_path_node();
             }
+        }
+        dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
+        if (dist < 4)
+        {
+
         }
 
         transform.position = pos;

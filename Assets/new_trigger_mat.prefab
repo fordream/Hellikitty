@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: MossyTerrainMaterial
+  m_Name: new_trigger_mat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 29.2472057, y: -2.26012182, z: 14.2832031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a21887e1cf80db49978ff567bcdd66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillMaterial: {fileID: 2100000, guid: a2079d6498b7ec14282eeae830ad71b1, type: 2}
-  edgeMaterial: {fileID: 2100000, guid: 6a137a711dab1dd4c9609c5b44c38f5a, type: 2}
+  fillMaterial: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
+  edgeMaterial: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
   descriptors:
   - applyTo: 0
     zOffset: 0
@@ -48,26 +48,26 @@ MonoBehaviour:
     leftCap:
       serializedVersion: 2
       x: 0
-      y: .064453125
-      width: .125
-      height: .33203125
+      y: .00390625
+      width: .25
+      height: .41015625
     rightCap:
       serializedVersion: 2
-      x: .875
-      y: .064453125
-      width: .125
-      height: .33203125
+      x: .75
+      y: .00390625
+      width: .25
+      height: .41015625
     body:
     - serializedVersion: 2
-      x: .125
-      y: .064453125
-      width: .375
-      height: .33203125
+      x: .25
+      y: .00390625
+      width: .25
+      height: .41015625
     - serializedVersion: 2
       x: .5
-      y: .064453125
-      width: .375
-      height: .33203125
+      y: .00390625
+      width: .25
+      height: .41015625
     capOffset: 0
   - applyTo: 1
     zOffset: .0199999996
@@ -86,10 +86,10 @@ MonoBehaviour:
       height: 0
     body:
     - serializedVersion: 2
-      x: .0107421875
-      y: .451171875
-      width: .453125
-      height: .125
+      x: .00390625
+      y: .5
+      width: .4921875
+      height: .24609375
     capOffset: 0
   - applyTo: 2
     zOffset: .0199999996
@@ -108,33 +108,33 @@ MonoBehaviour:
       height: 0
     body:
     - serializedVersion: 2
-      x: .025390625
-      y: .451171875
-      width: .42578125
-      height: .125
+      x: 0
+      y: .75390625
+      width: .5
+      height: .2421875
     capOffset: 0
   - applyTo: 3
     zOffset: .00999999978
     yOffset: 0
     leftCap:
       serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
+      x: .84375
+      y: .75390625
+      width: .1484375
+      height: .2421875
     rightCap:
       serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
+      x: .5
+      y: .75390625
+      width: .1484375
+      height: .2421875
     body:
     - serializedVersion: 2
-      x: .509765625
-      y: .388867199
-      width: .451171875
-      height: .190429688
-    capOffset: .349999994
+      x: .50390625
+      y: .49609375
+      width: .4921875
+      height: .25
+    capOffset: -.180000007
   isPixel: 0
 --- !u!1001 &100100000
 Prefab:
@@ -142,7 +142,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: edgeMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
+    - target: {fileID: 0}
+      propertyPath: fillMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}

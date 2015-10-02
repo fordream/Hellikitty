@@ -246,9 +246,11 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
         WaypointNode start_node = get_node(start_x, start_y);
         WaypointNode end_node = get_node(end_x, end_y);
-        if (start_node == null || end_node == null || !start_node.walkable || !end_node.walkable)
-        {
+        if (start_node == null || end_node == null || !start_node.walkable || !end_node.walkable) {
             Debug.LogVerbose("could not find path: start node or end node is not walkable.");
+            return path;
+        }else if (start_node == end_node) {
+            Debug.LogVerbose("empty path: start node equals end node");
             return path;
         }
         closed_list.Add(start_node);

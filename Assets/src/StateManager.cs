@@ -7,7 +7,6 @@ public class StateManager : MonoBehaviour {
 
 	void Start() {
         WaypointGrid.instance.init();
-        EnemySpawner.instance.init();
 	}
 
 	void Update() {
@@ -20,6 +19,5 @@ public class StateManager : MonoBehaviour {
             WaypointGrid.instance.recalc_waypoint_nodes();
         }
         WaypointGrid.instance.update();
-        EnemySpawner.instance.update();
 	}
 }

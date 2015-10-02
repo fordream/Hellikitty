@@ -12,6 +12,7 @@ Assets/ferr/2DTerrain/Examples/Assets/FerrlibLogoSmall.prefab
 Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
 Assets/resources/enemy.prefab
+Assets/new_trigger_mat.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/ForestTerrainMaterial.prefab
@@ -36,3 +37,7 @@ Assets/ferr/2DTerrain/Examples/Assets/FerrlibLogoSmall.prefab
 Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
 Assets/resources/enemy.prefab
+Assets/ferr/2DTerrain/TerrainMaterials/TriggerTerrainMaterial.prefab
+Assets/NewTerrainMaterial.prefab
+Assets/trigger_mat.prefab
+Assets/new_trigger_mat.prefab
