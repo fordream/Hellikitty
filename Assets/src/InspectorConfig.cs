@@ -12,6 +12,7 @@ public class InspectorConfig : Singleton<InspectorConfig>
 
     public float grid_size_offset = 1.0f;
 
+    public LayerMask grid_collidable_layers;
 
     /* debug config */
     public bool debug_verbose_log = true;

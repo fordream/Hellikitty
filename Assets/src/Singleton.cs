@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//class taken from http://wiki.unity3d.com/index.php/Singleton because i'm lazy -PXL
+//class taken from http://wiki.unity3d.com/index.php/Singleton because i'm lazy -richman
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -28,10 +28,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 {
                     _instance = (T)FindObjectOfType(typeof(T));
 
-                    if (FindObjectsOfType(typeof(T)).Length > 1)
+                    int len = FindObjectsOfType(typeof(T)).Length;
+                    if (len > 1)
                     {
-                        Debug.LogError("[Singleton] Something went really wrong " +
-                            " - there should never be more than 1 singleton!" +
+                        Debug.LogError("[Singleton] (" + typeof(T) + ") Something went really wrong " +
+                            " - there should never be more than 1 singleton! (found " + len + ")" +
                             " Reopening the scene might fix it.");
                         return _instance;
                     }

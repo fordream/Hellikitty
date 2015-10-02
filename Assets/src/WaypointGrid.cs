@@ -185,7 +185,8 @@ public class WaypointGrid : Singleton<WaypointGrid>
             for (int x = 0; x < grid_width; ++x)
             {
                 WaypointNode node = get_node(x, y);
-                RaycastHit2D hit = Physics2D.Raycast(node.world_pos, Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast(node.world_pos, Vector2.zero, 
+                    float.MaxValue, InspectorConfig.instance.grid_collidable_layers);
                 node.walkable = !hit;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(InspectorConfig))]
 public class InspectorConfigEditor : Editor
@@ -49,6 +50,7 @@ public class InspectorConfigEditor : Editor
             EditorGUI.indentLevel = 2;
             Ferr_EditorTools.Box(4, () =>
             {
+                //debug display
                 config.grid_debug_display = EditorGUILayout.Toggle(new GUIContent("Debug display",
                     "Displays and updates waypoint grid every frame and shows all terrain collider size offsets"),
                 config.grid_debug_display);
@@ -63,6 +65,7 @@ public class InspectorConfigEditor : Editor
                 }
                 config.grid_last_debug_display = config.grid_debug_display;
 
+                //point seperation
                 config.grid_point_sep = EditorGUILayout.FloatField(new GUIContent("Point seperation",
                     "Determines how far apart each point is from each other on the grid " +
                     "(in world space units). The smaller the value, the more nodes there are on the pathfinding grid"),
@@ -74,10 +77,14 @@ public class InspectorConfigEditor : Editor
                 }
                 config.grid_last_point_sep = config.grid_point_sep;
 
+                //size offset
                 config.grid_size_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
                     "When checking whether an object is collidable or not on the grid, this value determines how much " +
                     "larger the area around the terrain is (in world space units)"),
                     config.grid_size_offset);
+
+                //collidable layers
+                config.grid_collidable_layers = LayerMaskField.draw("Collidable layers", config.grid_collidable_layers);
             });
         }
     }

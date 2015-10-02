@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: new_trigger_mat
+  m_Name: trigger_terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a21887e1cf80db49978ff567bcdd66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillMaterial: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
-  edgeMaterial: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
+  fillMaterial: {fileID: 2100000, guid: d231c024990d05749b2177a0bc52a8a0, type: 2}
+  edgeMaterial: {fileID: 2100000, guid: d231c024990d05749b2177a0bc52a8a0, type: 2}
   descriptors:
   - applyTo: 0
     zOffset: 0
@@ -146,11 +146,11 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: edgeMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
+      objectReference: {fileID: 2100000, guid: d231c024990d05749b2177a0bc52a8a0, type: 2}
     - target: {fileID: 0}
       propertyPath: fillMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 80b874849ee5dd34c904bb1d97fa55c9, type: 2}
+      objectReference: {fileID: 2100000, guid: d231c024990d05749b2177a0bc52a8a0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
