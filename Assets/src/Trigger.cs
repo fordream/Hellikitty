@@ -7,6 +7,15 @@ public class Trigger : MonoBehaviour {
 
 	void Start() {
         GetComponent<Renderer>().enabled = false;
+
+        foreach (Area area in areas) {
+            if (area == null) {
+                Debug.LogError("Trigger (" + name + ") area is null, please select the elements in the editor");
+            }
+        }
+        if (areas.Length == 0) {
+            Debug.Log("Trigger (" + name + ") contains no area elements. Please add them in the editor");
+        }
 	}
 
 	void Update() {
@@ -16,7 +25,9 @@ public class Trigger : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D c) {
         if (c.gameObject == Player.instance.gameObject) {
             foreach (Area area in areas) {
-                area.trigger();
+                if (area != null) {
+                    area.trigger();
+                }
             }
         }
     }

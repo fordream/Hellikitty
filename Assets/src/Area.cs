@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Area : MonoBehaviour {
 
 	void Start() {
-        GetComponent<Renderer>().enabled = false;
+        foreach (Transform child in transform) {
+            GameObject obj = child.gameObject;
+            obj.SetActive(false);
+        }
 	}
 
 	void Update() {
-	
+
 	}
 
     public void trigger() {
-        GetComponent<Renderer>().enabled = true;
+        foreach (Transform child in transform) {
+            GameObject obj = child.gameObject;
+            obj.SetActive(true);
+        }
     }
 }
