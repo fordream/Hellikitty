@@ -12,6 +12,10 @@ public class Player : Singleton<Player> {
 	}
 
     void Update() {
+        pos = transform.position;
+
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+
+        transform.position = pos;
 	}
 }
