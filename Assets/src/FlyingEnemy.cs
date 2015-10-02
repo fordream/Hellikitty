@@ -9,7 +9,7 @@ public class FlyingEnemy : MonoBehaviour {
         NONE, 
         CALCULTING_PATH, 
         MOVE_NEXT_NODE, 
-        DISTANCE_SHOOTING
+        FIRE_AND_KEEP_DISTANCE
     };
 
     List<WaypointNode> path = null;
@@ -28,6 +28,7 @@ public class FlyingEnemy : MonoBehaviour {
     AIState prev_ai_state = AIState.NONE;
     System.Diagnostics.Stopwatch calc_path_watch = new System.Diagnostics.Stopwatch();
     const int RECALC_PATH_MS = 500;
+    const float FIRE_RADIUS = 4;
 
 	void Start() {
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
@@ -61,6 +62,8 @@ public class FlyingEnemy : MonoBehaviour {
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
+                //if the prev ai state is not this one, then calculate updated path
+                //if the updated path failed, set a timer and try again later
                 if (ai_state != prev_ai_state || calc_path_watch.ElapsedMilliseconds >= RECALC_PATH_MS)
                 {
                     calc_path_watch.Stop();
@@ -91,12 +94,24 @@ public class FlyingEnemy : MonoBehaviour {
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - next_node.world_pos.x, 2) + Mathf.Pow(pos.y - next_node.world_pos.y, 2));
                 if (dist < .2f) ai_state = AIState.CALCULTING_PATH;
 
-                break;
-            case AIState.DISTANCE_SHOOTING:
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
                 if (dist < 4)
                 {
+                    ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
+                }
 
+                break;
+            case AIState.FIRE_AND_KEEP_DISTANCE:
+                dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
+                if (dist >= FIRE_RADIUS) {
+                    ai_state = AIState.MOVE_NEXT_NODE;
+                }else if (dist < FIRE_RADIUS - .5f) {
+                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x) - 90;
+
+                    accel.x += Mathf.Cos(angle) * speed_multiplier;
+                    accel.y += Mathf.Sin(angle) * speed_multiplier;
+                    accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
+                    accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                 }
                 break;
         }
