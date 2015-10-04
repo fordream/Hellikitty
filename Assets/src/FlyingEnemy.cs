@@ -74,7 +74,7 @@ public class FlyingEnemy : MonoBehaviour {
         float dist;
         WaypointNode node;
         AIState temp_prev_ai_state = ai_state;
-        prev_pos = pos;
+        if (current_node.walkable) prev_pos = pos;
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
@@ -123,7 +123,8 @@ public class FlyingEnemy : MonoBehaviour {
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
                 if (dist >= FIRE_RADIUS) {
                     ai_state = AIState.CALCULTING_PATH;
-                }else if (dist < FIRE_RADIUS - .5f) {
+                    next_node = null;
+                } else if (dist < FIRE_RADIUS - 2.0f) {
                     angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x) + Mathf.PI;
                     float max_dist = -1;
                     float best_angle = angle;
@@ -131,14 +132,21 @@ public class FlyingEnemy : MonoBehaviour {
                     check_max_raycast(ref max_dist, ref best_angle, angle);
                     check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .125f));
                     check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .125f));
+                    check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .25f));
+                    check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .25f));
 
-                    if (max_dist == -1 || max_dist >= 1.5f) {
+                    if (max_dist == -1 || max_dist >= 1) {
                         angle = best_angle;
                         accel.x += Mathf.Cos(angle) * speed_multiplier;
                         accel.y += Mathf.Sin(angle) * speed_multiplier;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
+                }else {
+                    accel.x += Mathf.Cos(angle) * speed_multiplier * dist;
+                    accel.y += Mathf.Sin(angle) * speed_multiplier * dist;
+                    accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
+                    accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                 }
                 break;
         }
@@ -149,10 +157,6 @@ public class FlyingEnemy : MonoBehaviour {
         pos.x += accel.x;
         pos.y += accel.y;
 
-        //WaypointNode temp_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
-        //if (!temp_node.walkable) {
-        //    accel.x = 0; accel.y = 0; pos = prev_pos;
-        //}
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         transform.position = pos;
