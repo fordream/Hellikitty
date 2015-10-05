@@ -193,7 +193,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
             }
         }
 
-        if (InspectorConfig.instance.grid_debug_display) return;
+        //if (InspectorConfig.instance.grid_debug_display) return;
 
         //sets all grid terrain surface collider offsets to their original values
         foreach (GridTerrain t in grid_terrain)
