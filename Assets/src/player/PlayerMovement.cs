@@ -11,9 +11,9 @@ public class PlayerMovement : MonoBehaviour {
     Vector3 velocity;
     float velocityXSmoothing;
 
-    Vector2 wallJumpClimb;
-    Vector2 wallJumpOff;
-    Vector2 wallLeap;
+    public Vector2 wallJumpClimb;
+    public Vector2 wallJumpOff;
+    public Vector2 wallLeap;
 
     float maxJumpHeight = 4;
     float minJumpHeight = 1;
@@ -114,8 +114,8 @@ public class PlayerMovement : MonoBehaviour {
 
         velocity.y += gravity * Time.deltaTime;
 
-        if (parent.controller.collisions.above || parent.controller.collisions.below) velocity.y = 0;
-
         parent.controller.Move(velocity * Time.deltaTime);
+
+        if (parent.controller.collisions.above || parent.controller.collisions.below) velocity.y = 0;
     }
 }

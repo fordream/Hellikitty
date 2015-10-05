@@ -17,7 +17,6 @@ public class FlyingEnemy : MonoBehaviour {
     WaypointNode current_node = null;
     int current_path_index;
     Vector3 pos;
-    Vector3 prev_pos;
     float angle;
     Vector2 accel;
 
@@ -57,24 +56,11 @@ public class FlyingEnemy : MonoBehaviour {
         angle = Mathf.Atan2(next_node.world_pos.y - pos.y, next_node.world_pos.x - pos.x);
     }
 
-    void check_max_raycast(ref float max_dist, ref float best_angle, float target_angle) {
-        RaycastHit2D hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)), 
-            FIRE_RADIUS, InspectorConfig.instance.grid_collidable_layers);
-        if (hit && hit.distance > max_dist) {
-            max_dist = hit.distance;
-            best_angle = target_angle;
-        }else if (!hit) {
-            max_dist = float.MaxValue;
-            best_angle = target_angle;
-        }
-    }
-
     void Update()
     {
         float dist;
-        WaypointNode node;
         AIState temp_prev_ai_state = ai_state;
-        if (current_node.walkable) prev_pos = pos;
+        RaycastHit2D hit;
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
@@ -111,7 +97,7 @@ public class FlyingEnemy : MonoBehaviour {
                 if (dist < .2f) ai_state = AIState.CALCULTING_PATH;
 
                 angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
-                RaycastHit2D hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
+                hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
                                                      FIRE_RADIUS, 1024 | InspectorConfig.instance.grid_collidable_layers);
 
                 if (hit && hit.collider == Player.instance.GetComponent<Collider2D>()) {
@@ -123,30 +109,40 @@ public class FlyingEnemy : MonoBehaviour {
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
                 if (dist >= FIRE_RADIUS) {
                     ai_state = AIState.CALCULTING_PATH;
-                    next_node = null;
-                } else if (dist < FIRE_RADIUS - 2.0f) {
-                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x) + Mathf.PI;
-                    float max_dist = -1;
+                }else if (dist < FIRE_RADIUS - .5f) {
+                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
                     float best_angle = angle;
+                    float closest_dist = -1;
+                    const int num_casts = 8;
+                    float sx = Mathf.Cos(angle) * FIRE_RADIUS;
+                    float sy = Mathf.Sin(angle) * FIRE_RADIUS;
 
-                    check_max_raycast(ref max_dist, ref best_angle, angle);
-                    check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .125f));
-                    check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .125f));
-                    check_max_raycast(ref max_dist, ref best_angle, angle - (Mathf.PI * .25f));
-                    check_max_raycast(ref max_dist, ref best_angle, angle + (Mathf.PI * .25f));
+                    for (int n = 0; n < num_casts; ++n)
+                    {
+                        float target_angle = angle + (Mathf.PI * 2.0f / num_casts) * (n + 1);
 
-                    if (max_dist == -1 || max_dist >= 1) {
+                        hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)),
+                                                                FIRE_RADIUS, InspectorConfig.instance.grid_collidable_layers);
+                        if (!hit)
+                        {
+                            float px = Mathf.Cos(target_angle) * FIRE_RADIUS;
+                            float py = Mathf.Sin(target_angle) * FIRE_RADIUS;
+                            dist = Mathf.Sqrt(Mathf.Pow(sx - px, 2) + Mathf.Pow(sy - py, 2));
+                            if (dist > closest_dist)
+                            {
+                                closest_dist = dist;
+                                best_angle = target_angle;
+                            }
+                        }
+                    }
+
+                    if (closest_dist != -1) {
                         angle = best_angle;
                         accel.x += Mathf.Cos(angle) * speed_multiplier;
                         accel.y += Mathf.Sin(angle) * speed_multiplier;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
-                }else {
-                    accel.x += Mathf.Cos(angle) * speed_multiplier * dist;
-                    accel.y += Mathf.Sin(angle) * speed_multiplier * dist;
-                    accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
-                    accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                 }
                 break;
         }
