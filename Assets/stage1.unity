@@ -423,10 +423,10 @@ MonoBehaviour:
   sharpCorners: 0
   sharpCornerDistance: 2
   surfaceOffset:
-  - 0
-  - 0
-  - 0
-  - 0
+  - .5
+  - .5
+  - .5
+  - .5
   physicsMaterial: {fileID: 0}
   physicsMaterial2D: {fileID: 0}
   collidersLeft: 1
@@ -846,45 +846,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!1 &1223735265
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1223735266}
-  - 114: {fileID: 1223735267}
-  m_Layer: 0
-  m_Name: StateManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1223735266
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1223735265}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.62866783, y: -1.20816767, z: .612867355}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1405699632}
-  m_RootOrder: 0
---- !u!114 &1223735267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1223735265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3daa0d801a29fc34a9612f3427ff66b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1393286311
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,9 +911,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091b60cd2a56f2c49860237d1fef2523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallJumpClimb: {x: 10, y: 10}
-  wallJumpOff: {x: 4, y: 4}
-  wallLeap: {x: 10, y: 10}
+  wallJumpClimb: {x: 5, y: 20}
+  wallJumpOff: {x: 5, y: 12}
+  wallLeap: {x: 12, y: 15}
+  maxJumpHeight: 4
+  minJumpHeight: 1
+  timeToJumpApex: .400000006
+  accelerationTimeAirborne: .200000003
+  accelerationTimeGrounded: .100000001
+  moveSpeed: 6
+  wallSlideSpeedMax: 3
+  wallStickTime: .25
+  timeToWallUnstick: 0
+  maxClimbAngle: 60
+  maxDescendAngle: 40
 --- !u!114 &1393286316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,6 +945,7 @@ MonoBehaviour:
   verticalRaySpacing: 0
   collider: {fileID: 0}
   playerInput: {x: 0, y: 0}
+  parent: {fileID: 0}
 --- !u!23 &1393286317
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1089,7 +1062,6 @@ Transform:
   m_LocalPosition: {x: 6.19096375, y: 2.70892477, z: 11.7191639}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1223735266}
   - {fileID: 1595700258}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -1433,8 +1405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7556c86ef32cf545ae046654dc412b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid_debug_display: 1
-  grid_last_debug_display: 1
+  grid_debug_display: 0
+  grid_last_debug_display: 0
   grid_point_sep: 1
   grid_last_point_sep: 1
   grid_size_offset: 0
@@ -1453,7 +1425,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1405699632}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &1764771088
 GameObject:
   m_ObjectHideFlags: 0

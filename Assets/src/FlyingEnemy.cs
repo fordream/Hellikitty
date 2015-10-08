@@ -62,6 +62,8 @@ public class FlyingEnemy : MonoBehaviour {
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
 
+        WaypointGrid.instance.reset_surface_offset();
+
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
                 //if the prev ai state is not this one, then calculate updated path

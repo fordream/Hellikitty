@@ -64,6 +64,7 @@ public class WaypointNode
 public class WaypointGrid : Singleton<WaypointGrid>
 {
     bool has_init = false;
+    bool has_recalc = false;
     GameObject waypoint_bg;
     GameObject waypoint_debug_box;
     GameObject waypoint_debug_group;
@@ -79,8 +80,9 @@ public class WaypointGrid : Singleton<WaypointGrid>
     List<GridTerrain> grid_terrain = new List<GridTerrain>();
     List<GameObject> debug_boxes = new List<GameObject>();
 
-    public void init()
+    public void Start()
     {
+        Debug.Log("waypoint grid start");
         waypoint_bg = GameObject.Find("waypoint_bg");
         waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
         waypoint_debug_group = GameObject.Find("waypoint_debug_group");
@@ -158,8 +160,16 @@ public class WaypointGrid : Singleton<WaypointGrid>
         if (has_init) recalc_waypoint_nodes();
     }
 
-    public void update()
+    public void Update()
     {
+        //recalc waypoint nodes after all other scripts have been initialised
+        //this is because raycast2d cannot run in the start call
+        if (!has_recalc)
+        {
+            has_recalc = true;
+            recalc_waypoint_nodes();
+        }
+
         if (InspectorConfig.instance.grid_debug_display)
         {
             recalc_waypoint_nodes();
@@ -169,17 +179,22 @@ public class WaypointGrid : Singleton<WaypointGrid>
         }
     }
 
-    public void recalc_waypoint_nodes()
+    public void reset_surface_offset()
     {
         //sets the collider offset to all grid terrain surface collider offsets
         foreach (GridTerrain t in grid_terrain)
         {
             for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = InspectorConfig.instance.grid_size_offset;
+                t.path_terrain.surfaceOffset[n] = .5f;
             }
             t.path_terrain.RecreateCollider();
         }
+    }
+
+    public void recalc_waypoint_nodes()
+    {
+        reset_surface_offset();
 
         //updates the waypoint grid
         for (int y = 0; y < grid_height; ++y)
@@ -200,7 +215,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
         {
             for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = t.origin_size_offsets[n];
+                t.path_terrain.surfaceOffset[n] = 0;
             }
             t.path_terrain.RecreateCollider();
         }

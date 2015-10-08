@@ -15,11 +15,15 @@ public class Player : Singleton<Player> {
     public Vector3 pos;
 
 	void Start() {
+        Debug.Log("player start");
+
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         controller = GetComponent<Controller2D>();
+        controller.init();
         player_movement = GetComponent<PlayerMovement>();
+        player_movement.init();
     }
 
     void Update() {

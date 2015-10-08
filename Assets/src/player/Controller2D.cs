@@ -3,17 +3,17 @@ using System.Collections;
 
 public class Controller2D : RaycastController {
 
-    float maxClimbAngle = 60;
-    float maxDescendAngle = 40;
-
     public CollisionInfo collisions;
-	[HideInInspector]
-	public Vector2 playerInput;
-	
-	public override void Start() {
-		base.Start();
-		collisions.faceDir = 1;
+    [HideInInspector]
+    public Vector2 playerInput;
 
+    public Player parent;
+
+    public void init() {
+		base.Start();
+        collisions.faceDir = 1;
+
+        parent = GetComponent<Player>();
 	}
 	
 	public void Move(Vector3 velocity, bool standingOnPlatform = false) {
@@ -71,7 +71,7 @@ public class Controller2D : RaycastController {
 			
 				float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-				if (i == 0 && slopeAngle <= maxClimbAngle) {
+				if (i == 0 && slopeAngle <= parent.player_movement.maxClimbAngle) {
 					if (collisions.descendingSlope) {
 						collisions.descendingSlope = false;
 						velocity = collisions.velocityOld;
@@ -85,7 +85,7 @@ public class Controller2D : RaycastController {
 					velocity.x += distanceToSlopeStart * directionX;
 				}
 
-				if (!collisions.climbingSlope || slopeAngle > maxClimbAngle) {
+				if (!collisions.climbingSlope || slopeAngle > parent.player_movement.maxClimbAngle) {
 					velocity.x = (hit.distance - skinWidth) * directionX;
 					rayLength = hit.distance;
 
@@ -176,7 +176,7 @@ public class Controller2D : RaycastController {
 
 		if (hit) {
 			float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-			if (slopeAngle != 0 && slopeAngle <= maxDescendAngle) {
+			if (slopeAngle != 0 && slopeAngle <= parent.player_movement.maxDescendAngle) {
 				if (Mathf.Sign(hit.normal.x) == directionX) {
 					if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x)) {
 						float moveDistance = Mathf.Abs(velocity.x);

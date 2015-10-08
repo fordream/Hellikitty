@@ -15,18 +15,21 @@ public class PlayerMovement : MonoBehaviour {
     public Vector2 wallJumpOff;
     public Vector2 wallLeap;
 
-    float maxJumpHeight = 4;
-    float minJumpHeight = 1;
-    float timeToJumpApex = .4f;
-    float accelerationTimeAirborne = .2f;
-    float accelerationTimeGrounded = .1f;
-    float moveSpeed = 6;
+    public float maxJumpHeight = 4;
+    public float minJumpHeight = 1;
+    public float timeToJumpApex = .4f;
+    public float accelerationTimeAirborne = .2f;
+    public float accelerationTimeGrounded = .1f;
+    public float moveSpeed = 6;
 
-    float wallSlideSpeedMax = 3;
-    float wallStickTime = .25f;
-    float timeToWallUnstick;
-    
-    void Start()
+    public float wallSlideSpeedMax = 3;
+    public float wallStickTime = .25f;
+    public float timeToWallUnstick;
+
+    public float maxClimbAngle = 60;
+    public float maxDescendAngle = 40;
+
+    public void init()
     {
         parent = GetComponent<Player>();
 
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update()
     {
+
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         int wallDirX = (parent.controller.collisions.left) ? -1 : 1;
 
