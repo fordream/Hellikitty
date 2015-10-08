@@ -10,6 +10,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected Singleton() { }
 
+    void Start()
+    {
+        Debug.Log("Initialised [" + typeof(T) + "]");
+    }
+
     public static T instance
     {
         get

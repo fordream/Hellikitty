@@ -60,6 +60,9 @@ public class WaypointNode
 * The grid is updated by raycasting at every node to see if there are any collisions
 * with any objects. This data can then be used by enemies to move around non-walkable
 * objects by using a pathfinding algorithm instead of performing mesh collisions.
+*
+* Pathfinding should really be handled without a grid, but ain't nobody got time for that
+* right now!
 */
 public class WaypointGrid : Singleton<WaypointGrid>
 {
@@ -80,9 +83,8 @@ public class WaypointGrid : Singleton<WaypointGrid>
     List<GridTerrain> grid_terrain = new List<GridTerrain>();
     List<GameObject> debug_boxes = new List<GameObject>();
 
-    public void Start()
+    public void init()
     {
-        Debug.Log("waypoint grid start");
         waypoint_bg = GameObject.Find("waypoint_bg");
         waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
         waypoint_debug_group = GameObject.Find("waypoint_debug_group");

@@ -38,9 +38,8 @@ public class PlayerMovement : MonoBehaviour {
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
-    void Update()
+    public void update()
     {
-
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         int wallDirX = (parent.controller.collisions.left) ? -1 : 1;
 
