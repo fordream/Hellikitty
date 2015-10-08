@@ -10,11 +10,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected Singleton() { }
 
-    void Start()
-    {
-        Debug.Log("Initialised [" + typeof(T) + "]");
-    }
-
     public static T instance
     {
         get
@@ -49,13 +44,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                         singleton.name = "(singleton) " + typeof(T).ToString();
 
                         DontDestroyOnLoad(singleton);
-
-                        Debug.LogVerbose("[Singleton] An instance of " + typeof(T) +
-                            " is needed in the scene, so '" + singleton +
-                            "' was created with DontDestroyOnLoad.");
-                    }
-                    else
-                    {
+                    }else {
                         Debug.LogVerbose("[Singleton] Using instance already created: " +
                             _instance.gameObject.name);
                     }
