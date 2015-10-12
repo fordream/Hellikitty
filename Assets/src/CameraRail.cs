@@ -205,12 +205,12 @@ public class CameraRail : MonoBehaviour {
 	void Update()
     {
         //moves camera pos towards the next point (calculated in getNextPoint)
-        cameraPos.x -= Mathf.Cos(angleToNextPoint) * speed;
-        cameraPos.y -= Mathf.Sin(angleToNextPoint) * speed;
+        cameraPos.x -= Mathf.Cos(angleToNextPoint) * speed * Time.deltaTime;
+        cameraPos.y -= Mathf.Sin(angleToNextPoint) * speed * Time.deltaTime;
 
         //checks if the distance between the camera and the next point is less than .1f
         //if it is, calculate the next point
-        if (Vector3.Distance(cameraPos, nextPoint) <= .1f)
+        if (Vector3.Distance(cameraPos, nextPoint) <= .5f)
         {
             getNextPoint();
         }

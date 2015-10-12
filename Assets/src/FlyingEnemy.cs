@@ -21,8 +21,8 @@ public class FlyingEnemy : MonoBehaviour {
     Vector2 accel;
 
     float friction = .96f;
-	float max_accel = .1f;
-    float speed_multiplier = .001f;
+    float max_accel = 4.0f;
+    float speed_multiplier = 1.0f;
 
     AIState ai_state = AIState.CALCULTING_PATH;
     AIState prev_ai_state = AIState.NONE;
@@ -63,6 +63,11 @@ public class FlyingEnemy : MonoBehaviour {
 
     void Update()
     {
+        Vector3 scale = transform.localScale;
+        if (accel.x > 0) scale.x = -.5f;
+        else scale.x = .5f;
+        transform.localScale = scale;
+
         float dist;
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
@@ -95,7 +100,7 @@ public class FlyingEnemy : MonoBehaviour {
             case AIState.MOVE_NEXT_NODE:
                 update_angle();
 
-		        accel.x += Mathf.Cos(angle) * speed_multiplier;
+                accel.x += Mathf.Cos(angle) * speed_multiplier;
                 accel.y += Mathf.Sin(angle) * speed_multiplier;
                 accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                 accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
@@ -166,8 +171,8 @@ public class FlyingEnemy : MonoBehaviour {
 
         accel.x *= friction;
         accel.y *= friction;
-        pos.x += accel.x;
-        pos.y += accel.y;
+        pos.x += accel.x * Time.deltaTime;
+        pos.y += accel.y * Time.deltaTime;
 
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 

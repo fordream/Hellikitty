@@ -26,6 +26,11 @@ public class Player : Singleton<Player> {
     }
 
     void Update() {
+        Vector3 scale = transform.localScale;
+        if (player_movement.velocity.x > 0) scale.x = 1;
+        else scale.x = -1;
+        transform.localScale = scale;
+
         player_movement.update();
         pos = transform.position;
 

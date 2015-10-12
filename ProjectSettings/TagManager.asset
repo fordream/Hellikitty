@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - obstacle
-  - Obstacle
   - enemy
   - waypoint_debug_box
   layers:

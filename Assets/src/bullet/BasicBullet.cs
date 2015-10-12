@@ -14,12 +14,17 @@ class BasicBullet : MonoBehaviour
     {
         parent = GetComponent<Bullet>();
         angle = _angle;
-        transform.localEulerAngles = new Vector3(0, 0, angle * (180.0f / Mathf.PI));
+        transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
     }
 
     void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        Vector3 pos = transform.position;
+        pos.x += Mathf.Cos(angle) * speed * Time.deltaTime;
+        pos.y += Mathf.Sin(angle) * speed * Time.deltaTime;
+        transform.position = pos;
+
+        transform.Rotate(new Vector3(0, 0, 2));
     }
 
     void OnCollisionEnter2D(Collision2D col)
