@@ -39,8 +39,8 @@ public class FlyingEnemy : MonoBehaviour {
     void update_path()
     {
         Vector2 dest = WaypointGrid.instance.world_to_grid(Player.instance.pos);
-        List<WaypointNode> temp_path = WaypointGrid.instance.find_path((int)current_node.grid_pos.x, (int)current_node.grid_pos.y,
-                                                                       (int)dest.x, (int)dest.y);
+        List<WaypointNode> temp_path = WaypointGrid.instance.find_path(WaypointGrid.instance.find_neighbour_node(current_node), 
+                                                                       WaypointGrid.instance.find_neighbour_node(WaypointGrid.instance.get_node(dest.x, dest.y)));
 
         if (temp_path.Count >= 2) path = temp_path;
         else path.Clear();
@@ -62,7 +62,7 @@ public class FlyingEnemy : MonoBehaviour {
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
 
-        WaypointGrid.instance.reset_surface_offset();
+        WaypointGrid.instance.reset_surface_offset(InspectorConfig.instance.grid_terrain_offset);
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
@@ -158,5 +158,7 @@ public class FlyingEnemy : MonoBehaviour {
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 
         transform.position = pos;
+
+        WaypointGrid.instance.reset_surface_offset(0);
 	}
 }

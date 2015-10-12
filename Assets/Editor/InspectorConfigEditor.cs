@@ -78,10 +78,10 @@ public class InspectorConfigEditor : Editor
                 config.grid_last_point_sep = config.grid_point_sep;
 
                 //size offset
-                config.grid_size_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
+                config.grid_terrain_offset = EditorGUILayout.FloatField(new GUIContent("Size offset",
                     "When checking whether an object is collidable or not on the grid, this value determines how much " +
                     "larger the area around the terrain is (in world space units)"),
-                    config.grid_size_offset);
+                    config.grid_terrain_offset);
 
                 //collidable layers
                 config.grid_collidable_layers = LayerMaskField.draw("Collidable layers", config.grid_collidable_layers);

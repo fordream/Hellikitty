@@ -10,7 +10,7 @@ public class InspectorConfig : Singleton<InspectorConfig>
     public float grid_point_sep = 1.0f;
     public float grid_last_point_sep = 1.0f;
 
-    public float grid_size_offset = 1.0f;
+    public float grid_terrain_offset = .5f;
 
     public LayerMask grid_collidable_layers;
 

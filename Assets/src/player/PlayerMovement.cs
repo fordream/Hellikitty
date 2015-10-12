@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     float gravity;
     float maxJumpVelocity;
     float minJumpVelocity;
-    Vector3 velocity;
+    public Vector3 velocity;
     float velocityXSmoothing;
 
     public Vector2 wallJumpClimb;

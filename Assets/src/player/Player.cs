@@ -31,4 +31,12 @@ public class Player : Singleton<Player> {
 
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
 	}
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "enemy")
+        {
+            Destroy(col.gameObject);
+        }
+    }
 }

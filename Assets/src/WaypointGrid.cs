@@ -181,14 +181,14 @@ public class WaypointGrid : Singleton<WaypointGrid>
         }
     }
 
-    public void reset_surface_offset()
+    public void reset_surface_offset(float offset)
     {
         //sets the collider offset to all grid terrain surface collider offsets
         foreach (GridTerrain t in grid_terrain)
         {
             for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
-                t.path_terrain.surfaceOffset[n] = .5f;
+                t.path_terrain.surfaceOffset[n] = offset;
             }
             t.path_terrain.RecreateCollider();
         }
@@ -196,7 +196,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
     public void recalc_waypoint_nodes()
     {
-        reset_surface_offset();
+        reset_surface_offset(InspectorConfig.instance.grid_terrain_offset);
 
         //updates the waypoint grid
         for (int y = 0; y < grid_height; ++y)
@@ -210,17 +210,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
             }
         }
 
-        //if (InspectorConfig.instance.grid_debug_display) return;
-
-        //sets all grid terrain surface collider offsets to their original values
-        foreach (GridTerrain t in grid_terrain)
-        {
-            for (int n = 0; n < t.origin_size_offsets.Length; ++n)
-            {
-                t.path_terrain.surfaceOffset[n] = 0;
-            }
-            t.path_terrain.RecreateCollider();
-        }
+        reset_surface_offset(0);
     }
 
     public void remove_debug_boxes()
@@ -266,8 +256,11 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
         WaypointNode start_node = get_node(start_x, start_y);
         WaypointNode end_node = get_node(end_x, end_y);
-        if (start_node == null || end_node == null || !start_node.walkable || !end_node.walkable) {
-            Debug.LogVerbose("could not find path: start node or end node is not walkable.");
+        if (start_node == null || !start_node.walkable) {
+            Debug.LogVerbose("could not find path: start node is not walkable.");
+            return path;
+        }else if (end_node == null || !end_node.walkable) {
+            Debug.LogVerbose("could not find path: end node is not walkable.");
             return path;
         }else if (start_node == end_node) {
             Debug.LogVerbose("empty path: start node equals end node");
@@ -371,6 +364,12 @@ public class WaypointGrid : Singleton<WaypointGrid>
                          worldx_to_gridx(world_pos_end.x),   worldy_to_gridy(world_pos_end.y));
     }
 
+    public List<WaypointNode> find_path(WaypointNode start_node, WaypointNode end_node)
+    {
+        return find_path((int)start_node.grid_pos.x, (int)start_node.grid_pos.y,
+                         (int)end_node.grid_pos.x, (int)end_node.grid_pos.y);
+    }
+
     public int worldx_to_gridx(float x)
     {
         x = Mathf.Clamp(x, waypoint_node_start.x, (waypoint_bg_bounds.max.x - InspectorConfig.instance.grid_point_sep - 1)) - waypoint_node_start.x;
@@ -395,6 +394,23 @@ public class WaypointGrid : Singleton<WaypointGrid>
     public Vector2 grid_to_world(Vector2 grid_pos)
     {
         return get_node(grid_pos).world_pos;
+    }
+
+    public WaypointNode find_neighbour_node(WaypointNode start_node)
+    {
+        if (start_node.walkable) return start_node;
+        for (int n = 0; n < neighbours.Length; n += 2)
+        {
+            int x = (int)start_node.grid_pos.x + neighbours[n];
+            int y = (int)start_node.grid_pos.y + neighbours[n + 1];
+
+            if (x < 0 || x >= grid_width) continue;
+            if (y < 0 || y >= grid_height) continue;
+
+            WaypointNode node = get_node(x, y);
+            if (node.walkable) return node;
+        }
+        return start_node;
     }
 
     /*

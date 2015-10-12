@@ -216,7 +216,7 @@ public class CameraRail : MonoBehaviour {
         }
 
         //update camera position
-        camera.transform.position = new Vector3(cameraPos.x, cameraPos.y, -20);
+        camera.transform.position = new Vector3(cameraPos.x, cameraPos.y, -100);
 	}
 
     Vector2 getPoint(int index)
