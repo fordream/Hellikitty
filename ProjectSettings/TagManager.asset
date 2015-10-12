@@ -6,6 +6,8 @@ TagManager:
   tags:
   - obstacle
   - Obstacle
+  - enemy
+  - waypoint_debug_box
   layers:
   - Default
   - TransparentFX

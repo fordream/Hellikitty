@@ -7,9 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(RemovalScheduler))]
 public class Bullet : MonoBehaviour
 {
+    [HideInInspector]
     public RemovalScheduler removal;
 
-    void Start()
+    void Awake()
     {
         removal = GetComponent<RemovalScheduler>();
     }

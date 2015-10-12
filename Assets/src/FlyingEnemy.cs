@@ -28,12 +28,17 @@ public class FlyingEnemy : MonoBehaviour {
     AIState prev_ai_state = AIState.NONE;
     System.Diagnostics.Stopwatch calc_path_watch = new System.Diagnostics.Stopwatch();
     const int RECALC_PATH_MS = 500;
-    const float FIRE_RADIUS = 4;
+    const float FIRE_RADIUS = 6;
+
+    BulletManager bullet_manager;
+    int timer = 0;
 
 	void Start() {
         pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
         pos.z = -10;
         current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+
+        bullet_manager = GetComponent<BulletManager>();
     }
     
     void update_path()
@@ -108,11 +113,19 @@ public class FlyingEnemy : MonoBehaviour {
 
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
+                angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
+                
+                ++timer;
+                if (timer >= 20)
+                {
+                    timer = 0;
+                    bullet_manager.spawn(pos).gameObject.AddComponent<BasicBullet>().init(angle);
+                }
+
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
-                if (dist >= FIRE_RADIUS) {
+                if (dist >= FIRE_RADIUS + .5f) {
                     ai_state = AIState.CALCULTING_PATH;
                 }else if (dist < FIRE_RADIUS - .5f) {
-                    angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
                     float best_angle = angle;
                     float closest_dist = -1;
                     const int num_casts = 8;
@@ -146,6 +159,7 @@ public class FlyingEnemy : MonoBehaviour {
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
                 }
+
                 break;
         }
         prev_ai_state = temp_prev_ai_state;
