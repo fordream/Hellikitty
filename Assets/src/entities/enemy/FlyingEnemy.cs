@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FlyingEnemy : MonoBehaviour {
+public class FlyingEnemy : MonoBehaviour
+{
 
     enum AIState {
 
@@ -34,18 +35,18 @@ public class FlyingEnemy : MonoBehaviour {
     int timer = 0;
 
 	void Start() {
-        pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
+        pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
         pos.z = -10;
-        current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 
         bullet_manager = GetComponent<BulletManager>();
     }
     
     void update_path()
     {
-        Vector2 dest = WaypointGrid.instance.world_to_grid(Player.instance.pos);
-        List<WaypointNode> temp_path = WaypointGrid.instance.find_path(WaypointGrid.instance.find_neighbour_node(current_node), 
-                                                                       WaypointGrid.instance.find_neighbour_node(WaypointGrid.instance.get_node(dest.x, dest.y)));
+        Vector2 dest = Map.grid.world_to_grid(Entities.player.pos);
+        List<WaypointNode> temp_path = Map.grid.find_path(Map.grid.find_neighbour_node(current_node), 
+                                                                       Map.grid.find_neighbour_node(Map.grid.get_node(dest.x, dest.y)));
 
         if (temp_path.Count >= 2) path = temp_path;
         else path.Clear();
@@ -72,7 +73,7 @@ public class FlyingEnemy : MonoBehaviour {
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
 
-        WaypointGrid.instance.reset_surface_offset(InspectorConfig.instance.grid_terrain_offset);
+        Map.grid.reset_surface_offset(Debug.config.grid_terrain_offset);
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
@@ -108,17 +109,17 @@ public class FlyingEnemy : MonoBehaviour {
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - next_node.world_pos.x, 2) + Mathf.Pow(pos.y - next_node.world_pos.y, 2));
                 if (dist < .2f) ai_state = AIState.CALCULTING_PATH;
 
-                angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
+                angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
                 hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
-                                                     FIRE_RADIUS, 1024 | InspectorConfig.instance.grid_collidable_layers);
+                                                     FIRE_RADIUS, 1024 | Debug.config.grid_collidable_layers);
 
-                if (hit && hit.collider == Player.instance.GetComponent<Collider2D>()) {
+                if (hit && hit.collider == Entities.player.GetComponent<Collider2D>()) {
                     ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
                 }
 
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
-                angle = Mathf.Atan2(Player.instance.pos.y - pos.y, Player.instance.pos.x - pos.x);
+                angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
                 
                 ++timer;
                 if (timer >= 20)
@@ -127,7 +128,7 @@ public class FlyingEnemy : MonoBehaviour {
                     bullet_manager.spawn(pos).add_logic<BasicBullet>().init(angle);
                 }
 
-                dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));
+                dist = Mathf.Sqrt(Mathf.Pow(pos.x - Entities.player.pos.x, 2) + Mathf.Pow(pos.y - Entities.player.pos.y, 2));
                 if (dist >= FIRE_RADIUS + .5f) {
                     ai_state = AIState.CALCULTING_PATH;
                 }else if (dist < FIRE_RADIUS - .5f) {
@@ -142,7 +143,7 @@ public class FlyingEnemy : MonoBehaviour {
                         float target_angle = angle + (Mathf.PI * 2.0f / num_casts) * (n + 1);
 
                         hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)),
-                                                                FIRE_RADIUS, InspectorConfig.instance.grid_collidable_layers);
+                                                                FIRE_RADIUS, Debug.config.grid_collidable_layers);
                         if (!hit)
                         {
                             float px = Mathf.Cos(target_angle) * FIRE_RADIUS;
@@ -174,10 +175,10 @@ public class FlyingEnemy : MonoBehaviour {
         pos.x += accel.x * Time.deltaTime;
         pos.y += accel.y * Time.deltaTime;
 
-        current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 
         transform.position = pos;
 
-        WaypointGrid.instance.reset_surface_offset(0);
+        Map.grid.reset_surface_offset(0);
 	}
 }

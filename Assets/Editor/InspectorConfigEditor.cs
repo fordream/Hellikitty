@@ -58,9 +58,9 @@ public class InspectorConfigEditor : Editor
                 {
                     if (config.grid_last_debug_display != config.grid_debug_display && config.grid_debug_display)
                     {
-                        WaypointGrid.instance.recreate_grid();
+                        Map.grid.recreate_grid();
                     }else {
-                        WaypointGrid.instance.recalc_waypoint_nodes();
+                        Map.grid.recalc_waypoint_nodes();
                     }
                 }
                 config.grid_last_debug_display = config.grid_debug_display;
@@ -73,7 +73,7 @@ public class InspectorConfigEditor : Editor
                 config.grid_point_sep = Mathf.Clamp(config.grid_point_sep, .25f, 5.0f);
                 if (Application.isPlaying)
                 {
-                    if (config.grid_last_point_sep != config.grid_point_sep) WaypointGrid.instance.recreate_grid();
+                    if (config.grid_last_point_sep != config.grid_point_sep) Map.grid.recreate_grid();
                 }
                 config.grid_last_point_sep = config.grid_point_sep;
 

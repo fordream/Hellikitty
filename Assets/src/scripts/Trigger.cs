@@ -23,7 +23,7 @@ public class Trigger : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D c) {
-        if (c.gameObject == Player.instance.gameObject) {
+        if (c.gameObject == Entities.player.gameObject) {
             foreach (Area area in areas) {
                 if (area != null) {
                     area.trigger();

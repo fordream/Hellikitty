@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InspectorConfig : Singleton<InspectorConfig>
+public class InspectorConfig : MonoBehaviour
 {
     /* grid config */
     public bool grid_debug_display = false;

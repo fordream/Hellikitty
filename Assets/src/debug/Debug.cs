@@ -8,6 +8,13 @@ using System.Collections;
 */
 public static class Debug
 {
+    public static InspectorConfig config;
+
+    public static void init()
+    {
+        config = GameObject.Find("InspectorConfig").GetComponent<InspectorConfig>();
+    }
+
     /*
     * Logs an info message to the console
     */
@@ -61,7 +68,7 @@ public static class Debug
     */
     public static void LogVerbose(object message)
     {
-        if (InspectorConfig.instance.debug_verbose_log) UnityEngine.Debug.Log("[verbose]: " + message);
+        if (Debug.config.debug_verbose_log) UnityEngine.Debug.Log("[verbose]: " + message);
     }
 
     /*
@@ -69,7 +76,7 @@ public static class Debug
     */
     public static void LogVerbose(object message, UnityEngine.Object context)
     {
-        if (InspectorConfig.instance.debug_verbose_log) UnityEngine.Debug.LogWarning(message, context);
+        if (Debug.config.debug_verbose_log) UnityEngine.Debug.LogWarning(message, context);
     }
 
     /*

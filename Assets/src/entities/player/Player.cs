@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerMovement))]
-public class Player : Singleton<Player> {
+public class Player : MonoBehaviour {
 
     Vector2 aimVec;
     Transform gun;
@@ -16,8 +16,8 @@ public class Player : Singleton<Player> {
 
     public void init()
     {
-        pos = WaypointGrid.instance.grid_to_world(WaypointGrid.instance.world_to_grid(transform.position));
-        current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+        pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 
         controller = GetComponent<Controller2D>();
         controller.init();
@@ -34,7 +34,7 @@ public class Player : Singleton<Player> {
         player_movement.update();
         pos = transform.position;
 
-        current_node = WaypointGrid.instance.get_node(WaypointGrid.instance.world_to_grid(pos));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 	}
 
     void OnTriggerEnter2D(Collider2D col)

@@ -64,7 +64,7 @@ public class WaypointNode
 * Pathfinding should really be handled without a grid, but ain't nobody got time for that
 * right now!
 */
-public class WaypointGrid : Singleton<WaypointGrid>
+public class WaypointGrid
 {
     bool has_init = false;
     bool has_recalc = false;
@@ -82,8 +82,8 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
     List<GridTerrain> grid_terrain = new List<GridTerrain>();
     List<GameObject> debug_boxes = new List<GameObject>();
-
-    public void init()
+    
+    public WaypointGrid()
     {
         waypoint_bg = GameObject.Find("waypoint_bg");
         waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
@@ -111,13 +111,13 @@ public class WaypointGrid : Singleton<WaypointGrid>
         waypoint_nodes.Clear();
 
         Vector3 start_pos = waypoint_node_start;
-        start_pos.x += InspectorConfig.instance.grid_point_sep;
-        start_pos.y -= InspectorConfig.instance.grid_point_sep;
+        start_pos.x += Debug.config.grid_point_sep;
+        start_pos.y -= Debug.config.grid_point_sep;
 
-        grid_width = (int)(waypoint_bg_bounds.size.x / InspectorConfig.instance.grid_point_sep - 1);
-        grid_height = (int)(waypoint_bg_bounds.size.y / InspectorConfig.instance.grid_point_sep - 1);
-        world_grid_width = waypoint_bg_bounds.size.x - InspectorConfig.instance.grid_point_sep - 1;
-        world_grid_height = waypoint_bg_bounds.size.y - InspectorConfig.instance.grid_point_sep - 1;
+        grid_width = (int)(waypoint_bg_bounds.size.x / Debug.config.grid_point_sep - 1);
+        grid_height = (int)(waypoint_bg_bounds.size.y / Debug.config.grid_point_sep - 1);
+        world_grid_width = waypoint_bg_bounds.size.x - Debug.config.grid_point_sep - 1;
+        world_grid_height = waypoint_bg_bounds.size.y - Debug.config.grid_point_sep - 1;
 
         //creates the waypoint grid nodes with the width and height of the grid
         int row = 0;
@@ -128,12 +128,12 @@ public class WaypointGrid : Singleton<WaypointGrid>
         {
             waypoint_nodes.Add(new WaypointNode(row, column, world_pos));
 
-            world_pos.x += InspectorConfig.instance.grid_point_sep;
+            world_pos.x += Debug.config.grid_point_sep;
             ++row;
             if (row >= grid_width)
             {
                 world_pos.x = start_pos.x;
-                world_pos.y -= InspectorConfig.instance.grid_point_sep;
+                world_pos.y -= Debug.config.grid_point_sep;
 
                 row = 0;
                 ++column;
@@ -143,7 +143,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
         //creates a debug box sprite for every node on the grid
         remove_debug_boxes();
-        if (InspectorConfig.instance.grid_debug_display)
+        if (Debug.config.grid_debug_display)
         {
             for (int y = 0; y < grid_height; ++y)
             {
@@ -172,7 +172,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
             recalc_waypoint_nodes();
         }
 
-        if (InspectorConfig.instance.grid_debug_display)
+        if (Debug.config.grid_debug_display)
         {
             recalc_waypoint_nodes();
             refresh_debug_boxes();
@@ -196,7 +196,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
     public void recalc_waypoint_nodes()
     {
-        reset_surface_offset(InspectorConfig.instance.grid_terrain_offset);
+        reset_surface_offset(Debug.config.grid_terrain_offset);
 
         //updates the waypoint grid
         for (int y = 0; y < grid_height; ++y)
@@ -205,7 +205,7 @@ public class WaypointGrid : Singleton<WaypointGrid>
             {
                 WaypointNode node = get_node(x, y);
                 RaycastHit2D hit = Physics2D.Raycast(node.world_pos, Vector2.zero, 
-                    float.MaxValue, InspectorConfig.instance.grid_collidable_layers);
+                    float.MaxValue, Debug.config.grid_collidable_layers);
                 node.walkable = !hit;
             }
         }
@@ -372,15 +372,15 @@ public class WaypointGrid : Singleton<WaypointGrid>
 
     public int worldx_to_gridx(float x)
     {
-        x = Mathf.Clamp(x, waypoint_node_start.x, (waypoint_bg_bounds.max.x - InspectorConfig.instance.grid_point_sep - 1)) - waypoint_node_start.x;
-        x /= InspectorConfig.instance.grid_point_sep;
+        x = Mathf.Clamp(x, waypoint_node_start.x, (waypoint_bg_bounds.max.x - Debug.config.grid_point_sep - 1)) - waypoint_node_start.x;
+        x /= Debug.config.grid_point_sep;
         return (int)x;
     }
 
     public int worldy_to_gridy(float y)
     {
-        y = waypoint_node_start.y - Mathf.Clamp(y, (waypoint_bg_bounds.min.y + InspectorConfig.instance.grid_point_sep + 1), waypoint_node_start.y);
-        y /= InspectorConfig.instance.grid_point_sep;
+        y = waypoint_node_start.y - Mathf.Clamp(y, (waypoint_bg_bounds.min.y + Debug.config.grid_point_sep + 1), waypoint_node_start.y);
+        y /= Debug.config.grid_point_sep;
         return (int)y;
     }
 
