@@ -11,6 +11,7 @@ public class EnemyGun : MonoBehaviour {
         GameObject obj = transform.parent.FindChild("base").gameObject;
         if (obj == null) Debug.LogError("Enemies require a child named 'base'");
         enemy = obj.GetComponent<Enemy>();
+        enemy.gun = this;
     }
 
     void Update()

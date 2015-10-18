@@ -5,7 +5,7 @@ public class RailgunBullet : MonoBehaviour
 {
     Bullet parent;
     float angle;
-    const float MAX_DISTANCE = 100.0f;
+    const float MAX_DISTANCE = 10.0f;
 
     public void init(float _angle)
     {
@@ -14,8 +14,8 @@ public class RailgunBullet : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
                                              MAX_DISTANCE, 1024 | Debug.config.grid_collidable_layers);
-        float dist = hit.distance == 0 ? MAX_DISTANCE : hit.distance;
-        float particle_size = 1.0f;
+        float dist = hit.transform == null ? MAX_DISTANCE : hit.distance;
+        float particle_size = .5f;
         float num_particles = dist / particle_size;
 
         Vector3 pos = transform.position;

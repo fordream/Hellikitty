@@ -6,6 +6,7 @@ public class BasicBullet : MonoBehaviour
     Bullet parent;
     float angle;
     const float speed = 10.0f;
+    GameObject bullet_obj;
 
     public void init(float _angle)
     {
@@ -13,8 +14,9 @@ public class BasicBullet : MonoBehaviour
         angle = _angle;
         transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
 
-        GameObject bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/triangle_bullet"));
-        bullet_obj.transform.parent = transform;
+        bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/triangle_bullet"));
+        bullet_obj.transform.parent = parent.transform;
+        bullet_obj.transform.localPosition = new Vector3(0, 0, transform.position.z);
     }
 
     void Update()
@@ -25,6 +27,7 @@ public class BasicBullet : MonoBehaviour
         transform.position = pos;
 
         transform.Rotate(new Vector3(0, 0, 2));
+
     }
 
     void OnTriggerEnter2D(Collider2D col)

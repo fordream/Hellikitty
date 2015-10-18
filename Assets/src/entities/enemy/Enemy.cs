@@ -18,8 +18,9 @@ public enum GeneralAIState
 public class Enemy : MonoBehaviour
 {
     EnemyType type = EnemyType.UNKNOWN;
-    public GeneralAIState general_ai_state = GeneralAIState.NONE;
-    public bool facing_right = false;
+    [HideInInspector] public GeneralAIState general_ai_state = GeneralAIState.NONE;
+    [HideInInspector] public bool facing_right = false;
+    [HideInInspector] public EnemyGun gun;
 
     EnemyType get_type()
     {

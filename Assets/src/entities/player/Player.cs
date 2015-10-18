@@ -36,12 +36,4 @@ public class Player : MonoBehaviour {
 
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 	}
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "enemy")
-        {
-            Destroy(col.gameObject);
-        }
-    }
 }

@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 471068}
   - 198: {fileID: 19806166}
   - 199: {fileID: 19938858}
+  - 114: {fileID: 11403468}
   m_Layer: 0
   m_Name: railgun_lightning
   m_TagString: Untagged
@@ -29,6 +30,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11403468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5ec8c41ee0e5d4c96b0d9eb67055f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &19806166
 ParticleSystem:
   m_ObjectHideFlags: 1
