@@ -3,16 +3,21 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerGun))]
+[RequireComponent(typeof(GrapplingHook))]
 public class Player : MonoBehaviour {
-
-    Vector2 aimVec;
-    Transform gun;
 
     [HideInInspector] public Controller2D controller;
     [HideInInspector] public PlayerMovement player_movement;
+    [HideInInspector] public PlayerGun gun;
+    [HideInInspector] public GrapplingHook grappling_hook;
 
     [HideInInspector] public WaypointNode current_node = null;
     [HideInInspector] public Vector3 pos;
+
+    public LayerMask colliders;
+    bool grappling = false;
+    float grapple_angle = 0;
 
     public void init()
     {
@@ -23,17 +28,31 @@ public class Player : MonoBehaviour {
         controller.init();
         player_movement = GetComponent<PlayerMovement>();
         player_movement.init();
+        gun = transform.parent.FindChild("gun").GetComponent<PlayerGun>();
+        gun.init();
+        grappling_hook = GetComponent<GrapplingHook>();
+        grappling_hook.init();
     }
 
-    void Update() {
+    void update_scale()
+    {
         Vector3 scale = transform.localScale;
-        if (player_movement.velocity.x > 0) scale.x = 1;
-        else scale.x = -1;
+        float scale_x = Mathf.Abs(scale.x);
+        if (player_movement.velocity.x > 0) scale_x = -scale_x;
+        scale.x = -scale_x;
         transform.localScale = scale;
+    }
 
-        player_movement.update();
+    void Update()
+    {
+        grappling_hook.update();
+        if (!grappling_hook.grappling)
+        {
+            update_scale();
+            player_movement.update();
+        }
         pos = transform.position;
 
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
-	}
+    }
 }

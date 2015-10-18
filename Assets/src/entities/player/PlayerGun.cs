@@ -5,8 +5,7 @@ public class PlayerGun : Gun {
 
     Player player;
 
-    void Start()
-    {
+    public void init() {
         player = Entities.player;
     }
 
