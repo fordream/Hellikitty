@@ -13,6 +13,7 @@ public class FlyingEnemyPath : MonoBehaviour
 
     System.Diagnostics.Stopwatch calc_path_watch = new System.Diagnostics.Stopwatch();
     const int RECALC_PATH_MS = 500;
+    public float path_find_timeout_ms = 1.25f;
 
 	void Start() {
         parent = GetComponent<FlyingEnemy>();
@@ -38,7 +39,7 @@ public class FlyingEnemyPath : MonoBehaviour
         if (next_node != null) current_node = next_node;
         Vector2 dest = Map.grid.world_to_grid(Entities.player.pos);
         List<WaypointNode> temp_path = Map.grid.find_path(Map.grid.find_neighbour_node(current_node), 
-                                                          Map.grid.find_neighbour_node(Map.grid.get_node(dest.x, dest.y)));
+                                                          Map.grid.find_neighbour_node(Map.grid.get_node(dest.x, dest.y)), path_find_timeout_ms);
 
         if (temp_path.Count >= 2) path = temp_path;
         else path.Clear();
@@ -79,7 +80,7 @@ public class FlyingEnemyPath : MonoBehaviour
             ++current_path_index;
             get_next_path_node();
         }
-        if (dist >= 2.0f) try_recalc_path();
+        if (dist >= 4.0f) try_recalc_path();
     }
 
     void Update()

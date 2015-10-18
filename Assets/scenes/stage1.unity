@@ -709,6 +709,7 @@ GameObject:
   - 61: {fileID: 542265092}
   - 50: {fileID: 542265091}
   - 212: {fileID: 542265094}
+  - 114: {fileID: 542265095}
   m_Layer: 11
   m_Name: base
   m_TagString: enemy
@@ -761,6 +762,8 @@ MonoBehaviour:
   general_ai_state: 0
   facing_right: 0
   gun: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
+  move_angle: 0
   fire_radius: 8
   move_away_radius: 5.5
 --- !u!212 &542265094
@@ -789,6 +792,19 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b6726074e6f76434d89e93cb6697faa2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &542265095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542265090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21432123fe57e6a4e90ee4bfb6dcabbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current_path_index: 0
+  path_find_timeout_ms: 1.25
 --- !u!1 &552619992
 GameObject:
   m_ObjectHideFlags: 0

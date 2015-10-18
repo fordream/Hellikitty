@@ -245,7 +245,7 @@ public class WaypointGrid
     static readonly int[] diag_neighbours = { -1, 0, -1, -1, 0, -1, 1, -1, 1, 0, 1, 1, 0, 1, -1, 1 };
     static readonly int[] neighbours = diag_neighbours;
 
-    public List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y)
+    public List<WaypointNode> find_path(int start_x, int start_y, int end_x, int end_y, float timeout_ms = 16)
     {
         Stopwatch watch = new Stopwatch();
         watch.Start();
@@ -273,6 +273,12 @@ public class WaypointGrid
 
         while (true)
         {
+            if ((watch.ElapsedTicks / 10000.0f) >= timeout_ms)
+            {
+                Debug.LogVerbose("Find path timeout after " + (watch.ElapsedTicks / 10000.0f) + " seconds");
+                break;
+            }
+
             for (int n = 0; n < neighbours.Length; n += 2)
             {
                 int x = (int)close_node.grid_pos.x + neighbours[n];
@@ -358,16 +364,16 @@ public class WaypointGrid
         return path;
     }
 
-    public List<WaypointNode> find_path(Vector2 world_pos_start, Vector2 world_pos_end)
+    public List<WaypointNode> find_path(Vector2 world_pos_start, Vector2 world_pos_end, float timeout_ms = 16)
     {
         return find_path(worldx_to_gridx(world_pos_start.x), worldy_to_gridy(world_pos_start.y), 
-                         worldx_to_gridx(world_pos_end.x),   worldy_to_gridy(world_pos_end.y));
+                         worldx_to_gridx(world_pos_end.x),   worldy_to_gridy(world_pos_end.y), timeout_ms);
     }
 
-    public List<WaypointNode> find_path(WaypointNode start_node, WaypointNode end_node)
+    public List<WaypointNode> find_path(WaypointNode start_node, WaypointNode end_node, float timeout_ms = 16)
     {
         return find_path((int)start_node.grid_pos.x, (int)start_node.grid_pos.y,
-                         (int)end_node.grid_pos.x, (int)end_node.grid_pos.y);
+                         (int)end_node.grid_pos.x, (int)end_node.grid_pos.y, timeout_ms);
     }
 
     public int worldx_to_gridx(float x)
