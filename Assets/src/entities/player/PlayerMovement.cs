@@ -103,6 +103,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             if ((hopping && velocity.y >= MAX_HOP_FALLVEL) || parent.controller.collisions.below)
             {
+                hopping = false;
                 velocity.y = maxJumpVelocity;
             }
         }

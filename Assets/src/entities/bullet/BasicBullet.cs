@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
-class BasicBullet : MonoBehaviour
+public class BasicBullet : MonoBehaviour
 {
     Bullet parent;
     float angle;
@@ -15,6 +12,9 @@ class BasicBullet : MonoBehaviour
         parent = GetComponent<Bullet>();
         angle = _angle;
         transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
+
+        GameObject bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/triangle_bullet"));
+        bullet_obj.transform.parent = transform;
     }
 
     void Update()

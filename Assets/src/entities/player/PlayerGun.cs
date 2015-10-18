@@ -30,6 +30,6 @@ public class PlayerGun : MonoBehaviour {
         pos.y += Mathf.Sin(angle) * 1;
         transform.position = pos;
 
-        if (Input.GetMouseButtonUp(0)) Bullet.spawn(transform.position).add_logic<BasicBullet>().init(angle);
+        if (Input.GetMouseButtonUp(0)) Bullet.spawn(transform.position).add_logic<RailgunBullet>().init(angle);
 	}
 }

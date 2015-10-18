@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
     public static Bullet spawn(Vector2 pos, float depth = -20)
     {
-        GameObject bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullet"));
+        GameObject bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/blank_bullet"));
         bullet_obj.transform.position = new Vector3(pos.x, pos.y, depth);
 
         Bullet bullet = bullet_obj.GetComponent<Bullet>();
