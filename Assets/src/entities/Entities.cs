@@ -7,7 +7,12 @@ public class Entities : MonoBehaviour
 
     public static void init()
     {
-        player = GameObject.Find("playerBase").GetComponent<Player>();
+        player = GameObject.Find("player_base").GetComponent<Player>();
         player.init();
+    }
+
+    public static void update()
+    {
+        Bullet.update_all();
     }
 }

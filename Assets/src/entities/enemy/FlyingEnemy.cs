@@ -31,15 +31,10 @@ public class FlyingEnemy : MonoBehaviour
     const int RECALC_PATH_MS = 500;
     const float FIRE_RADIUS = 6;
 
-    BulletManager bullet_manager;
-    int timer = 0;
-
 	void Start() {
         pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
         pos.z = -10;
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
-
-        bullet_manager = GetComponent<BulletManager>();
     }
     
     void update_path()
@@ -120,13 +115,6 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
                 angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
-                
-                ++timer;
-                if (timer >= 20)
-                {
-                    timer = 0;
-                    bullet_manager.spawn(pos).add_logic<BasicBullet>().init(angle);
-                }
 
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Entities.player.pos.x, 2) + Mathf.Pow(pos.y - Entities.player.pos.y, 2));
                 if (dist >= FIRE_RADIUS + .5f) {
