@@ -124,7 +124,7 @@ public class FlyingEnemy : MonoBehaviour {
                 if (timer >= 20)
                 {
                     timer = 0;
-                    bullet_manager.spawn(pos).gameObject.AddComponent<BasicBullet>().init(angle);
+                    bullet_manager.spawn(pos).add_logic<BasicBullet>().init(angle);
                 }
 
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Player.instance.pos.x, 2) + Mathf.Pow(pos.y - Player.instance.pos.y, 2));

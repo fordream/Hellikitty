@@ -14,4 +14,9 @@ public class Bullet : MonoBehaviour
     {
         removal = GetComponent<RemovalScheduler>();
     }
+
+    public T add_logic<T>() where T : Component
+    {
+        return gameObject.AddComponent<T>();
+    }
 }

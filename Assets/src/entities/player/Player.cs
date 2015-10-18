@@ -8,11 +8,11 @@ public class Player : Singleton<Player> {
     Vector2 aimVec;
     Transform gun;
 
-    public Controller2D controller;
-    public PlayerMovement player_movement;
+    [HideInInspector] public Controller2D controller;
+    [HideInInspector] public PlayerMovement player_movement;
 
-    public WaypointNode current_node = null;
-    public Vector3 pos;
+    [HideInInspector] public WaypointNode current_node = null;
+    [HideInInspector] public Vector3 pos;
 
     public void init()
     {
