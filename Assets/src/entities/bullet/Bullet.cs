@@ -22,15 +22,23 @@ public class Bullet : MonoBehaviour
         return gameObject.AddComponent<T>();
     }
 
-    public static Bullet spawn(Vector2 pos, float depth = -20)
+    public static T spawn<T>(Vector2 pos, float depth = -20) where T : Bullet
     {
-        GameObject bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/blank_bullet"));
+        string prefab_path = "bullets/";
+        if (typeof(T) == typeof(BasicBullet))           prefab_path += "basic_bullet";
+        else if (typeof(T) == typeof(RailgunBullet))    prefab_path += "railgun_bullet";
+        else Debug.LogError("Cannot spawn bullet of type " + typeof(T));
+
+        GameObject bullet_prefab = (GameObject)Resources.Load(prefab_path);
+        if (bullet_prefab == null) Debug.LogError("Could not find bullet prefab at path (" + prefab_path + ")");
+
+        GameObject bullet_obj = GameObject.Instantiate(bullet_prefab);
         bullet_obj.transform.position = new Vector3(pos.x, pos.y, depth);
 
         Bullet bullet = bullet_obj.GetComponent<Bullet>();
         bullet_list.Add(bullet);
 
-        return bullet;
+        return bullet_obj.GetComponent<T>();
     }
 
     public static void update_all()

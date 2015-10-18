@@ -15,7 +15,8 @@ Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
 Assets/materials/misc/trigger_terrain_material.prefab
 Assets/resources/particles/railgun_lightning.prefab
 Assets/resources/bullets/blank_bullet.prefab
-Assets/resources/bullets/triangle_bullet.prefab
+Assets/resources/bullets/railgun_bullet.prefab
+Assets/resources/bullets/basic_bullet.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/RockTerrainMaterial.prefab
@@ -33,7 +34,8 @@ Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
 Assets/resources/particles/railgun_lightning.prefab
 Assets/resources/bullets/blank_bullet.prefab
-Assets/resources/bullets/triangle_bullet.prefab
 Assets/resources/enemies/flying_enemy.prefab
 Assets/resources/misc/waypoint_debug_box.prefab
 Assets/materials/misc/trigger_terrain_material.prefab
+Assets/resources/bullets/railgun_bullet.prefab
+Assets/resources/bullets/basic_bullet.prefab

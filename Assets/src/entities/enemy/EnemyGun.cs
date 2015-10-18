@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyGun : MonoBehaviour {
-
+public class EnemyGun : Gun
+{
     public Enemy enemy;
     float rate_timer;
 
@@ -16,23 +16,7 @@ public class EnemyGun : MonoBehaviour {
 
     void Update()
     {
-        Vector3 rota = transform.localEulerAngles;
-        float angle = Mathf.Atan2(Entities.player.transform.position.y - transform.position.y,
-                                    Entities.player.transform.position.x - transform.position.x);
-        angle *= enemy.transform.localScale.x / enemy.transform.localScale.x;
-        rota.z = angle * (180.0f / Mathf.PI);
-        transform.localEulerAngles = rota;
-
-        Vector3 scale = transform.localScale;
-        float scale_y = Mathf.Abs(scale.y);
-        if (rota.z <= -90 || rota.z >= 90) scale_y = -scale_y;
-        scale.y = scale_y;
-        transform.localScale = scale;
-
-        Vector3 pos = enemy.transform.position;
-        pos.x += Mathf.Cos(angle) * 1;
-        pos.y += Mathf.Sin(angle) * 1;
-        transform.position = pos;
+        update_gun_motion(enemy.gameObject, Entities.player.transform.position);
 
         if (enemy.general_ai_state == GeneralAIState.SHOOTING)
         {
@@ -40,7 +24,7 @@ public class EnemyGun : MonoBehaviour {
             if (rate_timer >= .1f)
             {
                 rate_timer = 0;
-                Bullet.spawn(pos).add_logic<BasicBullet>().init(angle);
+                Bullet.spawn<BasicBullet>(pos).init(angle);
             }
         }
 	}

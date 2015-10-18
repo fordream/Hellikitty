@@ -1304,6 +1304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b875908ce72064a80bcbcd4305f2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0, z: 0}
+  angle: 0
 --- !u!1 &1031916467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2671,7 +2673,7 @@ GameObject:
   - 4: {fileID: 1862731451}
   - 212: {fileID: 1862731453}
   - 114: {fileID: 1862731452}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2701,6 +2703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b51889bbf56134ab6834269b606b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0, z: 0}
+  angle: 0
   enemy: {fileID: 0}
 --- !u!212 &1862731453
 SpriteRenderer:

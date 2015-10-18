@@ -1,22 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public class BasicBullet : MonoBehaviour
+public class BasicBullet : Bullet
 {
     Bullet parent;
     float angle;
     const float speed = 10.0f;
     GameObject bullet_obj;
 
+    public LayerMask colliders;
+
     public void init(float _angle)
     {
         parent = GetComponent<Bullet>();
         angle = _angle;
         transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
-
-        bullet_obj = GameObject.Instantiate((GameObject)Resources.Load("bullets/triangle_bullet"));
-        bullet_obj.transform.parent = parent.transform;
-        bullet_obj.transform.localPosition = new Vector3(0, 0, transform.position.z);
     }
 
     void Update()
@@ -27,12 +25,12 @@ public class BasicBullet : MonoBehaviour
         transform.position = pos;
 
         transform.Rotate(new Vector3(0, 0, 2));
-
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "obstacle")
+        Debug.Log(col.gameObject.layer);
+        if ((col.gameObject.layer & colliders.value) != 0)
         {
             Destroy(gameObject);
         }
