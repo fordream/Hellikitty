@@ -29,8 +29,8 @@ public class BasicBullet : Bullet
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col.gameObject.layer);
-        if ((col.gameObject.layer & colliders.value) != 0)
+        Debug.Log(col.gameObject.name + ", " + col.gameObject.layer);
+        if ((1 << col.gameObject.layer & colliders.value) != 0)
         {
             Destroy(gameObject);
         }

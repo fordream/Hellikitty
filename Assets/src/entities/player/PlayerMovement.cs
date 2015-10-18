@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour {
     bool hopping = false;
     const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
 
+    int num_jumps = 0;
+    const int MAX_JUMPS = 2;
+
     public void init()
     {
         parent = GetComponent<Player>();
@@ -104,6 +107,15 @@ public class PlayerMovement : MonoBehaviour {
             if ((hopping && velocity.y >= MAX_HOP_FALLVEL) || parent.controller.collisions.below)
             {
                 hopping = false;
+                ++num_jumps;
+                velocity.y = maxJumpVelocity;
+            }
+            else if (num_jumps < MAX_JUMPS)
+            {
+                hopping = false;
+                ++num_jumps;
+                //to prevent double jumps off a cliff
+                if (num_jumps == 1) ++num_jumps;
                 velocity.y = maxJumpVelocity;
             }
         }
@@ -123,6 +135,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             hop_timer += Time.deltaTime;
             hopping = false;
+            num_jumps = 0;
             if (input.x != 0 && hop_timer >= .07f)
             {
                 hop_timer = 0;

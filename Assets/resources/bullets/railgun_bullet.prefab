@@ -41,7 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliders:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
+  particle_seperation: 1.25
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -100,7 +101,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: colliders.m_Bits
-      value: 256
+      value: 2304
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: particle_seperation
+      value: 1.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -13,6 +13,6 @@ public class Entities : MonoBehaviour
 
     public static void update()
     {
-        Bullet.update_all();
+
     }
 }

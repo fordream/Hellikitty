@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 493694}
-  - 114: {fileID: 11471818}
   - 114: {fileID: 11490650}
   m_Layer: 0
   m_Name: blank_bullet
@@ -29,17 +28,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11471818
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c6c595b85e4bf46b40a797b2e84c52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11490650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +39,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e54156ffb1d0c4b91448e7d296ac6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removal: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
