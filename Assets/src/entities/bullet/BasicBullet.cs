@@ -27,7 +27,7 @@ class BasicBullet : MonoBehaviour
         transform.Rotate(new Vector3(0, 0, 2));
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "obstacle")
         {

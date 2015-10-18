@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FlyingEnemy : MonoBehaviour
+public class FlyingEnemy : Enemy
 {
 
     enum AIState {
@@ -32,6 +32,8 @@ public class FlyingEnemy : MonoBehaviour
     const float FIRE_RADIUS = 6;
 
 	void Start() {
+        set_type(EnemyType.FLYING);
+
         pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
         pos.z = -10;
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
@@ -59,10 +61,14 @@ public class FlyingEnemy : MonoBehaviour
 
     void Update()
     {
+        pos = transform.position;
+
         Vector3 scale = transform.localScale;
-        if (accel.x > 0) scale.x = -.5f;
-        else scale.x = .5f;
+        float scale_x = Mathf.Abs(scale.x);
+        if (accel.x > 0) scale_x = -scale_x;
+        scale.x = scale_x;
         transform.localScale = scale;
+        facing_right = scale_x < 0;
 
         float dist;
         AIState temp_prev_ai_state = ai_state;
@@ -72,6 +78,8 @@ public class FlyingEnemy : MonoBehaviour
 
         switch (ai_state) {
             case AIState.CALCULTING_PATH:
+                general_ai_state = GeneralAIState.WALKING;
+
                 //if the prev ai state is not this one, then calculate updated path
                 //if the updated path failed, set a timer and try again later
                 if (ai_state != prev_ai_state || calc_path_watch.ElapsedMilliseconds >= RECALC_PATH_MS)
@@ -94,6 +102,8 @@ public class FlyingEnemy : MonoBehaviour
 
                 break;
             case AIState.MOVE_NEXT_NODE:
+                general_ai_state = GeneralAIState.WALKING;
+
                 update_angle();
 
                 accel.x += Mathf.Cos(angle) * speed_multiplier;
@@ -108,18 +118,23 @@ public class FlyingEnemy : MonoBehaviour
                 hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
                                                      FIRE_RADIUS, 1024 | Debug.config.grid_collidable_layers);
 
-                if (hit && hit.collider == Entities.player.GetComponent<Collider2D>()) {
+                if (hit && hit.transform == Entities.player.transform)
+                {
                     ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
                 }
 
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
+                general_ai_state = GeneralAIState.SHOOTING;
+
                 angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
 
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Entities.player.pos.x, 2) + Mathf.Pow(pos.y - Entities.player.pos.y, 2));
-                if (dist >= FIRE_RADIUS + .5f) {
+                if (dist >= FIRE_RADIUS + .5f)
+                {
                     ai_state = AIState.CALCULTING_PATH;
-                }else if (dist < FIRE_RADIUS - .5f) {
+                }else if (dist < FIRE_RADIUS - .5f)
+                {
                     float best_angle = angle;
                     float closest_dist = -1;
                     const int num_casts = 8;

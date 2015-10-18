@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour {
     public float maxClimbAngle = 60;
     public float maxDescendAngle = 40;
 
+    float hop_timer = 0;
+    bool hopping = false;
+    const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
+
     public void init()
     {
         parent = GetComponent<Player>();
@@ -97,16 +101,9 @@ public class PlayerMovement : MonoBehaviour {
                     velocity.y = wallLeap.y;
                 }
             }
-            if (parent.controller.collisions.below)
+            if ((hopping && velocity.y >= MAX_HOP_FALLVEL) || parent.controller.collisions.below)
             {
                 velocity.y = maxJumpVelocity;
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (velocity.y > minJumpVelocity)
-            {
-                velocity.y = minJumpVelocity;
             }
         }
 
@@ -120,5 +117,17 @@ public class PlayerMovement : MonoBehaviour {
         parent.controller.Move(velocity * Time.deltaTime);
 
         if (parent.controller.collisions.above || parent.controller.collisions.below) velocity.y = 0;
+
+        if (parent.controller.collisions.below)
+        {
+            hop_timer += Time.deltaTime;
+            hopping = false;
+            if (input.x != 0 && hop_timer >= .07f)
+            {
+                hop_timer = 0;
+                velocity.y = 7.0f;
+                hopping = true;
+            }
+        }
     }
 }
