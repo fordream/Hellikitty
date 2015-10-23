@@ -86,7 +86,7 @@ public class WaypointGrid
     public WaypointGrid()
     {
         waypoint_bg = GameObject.Find("waypoint_bg");
-        waypoint_debug_box = (GameObject)Resources.Load("waypoint_debug_box");
+        waypoint_debug_box = (GameObject)Resources.Load("misc/waypoint_debug_box");
         waypoint_debug_group = GameObject.Find("waypoint_debug_group");
 
         //sets the start point position at the top left point of the waypoint bg

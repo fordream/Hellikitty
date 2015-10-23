@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
     void Update()
     {
         grappling_hook.update();
-        if (!grappling_hook.grappling)
+        if (grappling_hook.grapple_state == GrapplingHook.GrappleState.NONE)
         {
             update_scale();
             player_movement.update();

@@ -28,6 +28,9 @@ public class FlyingEnemy : Enemy
     public float fire_radius = 8;
     public float move_away_radius = 5.5f;
 
+    public LayerMask move_away_layers;
+    public LayerMask sight_layers;
+
 	void Start() {
         set_type(EnemyType.FLYING);
 
@@ -37,18 +40,16 @@ public class FlyingEnemy : Enemy
     bool is_player_in_sight(float radius)
     {
         RaycastHit2D hit = Physics2D.Raycast(gun.transform.position, new Vector2(Mathf.Cos(move_angle), Mathf.Sin(move_angle)),
-                                             radius, 1024 | Debug.config.grid_collidable_layers);
+                                             radius, sight_layers);
 
         return hit.transform == Entities.player.transform;
     }
 
     void update_scale()
     {
-        Vector3 scale = transform.localScale;
-        float scale_x = Mathf.Abs(scale.x);
+        float scale_x = Mathf.Abs(transform.localScale.x);
         if (accel.x > 0) scale_x = -scale_x;
-        scale.x = scale_x;
-        transform.localScale = scale;
+        transform.localScale = new Vector3(scale_x, transform.localScale.y, transform.localScale.z);
         facing_right = scale_x < 0;
     }
 
@@ -62,7 +63,10 @@ public class FlyingEnemy : Enemy
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
 
-        Map.grid.reset_surface_offset(Debug.config.grid_terrain_offset);
+        //disable collider so enemy doesn't raycast with itself
+        GetComponent<Collider2D>().enabled = false;
+
+        //Map.grid.reset_surface_offset(Debug.config.grid_terrain_offset);
 
         switch (ai_state) {
             case AIState.MOVE_NEXT_NODE:
@@ -97,16 +101,16 @@ public class FlyingEnemy : Enemy
                 {
                     float best_angle = move_angle;
                     float closest_dist = -1;
-                    const int num_casts = 8;
+                    const int num_casts = 12;
                     float sx = Mathf.Cos(move_angle) * fire_radius;
                     float sy = Mathf.Sin(move_angle) * fire_radius;
 
                     for (int n = 0; n < num_casts; ++n)
                     {
-                        float target_angle = move_angle + (Mathf.PI * 2.0f / num_casts) * (n + 1);
+                        float target_angle = (Mathf.PI * 2.0f / num_casts) * (n + 1);
 
                         hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)),
-                                                                fire_radius, Debug.config.grid_collidable_layers);
+                                                                fire_radius, move_away_layers);
                         if (!hit)
                         {
                             float px = Mathf.Cos(target_angle) * fire_radius;
@@ -120,6 +124,9 @@ public class FlyingEnemy : Enemy
                         }
                     }
 
+                    //re-enable collider
+                    GetComponent<Collider2D>().enabled = true;
+
                     if (closest_dist != -1) {
                         move_angle = best_angle;
                         accel.x += Mathf.Cos(move_angle) * speed_multiplier;
@@ -129,8 +136,14 @@ public class FlyingEnemy : Enemy
                     }
                 }
 
+                //flip scale towards player while shooting/moving away
+                float scale_x = Mathf.Abs(transform.localScale.x);
+                if (transform.position.x < Entities.player.transform.position.x) scale_x = -scale_x;
+                transform.localScale = new Vector3(scale_x, transform.localScale.y, transform.localScale.z);
+
                 break;
         }
+        facing_right = transform.localScale.x < 0;
         prev_ai_state = temp_prev_ai_state;
 
         accel.x *= friction;
@@ -140,6 +153,8 @@ public class FlyingEnemy : Enemy
 
         transform.position = pos;
 
-        Map.grid.reset_surface_offset(0);
+        //Map.grid.reset_surface_offset(0);
+
+        GetComponent<Collider2D>().enabled = true;
 	}
 }

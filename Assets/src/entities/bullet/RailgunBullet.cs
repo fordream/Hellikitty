@@ -10,10 +10,10 @@ public class RailgunBullet : Bullet
     public LayerMask colliders;
     public float particle_seperation = .5f;
 
-    public void init(float _angle)
+    public void init(float angle)
     {
         parent = GetComponent<Bullet>();
-        angle = _angle;
+        this.angle = angle;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
                                              MAX_DISTANCE, colliders);

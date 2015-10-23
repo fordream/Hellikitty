@@ -26,7 +26,7 @@ public class FlyingEnemyPath : MonoBehaviour
 
     public void get_next_path_node()
     {
-        next_node = path[current_path_index];
+        if (path != null && path.Count != 0 && current_path_index < path.Count) next_node = path[current_path_index];
     }
 
     public void calc_move_angle()
@@ -73,12 +73,16 @@ public class FlyingEnemyPath : MonoBehaviour
     public void check_arrived_next_node()
     {
         float dist = Mathf.Sqrt(Mathf.Pow(parent.pos.x - next_node.world_pos.x, 2) + Mathf.Pow(parent.pos.y - next_node.world_pos.y, 2));
-        if (dist < .2f)
+        Debug.Log(dist);
+        if (dist < .1f)
         {
             try_recalc_path();
 
-            ++current_path_index;
-            get_next_path_node();
+            if (path != null && path.Count != 0 && current_path_index < path.Count)
+            {
+                ++current_path_index;
+                next_node = path[current_path_index];
+            }
         }
         if (dist >= 4.0f) try_recalc_path();
     }

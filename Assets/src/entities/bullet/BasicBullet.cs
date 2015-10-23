@@ -10,10 +10,12 @@ public class BasicBullet : Bullet
 
     public LayerMask colliders;
 
-    public void init(float _angle)
+    public void init(float angle, int decay_in_ms = 4000)
     {
+        add_logic<DecayLogic>().init(decay_in_ms);
+
         parent = GetComponent<Bullet>();
-        angle = _angle;
+        this.angle = angle;
         transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
     }
 
@@ -29,9 +31,9 @@ public class BasicBullet : Bullet
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if ((1 << col.gameObject.layer & colliders.value) != 0)
+        if (((1 << col.gameObject.layer) & colliders.value) != 0)
         {
-            Destroy(gameObject);
+            destroy_all();
         }
     }
 }

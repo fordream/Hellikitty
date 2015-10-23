@@ -8,17 +8,10 @@ public enum EnemyType
     FLYING
 };
 
-public enum GeneralAIState
-{
-    NONE, 
-    WALKING, 
-    SHOOTING
-};
-
+[RequireComponent(typeof(AIBase))]
 public class Enemy : MonoBehaviour
 {
     EnemyType type = EnemyType.UNKNOWN;
-    [HideInInspector] public GeneralAIState general_ai_state = GeneralAIState.NONE;
     [HideInInspector] public bool facing_right = false;
     [HideInInspector] public EnemyGun gun;
 
