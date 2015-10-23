@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FlyingEnemyPath : MonoBehaviour
+[RequireComponent(typeof(AILogicFlyingEnemy))]
+public class AILogicFlyingEnemyPath : AILogicBase
 {
-    FlyingEnemy parent;
+    Enemy parent;
+    AILogicFlyingEnemy ai_parent;
 
     [HideInInspector] public List<WaypointNode> path = null;
     [HideInInspector] public WaypointNode next_node = null;
@@ -16,12 +18,12 @@ public class FlyingEnemyPath : MonoBehaviour
     public float path_find_timeout_ms = 1.25f;
 
 	void Start() {
-        parent = GetComponent<FlyingEnemy>();
+        ai_parent = GetComponent<AILogicFlyingEnemy>();
 
-        parent.pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
-        parent.pos.z = -10;
+        ai_parent.pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
+        ai_parent.pos.z = -10;
 
-        current_node = Map.grid.get_node(Map.grid.world_to_grid(parent.pos));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(ai_parent.pos));
     }
 
     public void get_next_path_node()
@@ -31,7 +33,7 @@ public class FlyingEnemyPath : MonoBehaviour
 
     public void calc_move_angle()
     {
-        parent.move_angle = Mathf.Atan2(next_node.world_pos.y - parent.pos.y, next_node.world_pos.x - parent.pos.x);
+        ai_parent.move_angle = Mathf.Atan2(next_node.world_pos.y - ai_parent.pos.y, next_node.world_pos.x - ai_parent.pos.x);
     }
 
     public void recalc_path()
@@ -72,7 +74,7 @@ public class FlyingEnemyPath : MonoBehaviour
 
     public void check_arrived_next_node()
     {
-        float dist = Mathf.Sqrt(Mathf.Pow(parent.pos.x - next_node.world_pos.x, 2) + Mathf.Pow(parent.pos.y - next_node.world_pos.y, 2));
+        float dist = Mathf.Sqrt(Mathf.Pow(ai_parent.pos.x - next_node.world_pos.x, 2) + Mathf.Pow(ai_parent.pos.y - next_node.world_pos.y, 2));
         Debug.Log(dist);
         if (dist < .1f)
         {
@@ -89,6 +91,6 @@ public class FlyingEnemyPath : MonoBehaviour
 
     void Update()
     {
-        current_node = Map.grid.get_node(Map.grid.world_to_grid(parent.pos));
+        current_node = Map.grid.get_node(Map.grid.world_to_grid(ai_parent.pos));
 	}
 }

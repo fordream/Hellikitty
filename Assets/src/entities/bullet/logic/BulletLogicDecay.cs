@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class DecayLogic : LogicBase
+public class BulletLogicDecay : BulletLogicBase
 {
     System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
     int decay_in_ms;

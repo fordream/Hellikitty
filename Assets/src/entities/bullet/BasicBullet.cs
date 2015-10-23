@@ -12,7 +12,7 @@ public class BasicBullet : Bullet
 
     public void init(float angle, int decay_in_ms = 4000)
     {
-        add_logic<DecayLogic>().init(decay_in_ms);
+        add_logic<BulletLogicDecay>().init(decay_in_ms);
 
         parent = GetComponent<Bullet>();
         this.angle = angle;

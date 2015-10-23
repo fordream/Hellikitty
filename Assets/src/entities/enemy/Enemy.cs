@@ -8,17 +8,31 @@ public enum EnemyType
     FLYING
 };
 
-[RequireComponent(typeof(AIBase))]
+public enum GeneralAIState
+{
+    NONE, 
+    WALKING, 
+    SHOOTING
+};
+
 public class Enemy : MonoBehaviour
 {
-    EnemyType type = EnemyType.UNKNOWN;
+    private EnemyType type = EnemyType.UNKNOWN;
+
     [HideInInspector] public bool facing_right = false;
     [HideInInspector] public EnemyGun gun;
 
-    EnemyType get_type()
+    [HideInInspector] public GeneralAIState general_ai_state = GeneralAIState.NONE;
+
+    private void Start()
     {
-        return type;
+        if (GetComponents<AILogicBase>().Length == 0)
+        {
+            Debug.LogError("No AILogicBase component can be found on enemy gameobject (" + name + ")");
+        }
     }
+
+    private EnemyType get_type() { return type; }
 
     public void set_type(EnemyType _type)
     {

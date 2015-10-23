@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class Bullet : LogicBase
+public class Bullet : BulletLogicBase
 {
     static List<Bullet> bullet_list = new List<Bullet>();
 

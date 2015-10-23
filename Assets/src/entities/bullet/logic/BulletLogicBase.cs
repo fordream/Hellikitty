@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class LogicBase : MonoBehaviour
+public class BulletLogicBase : MonoBehaviour
 {
     public void destroy_all()
     {

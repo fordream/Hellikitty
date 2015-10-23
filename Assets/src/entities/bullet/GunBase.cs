@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class GunBase : MonoBehaviour
 {
     public Vector3 pos;
     public float angle;

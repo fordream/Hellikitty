@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyGun : Gun
+public class EnemyGun : GunBase
 {
     public Enemy enemy;
     float rate_timer;

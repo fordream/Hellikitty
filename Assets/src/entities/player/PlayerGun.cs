@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerGun : Gun {
+public class PlayerGun : GunBase
+{
 
     Player player;
 

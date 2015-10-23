@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-public class FlyingEnemy : Enemy
+[RequireComponent(typeof(AILogicFlyingEnemyPath))]
+public class AILogicFlyingEnemy : AILogicBase
 {
-
     enum AIState {
 
         NONE, 
@@ -12,18 +10,19 @@ public class FlyingEnemy : Enemy
         FIRE_AND_KEEP_DISTANCE
     };
 
-    FlyingEnemyPath pather;
+    private Enemy parent;
+    private AILogicFlyingEnemyPath pather;
 
     [HideInInspector] public Vector3 pos;
     [HideInInspector] public float move_angle;
-    Vector2 accel;
+    private Vector2 accel;
 
-    float friction = .96f;
-    float max_accel = 4.0f;
-    float speed_multiplier = 1.0f;
+    private float friction = .96f;
+    private float max_accel = 4.0f;
+    private float speed_multiplier = 1.0f;
 
-    AIState ai_state = AIState.MOVE_NEXT_NODE;
-    AIState prev_ai_state = AIState.NONE;
+    private AIState ai_state = AIState.MOVE_NEXT_NODE;
+    private AIState prev_ai_state = AIState.NONE;
 
     public float fire_radius = 8;
     public float move_away_radius = 5.5f;
@@ -31,15 +30,17 @@ public class FlyingEnemy : Enemy
     public LayerMask move_away_layers;
     public LayerMask sight_layers;
 
-	void Start() {
-        set_type(EnemyType.FLYING);
+    private void Start()
+    {
+        parent = get_enemy_parent();
+        parent.set_type(EnemyType.FLYING);
 
-        pather = GetComponent<FlyingEnemyPath>();
+        pather = GetComponent<AILogicFlyingEnemyPath>();
     }
 
     bool is_player_in_sight(float radius)
     {
-        RaycastHit2D hit = Physics2D.Raycast(gun.transform.position, new Vector2(Mathf.Cos(move_angle), Mathf.Sin(move_angle)),
+        RaycastHit2D hit = Physics2D.Raycast(parent.gun.transform.position, new Vector2(Mathf.Cos(move_angle), Mathf.Sin(move_angle)),
                                              radius, sight_layers);
 
         return hit.transform == Entities.player.transform;
@@ -50,7 +51,7 @@ public class FlyingEnemy : Enemy
         float scale_x = Mathf.Abs(transform.localScale.x);
         if (accel.x > 0) scale_x = -scale_x;
         transform.localScale = new Vector3(scale_x, transform.localScale.y, transform.localScale.z);
-        facing_right = scale_x < 0;
+        parent.facing_right = scale_x < 0;
     }
 
     void Update()
@@ -70,7 +71,7 @@ public class FlyingEnemy : Enemy
 
         switch (ai_state) {
             case AIState.MOVE_NEXT_NODE:
-                general_ai_state = GeneralAIState.WALKING;
+                parent.general_ai_state = GeneralAIState.WALKING;
 
                 if (!pather.has_valid_path()) { pather.try_recalc_path(); return; }
 
@@ -86,11 +87,11 @@ public class FlyingEnemy : Enemy
                 move_angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
 
                 if (is_player_in_sight(move_away_radius)) ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
-                else if (is_player_in_sight(fire_radius)) general_ai_state = GeneralAIState.SHOOTING;
+                else if (is_player_in_sight(fire_radius)) parent.general_ai_state = GeneralAIState.SHOOTING;
 
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
-                general_ai_state = GeneralAIState.SHOOTING;
+                parent.general_ai_state = GeneralAIState.SHOOTING;
 
                 if (!is_player_in_sight(move_away_radius)) ai_state = AIState.MOVE_NEXT_NODE;
 
@@ -143,7 +144,7 @@ public class FlyingEnemy : Enemy
 
                 break;
         }
-        facing_right = transform.localScale.x < 0;
+        parent.facing_right = transform.localScale.x < 0;
         prev_ai_state = temp_prev_ai_state;
 
         accel.x *= friction;
