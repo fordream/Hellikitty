@@ -17,7 +17,7 @@ public class AILogicFlyingEnemy : AILogicBase
     [HideInInspector] public float move_angle;
     private Vector2 accel;
 
-    private float friction = .96f;
+    private float friction = .9f;
     private float max_accel = 4.0f;
     private float speed_multiplier = 1.0f;
 
@@ -56,18 +56,15 @@ public class AILogicFlyingEnemy : AILogicBase
 
     void Update()
     {
-        pos = transform.position;
+        //disable collider so enemy doesn't raycast with itself
+        GetComponent<Collider2D>().enabled = false;
 
+        pos = transform.position;
         update_scale();
 
         float dist;
         AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
-
-        //disable collider so enemy doesn't raycast with itself
-        GetComponent<Collider2D>().enabled = false;
-
-        //Map.grid.reset_surface_offset(Debug.config.grid_terrain_offset);
 
         switch (ai_state) {
             case AIState.MOVE_NEXT_NODE:
@@ -95,11 +92,10 @@ public class AILogicFlyingEnemy : AILogicBase
 
                 if (!is_player_in_sight(move_away_radius)) ai_state = AIState.MOVE_NEXT_NODE;
 
-                move_angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
-
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Entities.player.pos.x, 2) + Mathf.Pow(pos.y - Entities.player.pos.y, 2));
                 if (dist < move_away_radius)
                 {
+                    move_angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
                     float best_angle = move_angle;
                     float closest_dist = -1;
                     const int num_casts = 12;
@@ -112,26 +108,22 @@ public class AILogicFlyingEnemy : AILogicBase
 
                         hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(target_angle), Mathf.Sin(target_angle)),
                                                                 fire_radius, move_away_layers);
-                        if (!hit)
+
+                        float hit_dist = hit ? hit.distance : fire_radius;
+                        float px = Mathf.Cos(target_angle) * hit_dist;
+                        float py = Mathf.Sin(target_angle) * hit_dist;
+                        dist = Mathf.Sqrt(Mathf.Pow(sx - px, 2) + Mathf.Pow(sy - py, 2));
+                        if (dist > closest_dist)
                         {
-                            float px = Mathf.Cos(target_angle) * fire_radius;
-                            float py = Mathf.Sin(target_angle) * fire_radius;
-                            dist = Mathf.Sqrt(Mathf.Pow(sx - px, 2) + Mathf.Pow(sy - py, 2));
-                            if (dist > closest_dist)
-                            {
-                                closest_dist = dist;
-                                best_angle = target_angle;
-                            }
+                            closest_dist = dist;
+                            best_angle = target_angle;
                         }
                     }
 
-                    //re-enable collider
-                    GetComponent<Collider2D>().enabled = true;
-
                     if (closest_dist != -1) {
                         move_angle = best_angle;
-                        accel.x += Mathf.Cos(move_angle) * speed_multiplier;
-                        accel.y += Mathf.Sin(move_angle) * speed_multiplier;
+                        accel.x += Mathf.Cos(move_angle) * speed_multiplier * 2.0f;
+                        accel.y += Mathf.Sin(move_angle) * speed_multiplier * 2.0f;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
@@ -153,8 +145,6 @@ public class AILogicFlyingEnemy : AILogicBase
         pos.y += accel.y * Time.deltaTime;
 
         transform.position = pos;
-
-        //Map.grid.reset_surface_offset(0);
 
         GetComponent<Collider2D>().enabled = true;
 	}

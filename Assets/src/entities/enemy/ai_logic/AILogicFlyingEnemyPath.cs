@@ -75,12 +75,11 @@ public class AILogicFlyingEnemyPath : AILogicBase
     public void check_arrived_next_node()
     {
         float dist = Mathf.Sqrt(Mathf.Pow(ai_parent.pos.x - next_node.world_pos.x, 2) + Mathf.Pow(ai_parent.pos.y - next_node.world_pos.y, 2));
-        Debug.Log(dist);
-        if (dist < .1f)
+        if (dist <= 1)
         {
             try_recalc_path();
 
-            if (path != null && path.Count != 0 && current_path_index < path.Count)
+            if (path != null && path.Count != 0 && current_path_index + 1 < path.Count)
             {
                 ++current_path_index;
                 next_node = path[current_path_index];

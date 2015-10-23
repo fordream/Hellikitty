@@ -40,5 +40,4 @@ Assets/materials/misc/trigger_terrain_material.prefab
 Assets/resources/bullets/railgun_bullet.prefab
 Assets/resources/bullets/basic_bullet.prefab
 Assets/resources/bullets/chain.prefab
-Assets/resources/enemies/flying_enemy (1).prefab
 Assets/resources/enemies/flying_enemy.prefab

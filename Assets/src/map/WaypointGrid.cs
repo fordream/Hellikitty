@@ -162,7 +162,7 @@ public class WaypointGrid
         if (has_init) recalc_waypoint_nodes();
     }
 
-    public void Update()
+    public void update()
     {
         //recalc waypoint nodes after all other scripts have been initialised
         //this is because raycast2d cannot run in the start call

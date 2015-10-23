@@ -11,4 +11,9 @@ public class Map
     {
         grid = new WaypointGrid();
     }
+    
+    public static void update()
+    {
+        grid.update();
+    }
 }

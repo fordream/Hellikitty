@@ -20,7 +20,7 @@ public class EnemyGun : GunBase
 
         if (enemy.general_ai_state == GeneralAIState.SHOOTING)
         {
-            //rate_timer += Time.deltaTime;
+            rate_timer += Time.deltaTime;
             if (rate_timer >= .1f)
             {
                 rate_timer = 0;
