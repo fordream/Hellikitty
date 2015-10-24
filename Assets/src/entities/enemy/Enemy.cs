@@ -51,7 +51,7 @@ public class Enemy : Entity
 
     public override void destroy()
     {
-        Debug.Log("destroyed!");
+        Destroy(transform.parent.gameObject);
     }
 
     private EnemyType get_type() { return type; }

@@ -42,6 +42,7 @@ MonoBehaviour:
   colliders:
     serializedVersion: 2
     m_Bits: 2304
+  damage: 1
   particle_seperation: 1.25
 --- !u!1001 &100100000
 Prefab:
@@ -106,6 +107,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: particle_seperation
       value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -7,9 +7,9 @@ public class BasicBullet : Bullet
     private float angle;
     private const float speed = 10.0f;
     private GameObject bullet_obj;
-    private const float DAMAGE = 1.0f;
 
     public LayerMask colliders;
+    public float damage;
 
     public void init(float angle, int decay_in_ms = 4000)
     {
@@ -35,7 +35,7 @@ public class BasicBullet : Bullet
         if (CollidingLayers.is_layer_in_mask(col.gameObject.layer, colliders.value))
         {
             GenericHealth health = col.gameObject.GetComponent<GenericHealth>();
-            if (health != null) health.take_damage(DAMAGE);
+            if (health != null) health.take_damage(damage);
 
             destroy_all();
         }
