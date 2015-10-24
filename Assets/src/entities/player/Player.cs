@@ -5,12 +5,14 @@ using System.Collections;
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerGun))]
 [RequireComponent(typeof(GrapplingHook))]
+[RequireComponent(typeof(GenericHealth))]
 public class Player : MonoBehaviour {
 
     [HideInInspector] public Controller2D controller;
     [HideInInspector] public PlayerMovement player_movement;
     [HideInInspector] public PlayerGun gun;
     [HideInInspector] public GrapplingHook grappling_hook;
+    [HideInInspector] public GenericHealth health;
 
     [HideInInspector] public WaypointNode current_node = null;
     [HideInInspector] public Vector3 pos;
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour {
         gun.init();
         grappling_hook = GetComponent<GrapplingHook>();
         grappling_hook.init();
+        health = GetComponent<GenericHealth>();
+        health.init();
     }
 
     void update_scale()

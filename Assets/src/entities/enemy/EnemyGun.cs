@@ -3,22 +3,17 @@ using System.Collections;
 
 public class EnemyGun : GunBase
 {
-    public Enemy enemy;
+    public Enemy parent;
     float rate_timer;
 
-    void Start()
-    {
-        GameObject obj = transform.parent.FindChild("base").gameObject;
-        if (obj == null) Debug.LogError("Enemies require a child named 'base'");
-        enemy = obj.GetComponent<Enemy>();
-        enemy.gun = this;
+    public void init(Enemy parent) {
+        this.parent = parent;
     }
 
-    void Update()
-    {
-        update_gun_motion(enemy.gameObject, Entities.player.transform.position);
+    public void update() {
+        update_gun_motion(parent.gameObject, Entities.player.transform.position);
 
-        if (enemy.general_ai_state == GeneralAIState.SHOOTING)
+        if (parent.general_ai_state == GeneralAIState.SHOOTING)
         {
             rate_timer += Time.deltaTime;
             if (rate_timer >= .1f)

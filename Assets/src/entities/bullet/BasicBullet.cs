@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class BasicBullet : Bullet
 {
-    Bullet parent;
-    float angle;
-    const float speed = 10.0f;
-    GameObject bullet_obj;
+    private Bullet parent;
+    private float angle;
+    private const float speed = 10.0f;
+    private GameObject bullet_obj;
+    private const float DAMAGE = 1.0f;
 
     public LayerMask colliders;
 
@@ -19,7 +20,7 @@ public class BasicBullet : Bullet
         transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
     }
 
-    void Update()
+    private void Update()
     {
         Vector3 pos = transform.position;
         pos.x += Mathf.Cos(angle) * speed * Time.deltaTime;
@@ -29,10 +30,13 @@ public class BasicBullet : Bullet
         transform.Rotate(new Vector3(0, 0, 2));
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (((1 << col.gameObject.layer) & colliders.value) != 0)
+        if (CollidingLayers.is_layer_in_mask(col.gameObject.layer, colliders.value))
         {
+            GenericHealth health = col.gameObject.GetComponent<GenericHealth>();
+            if (health != null) health.take_damage(DAMAGE);
+
             destroy_all();
         }
     }
