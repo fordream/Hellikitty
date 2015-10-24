@@ -2135,6 +2135,7 @@ GameObject:
   - 114: {fileID: 1393286319}
   - 212: {fileID: 1393286313}
   - 114: {fileID: 1393286317}
+  - 114: {fileID: 1393286318}
   m_Layer: 10
   m_Name: player_base
   m_TagString: Untagged
@@ -2261,6 +2262,19 @@ MonoBehaviour:
   chain_break_time: .100000001
   grapple_state: 0
   grapple_angle: 0
+--- !u!114 &1393286318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1393286311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_hp: 4
+  current_hp: 0
 --- !u!114 &1393286319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2276,6 +2290,7 @@ MonoBehaviour:
   player_movement: {fileID: 0}
   gun: {fileID: 0}
   grappling_hook: {fileID: 0}
+  health: {fileID: 0}
   pos: {x: 0, y: 0, z: 0}
   colliders:
     serializedVersion: 2

@@ -28,9 +28,10 @@ GameObject:
   - 61: {fileID: 6146644}
   - 50: {fileID: 5034784}
   - 212: {fileID: 21273612}
-  - 114: {fileID: 11406352}
   - 114: {fileID: 11494420}
   - 114: {fileID: 11443758}
+  - 114: {fileID: 11415454}
+  - 114: {fileID: 11455094}
   m_Layer: 11
   m_Name: base
   m_TagString: enemy
@@ -150,7 +151,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2, y: 3.5}
---- !u!114 &11406352
+--- !u!114 &11415454
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -158,12 +159,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 153370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9478b8e0fbf79b498c6013c6f75cf81, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing_right: 0
-  gun: {fileID: 0}
-  general_ai_state: 0
+  max_hp: 4
+  current_hp: 0
 --- !u!114 &11443758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,7 +198,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0, z: 0}
   angle: 0
-  enemy: {fileID: 0}
+  parent: {fileID: 0}
+--- !u!114 &11455094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9478b8e0fbf79b498c6013c6f75cf81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing_right: 0
+  gun: {fileID: 0}
+  health: {fileID: 0}
+  general_ai_state: 0
 --- !u!114 &11494420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1345,6 +1360,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: max_hp
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -6,7 +6,8 @@ using System.Collections;
 [RequireComponent(typeof(PlayerGun))]
 [RequireComponent(typeof(GrapplingHook))]
 [RequireComponent(typeof(GenericHealth))]
-public class Player : MonoBehaviour {
+public class Player : Entity
+{
 
     [HideInInspector] public Controller2D controller;
     [HideInInspector] public PlayerMovement player_movement;
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour {
         grappling_hook = GetComponent<GrapplingHook>();
         grappling_hook.init();
         health = GetComponent<GenericHealth>();
-        health.init();
+        health.init(this);
     }
 
     void update_scale()
@@ -45,6 +46,11 @@ public class Player : MonoBehaviour {
         if (player_movement.velocity.x > 0) scale_x = -scale_x;
         scale.x = -scale_x;
         transform.localScale = scale;
+    }
+
+    public override void destroy()
+    {
+        Debug.Log("destroyed!");
     }
 
     void Update()

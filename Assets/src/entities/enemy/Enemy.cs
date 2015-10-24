@@ -16,7 +16,7 @@ public enum GeneralAIState
 };
 
 [RequireComponent(typeof(GenericHealth))]
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     private EnemyType type = EnemyType.UNKNOWN;
 
@@ -41,11 +41,17 @@ public class Enemy : MonoBehaviour
         gun.init(this);
 
         health = GetComponent<GenericHealth>();
+        health.init(this);
     }
 
     private void Update()
     {
         gun.update();
+    }
+
+    public override void destroy()
+    {
+        Debug.Log("destroyed!");
     }
 
     private EnemyType get_type() { return type; }
