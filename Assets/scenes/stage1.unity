@@ -1537,7 +1537,7 @@ MonoBehaviour:
   equipped: {fileID: 0}
   weapons: []
   starting_weapon_assets:
-  - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
+  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
   - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
   - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!1001 &1007285803

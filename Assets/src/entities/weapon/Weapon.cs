@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     {
         Vector3 rota = transform.localEulerAngles;
         angle = Mathf.Atan2(target.y - base_obj.transform.position.y, 
-                                  target.x - base_obj.transform.position.x);
+                            target.x - base_obj.transform.position.x);
         angle *= base_obj.transform.localScale.x / base_obj.transform.localScale.x;
         rota.z = angle * (180.0f / Mathf.PI);
         transform.localEulerAngles = rota;
@@ -47,5 +47,12 @@ public class Weapon : MonoBehaviour
         if (type == WeaponType.PISTOL) Bullet.spawn<BulletLogic.Asset.BasicAsset>(entity, pos).init(angle);
         if (type == WeaponType.RAILGUN) Bullet.spawn<BulletLogic.Asset.RailgunAsset>(entity, pos).init(angle);
         if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<BulletLogic.Asset.GrenadeAsset>(entity, pos).init(angle);
+        if (type == WeaponType.SHOTGUN)
+        {
+            for (int n = 0; n < 5; ++n)
+            {
+                Bullet.spawn<BulletLogic.Asset.ShotgunAsset>(entity, pos).init(angle + UnityEngine.Random.Range(-Mathf.PI / 4.0f, Mathf.PI / 4.0f));
+            }
+        }
     }
 }

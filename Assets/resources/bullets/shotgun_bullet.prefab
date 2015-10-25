@@ -72,7 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
-  damage: 1
+  damage: .5
+  speed: 20
   player_owner_collide_layers:
     serializedVersion: 2
     m_Bits: 2304
@@ -170,7 +171,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage
-      value: 1
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: player_owner_colliders.m_Bits
@@ -187,6 +188,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: enemy_owner_collide_layers.m_Bits
       value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -6,9 +6,9 @@ namespace BulletLogic.Asset
     public class ShotgunAsset : BulletLogicBase
     {
         private float angle;
-        private const float speed = 10.0f;
 
         public float damage;
+        public float speed = 10.0f;
 
         public LayerMask player_owner_collide_layers;
         public LayerMask enemy_owner_collide_layers;
