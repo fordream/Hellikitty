@@ -8,11 +8,12 @@ public class BasicBullet : Bullet
     private const float speed = 10.0f;
     private GameObject bullet_obj;
 
-    public LayerMask colliders;
     public float damage;
 
     public void init(float angle, int decay_in_ms = 4000)
     {
+        init_base();
+
         add_logic<BulletLogicDecay>().init(decay_in_ms);
 
         parent = GetComponent<Bullet>();
@@ -32,7 +33,7 @@ public class BasicBullet : Bullet
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (CollidingLayers.is_layer_in_mask(col.gameObject.layer, colliders.value))
+        if (CollidingLayers.is_layer_in_mask(col.gameObject.layer, colliders))
         {
             GenericHealth health = col.gameObject.GetComponent<GenericHealth>();
             if (health != null) health.take_damage(damage);

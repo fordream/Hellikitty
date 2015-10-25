@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [HideInInspector] public Entity entity;
     [HideInInspector] public Vector3 pos;
     [HideInInspector] public float angle;
     public WeaponType type;
@@ -43,8 +44,8 @@ public class Weapon : MonoBehaviour
 
     public void spawn(WeaponType type)
     {
-        if (type == WeaponType.PISTOL) Bullet.spawn<BasicBullet>(pos).init(angle);
-        if (type == WeaponType.RAILGUN) Bullet.spawn<RailgunBullet>(pos).init(angle);
-        if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<BasicBullet>(pos).init(angle);
+        if (type == WeaponType.PISTOL) Bullet.spawn<BasicBullet>(entity, pos).init(angle);
+        if (type == WeaponType.RAILGUN) Bullet.spawn<RailgunBullet>(entity, pos).init(angle);
+        if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<BasicBullet>(entity, pos).init(angle);
     }
 }

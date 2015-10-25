@@ -39,6 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c42a512da4410547b210352bc23229d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  player_owner_colliders:
+    serializedVersion: 2
+    m_Bits: 2304
+  enemy_owner_colliders:
+    serializedVersion: 2
+    m_Bits: 1280
   colliders:
     serializedVersion: 2
     m_Bits: 2304
@@ -111,6 +118,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: player_owner_colliders.m_Bits
+      value: 2304
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemy_owner_colliders.m_Bits
+      value: 1280
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

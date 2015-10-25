@@ -37,8 +37,10 @@ public class WeaponInventory : MonoBehaviour
     public void add_weapon(GameObject weapon)
     {
         GameObject weapon_obj = Instantiate(weapon);
-        weapon_obj.transform.parent = parent.transform;
-        weapons.Add(weapon_obj.GetComponent<Weapon>());
+        weapon_obj.transform.parent = parent.transform.parent.transform;
+        Weapon weapon_comp = weapon_obj.GetComponent<Weapon>();
+        weapon_comp.entity = parent;
+        weapons.Add(weapon_comp);
         weapon_obj.SetActive(false);
     }
 

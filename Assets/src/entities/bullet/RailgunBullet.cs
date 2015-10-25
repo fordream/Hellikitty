@@ -7,12 +7,13 @@ public class RailgunBullet : Bullet
     private float angle;
     private const float MAX_DISTANCE = 10.0f;
 
-    public LayerMask colliders;
     public float damage;
     public float particle_seperation = .5f;
 
     public void init(float angle)
     {
+        init_base();
+
         parent = GetComponent<Bullet>();
         this.angle = angle;
 

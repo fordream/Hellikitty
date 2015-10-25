@@ -6,14 +6,24 @@ using UnityEngine;
 
 public class Bullet : BulletLogicBase
 {
-    static List<Bullet> bullet_list = new List<Bullet>();
+    [HideInInspector] public Entity entity;
+    private static List<Bullet> bullet_list = new List<Bullet>();
+
+    public LayerMask player_owner_colliders;
+    public LayerMask enemy_owner_colliders;
+    [HideInInspector] public LayerMask colliders;
+
+    public void init_base()
+    {
+        colliders = entity == Entities.player ? player_owner_colliders : enemy_owner_colliders;
+    }
 
     public T add_logic<T>() where T : Component
     {
         return gameObject.AddComponent<T>();
     }
 
-    public static T spawn<T>(Vector2 pos, float depth = -20) where T : Bullet
+    public static T spawn<T>(Entity entity, Vector2 pos, float depth = -20) where T : Bullet
     {
         string prefab_path = "bullets/";
         if (typeof(T) == typeof(BasicBullet))           prefab_path += "basic_bullet";
@@ -27,6 +37,7 @@ public class Bullet : BulletLogicBase
         bullet_obj.transform.position = new Vector3(pos.x, pos.y, depth);
 
         Bullet bullet = bullet_obj.GetComponent<Bullet>();
+        bullet.entity = entity;
         bullet_list.Add(bullet);
 
         return bullet_obj.GetComponent<T>();
