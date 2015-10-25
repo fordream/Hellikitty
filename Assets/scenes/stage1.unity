@@ -1537,7 +1537,7 @@ MonoBehaviour:
   equipped: {fileID: 0}
   weapons: []
   starting_weapon_assets:
-  - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
+  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
   - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
   - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!1001 &1007285803
@@ -2334,8 +2334,8 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1393286311}
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
+  m_LinearDrag: 40
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_IsKinematic: 0
   m_Interpolate: 0

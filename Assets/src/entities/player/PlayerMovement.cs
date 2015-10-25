@@ -3,13 +3,13 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    Player parent;
+    private Player parent;
 
-    float gravity;
-    float maxJumpVelocity;
-    float minJumpVelocity;
+    private float gravity;
+    private float maxJumpVelocity;
+    private float minJumpVelocity;
     public Vector3 velocity;
-    float velocityXSmoothing;
+    private float velocityXSmoothing;
 
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
@@ -29,12 +29,12 @@ public class PlayerMovement : MonoBehaviour {
     public float maxClimbAngle = 60;
     public float maxDescendAngle = 40;
 
-    float hop_timer = 0;
-    bool hopping = false;
-    const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
+    private float hop_timer = 0;
+    private bool hopping = false;
+    private const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
 
-    int num_jumps = 0;
-    const int MAX_JUMPS = 2;
+    private int num_jumps = 0;
+    public int max_jumps = 2;
 
     public void init()
     {
@@ -104,25 +104,12 @@ public class PlayerMovement : MonoBehaviour {
                     velocity.y = wallLeap.y;
                 }
             }
-            if ((hopping && velocity.y >= MAX_HOP_FALLVEL) || parent.controller.collisions.below)
+            if ((hopping && hop_timer >= 1) || parent.controller.collisions.below || num_jumps < max_jumps)
             {
                 hopping = false;
                 ++num_jumps;
                 velocity.y = maxJumpVelocity;
             }
-            else if (num_jumps < MAX_JUMPS)
-            {
-                hopping = false;
-                ++num_jumps;
-                //to prevent double jumps off a cliff
-                if (num_jumps == 1) ++num_jumps;
-                velocity.y = maxJumpVelocity;
-            }
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            //gun.GetComponent<Gun>().FireBullet();
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -131,12 +118,12 @@ public class PlayerMovement : MonoBehaviour {
 
         if (parent.controller.collisions.above || parent.controller.collisions.below) velocity.y = 0;
 
+        hop_timer += Time.deltaTime;
         if (parent.controller.collisions.below)
         {
-            hop_timer += Time.deltaTime;
             hopping = false;
             num_jumps = 0;
-            if (input.x != 0 && hop_timer >= .07f)
+            if (input.x != 0)
             {
                 hop_timer = 0;
                 velocity.y = 7.0f;

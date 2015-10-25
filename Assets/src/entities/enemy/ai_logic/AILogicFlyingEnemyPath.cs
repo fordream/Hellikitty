@@ -13,7 +13,7 @@ public class AILogicFlyingEnemyPath : AILogicBase
     [HideInInspector] public WaypointNode current_node = null;
     [HideInInspector] public int current_path_index;
 
-    System.Diagnostics.Stopwatch calc_path_watch = new System.Diagnostics.Stopwatch();
+    float recalc_path_timer = 0;
     const int RECALC_PATH_MS = 500;
     public float path_find_timeout_ms = 1.25f;
 
@@ -54,16 +54,10 @@ public class AILogicFlyingEnemyPath : AILogicBase
     }
 
     public void try_recalc_path() {
-        if (calc_path_watch.ElapsedMilliseconds >= RECALC_PATH_MS)
+        if (recalc_path_timer >= RECALC_PATH_MS / 1000.0f)
         {
-            calc_path_watch.Reset();
-            calc_path_watch.Start();
+            recalc_path_timer = 0;
             recalc_path();
-        }
-        else if (!calc_path_watch.IsRunning)
-        {
-            calc_path_watch.Reset();
-            calc_path_watch.Start();
         }
     }
 
@@ -90,6 +84,8 @@ public class AILogicFlyingEnemyPath : AILogicBase
 
     void Update()
     {
+        recalc_path_timer += Time.deltaTime;
+
         current_node = Map.grid.get_node(Map.grid.world_to_grid(ai_parent.pos));
 	}
 }

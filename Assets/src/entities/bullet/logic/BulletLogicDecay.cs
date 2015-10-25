@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class BulletLogicDecay : BulletLogicBase
 {
-    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
     int decay_in_ms;
+    float decay_timer = 0;
 
     public void init(int decay_in_ms)
     {
         this.decay_in_ms = decay_in_ms;
-        watch.Start();
     }
 
     void Update()
     {
-        if (watch.ElapsedTicks / 10000.0f >= decay_in_ms)
+        decay_timer += Time.deltaTime;
+        if (decay_timer >= decay_in_ms / 1000.0f)
         {
             destroy_all();
         }

@@ -26,8 +26,9 @@ public class Bullet : BulletLogicBase
     public static T spawn<T>(Entity entity, Vector2 pos, float depth = -20) where T : Bullet
     {
         string prefab_path = "bullets/";
-        if (typeof(T) == typeof(BasicBullet))           prefab_path += "basic_bullet";
-        else if (typeof(T) == typeof(RailgunBullet))    prefab_path += "railgun_bullet";
+        if (typeof(T) == typeof(BasicBullet)) prefab_path += "basic_bullet";
+        else if (typeof(T) == typeof(RailgunBullet)) prefab_path += "railgun_bullet";
+        else if (typeof(T) == typeof(GrenadeBullet)) prefab_path += "grenade_bullet";
         else Debug.LogError("Cannot spawn bullet of type " + typeof(T));
 
         GameObject bullet_prefab = (GameObject)Resources.Load(prefab_path);

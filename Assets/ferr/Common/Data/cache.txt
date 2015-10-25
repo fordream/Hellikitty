@@ -25,6 +25,7 @@ Assets/resources/misc/health_bar_grey2.prefab
 Assets/resources/weapons/weapon_pistol.prefab
 Assets/resources/weapons/weapon_railgun.prefab
 Assets/resources/weapons/weapon_grenade_launcher.prefab
+Assets/resources/bullets/grenade_bullet.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/RockTerrainMaterial.prefab
@@ -55,3 +56,4 @@ Assets/resources/misc/health_bar_grey2.prefab
 Assets/resources/weapons/weapon_grenade_launcher.prefab
 Assets/resources/weapons/weapon_railgun.prefab
 Assets/resources/weapons/weapon_pistol.prefab
+Assets/resources/bullets/grenade_bullet.prefab

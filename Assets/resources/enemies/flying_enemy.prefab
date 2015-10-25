@@ -178,7 +178,7 @@ MonoBehaviour:
   equipped: {fileID: 0}
   weapons: []
   starting_weapon_assets:
-  - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
+  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!114 &11443758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1379,7 +1379,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: starting_weapon_assets.Array.data[0]
       value: 
-      objectReference: {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
+      objectReference: {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
     - target: {fileID: 0}
       propertyPath: move_away_radius
       value: 7

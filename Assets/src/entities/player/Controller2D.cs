@@ -40,7 +40,7 @@ public class Controller2D : RaycastController {
 			VerticalCollisions (ref velocity);
 		}
 
-		transform.Translate (velocity);
+        GetComponent<Rigidbody2D>().AddForce(velocity * GetComponent<Rigidbody2D>().drag, ForceMode2D.Impulse);
 
 		if (standingOnPlatform) {
 			collisions.below = true;
