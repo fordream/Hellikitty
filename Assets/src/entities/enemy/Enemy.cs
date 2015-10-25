@@ -57,6 +57,9 @@ public class Enemy : Entity
 
     public override void destroy()
     {
+        Instantiate((GameObject)Resources.Load("particles/explosion"), 
+                    new Vector3(transform.position.x, transform.position.y, -20), Quaternion.identity);
+
         Destroy(transform.parent.gameObject);
     }
 

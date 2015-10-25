@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour
         {
             for (int n = 0; n < 5; ++n)
             {
-                Bullet.spawn<BulletLogic.Asset.ShotgunAsset>(entity, pos).init(angle + UnityEngine.Random.Range(-Mathf.PI / 4.0f, Mathf.PI / 4.0f));
+                Bullet.spawn<BulletLogic.Asset.ShotgunAsset>(entity, pos).init(angle + UnityEngine.Random.Range(-Mathf.PI / 8.0f, Mathf.PI / 8.0f));
             }
         }
     }

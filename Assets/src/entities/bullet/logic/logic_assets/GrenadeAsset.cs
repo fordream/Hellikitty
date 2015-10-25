@@ -42,6 +42,9 @@ namespace BulletLogic.Asset
                 GenericHealth health = col.gameObject.GetComponent<GenericHealth>();
                 if (health != null)
                 {
+                    Instantiate((GameObject)Resources.Load("particles/explosion"),
+                                new Vector3(transform.position.x, transform.position.y, -20), Quaternion.identity);
+
                     float dist = Vector2.Distance(col.transform.position, transform.position);
                     dist = Mathf.Min(dist, explosion_radius);
                     float damage = ((explosion_radius - dist) / explosion_radius) * max_damage;

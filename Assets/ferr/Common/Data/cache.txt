@@ -29,7 +29,10 @@ Assets/resources/ui/damage_text.prefab
 Assets/resources/weapons/weapon_shotgun.prefab
 Assets/resources/bullets/shotgun_bullet.prefab
 Assets/FerrIceCave.prefab
-Assets/prefabs/enemies/flying_enemy.prefab
+Assets/prefabs/enemies/flying_enemy_grenade.prefab
+Assets/prefabs/enemies/flying_enemy_shotgun.prefab
+Assets/prefabs/enemies/flying_enemy_railgun.prefab
+Assets/resources/particles/explosion.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/RockTerrainMaterial.prefab
@@ -63,5 +66,8 @@ Assets/resources/ui/health_bar_grey2.prefab
 Assets/resources/weapons/weapon_shotgun.prefab
 Assets/resources/bullets/shotgun_bullet.prefab
 Assets/FerrIceCave.prefab
-Assets/prefabs/enemies/flying_enemy.prefab
 Assets/prefabs/IceCave.prefab
+Assets/prefabs/enemies/flying_enemy_grenade.prefab
+Assets/prefabs/enemies/flying_enemy_shotgun.prefab
+Assets/prefabs/enemies/flying_enemy_railgun.prefab
+Assets/resources/particles/explosion.prefab

@@ -59,7 +59,7 @@ public class Player : Entity
 
     public override void destroy()
     {
-        Debug.Log("destroyed!");
+        Application.LoadLevel(0);
     }
 
     void Update()
@@ -74,6 +74,18 @@ public class Player : Entity
         weapon_control.update();
 
         pos = transform.position;
+
+        float world_bounds = 4.0f;
+        Vector3 top_left = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        Vector3 bot_right = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        if (pos.x < top_left.x - world_bounds || pos.x > bot_right.x + world_bounds ||
+            pos.y < top_left.y - world_bounds || pos.y > bot_right.y + world_bounds)
+        {
+            Application.LoadLevel(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) weapon_inventory.equip_weapon(weapon_inventory.weapons[0]);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) weapon_inventory.equip_weapon(weapon_inventory.weapons[1]);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) weapon_inventory.equip_weapon(weapon_inventory.weapons[2]);
 
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
     }

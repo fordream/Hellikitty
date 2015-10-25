@@ -48,7 +48,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 451708}
   m_Layer: 0
-  m_Name: flying_enemy
+  m_Name: flying_enemy_shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   equipped: {fileID: 0}
   weapons: []
   starting_weapon_assets:
-  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
+  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &11443758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1379,7 +1379,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: starting_weapon_assets.Array.data[0]
       value: 
-      objectReference: {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
+      objectReference: {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
     - target: {fileID: 0}
       propertyPath: move_away_radius
       value: 7
