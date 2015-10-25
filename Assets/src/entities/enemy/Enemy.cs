@@ -21,7 +21,11 @@ public class Enemy : Entity
     private EnemyType type = EnemyType.UNKNOWN;
 
     [HideInInspector] public bool facing_right = false;
-    [HideInInspector] public EnemyWeapon weapon;
+
+    //components
+    [HideInInspector] public EnemyWeaponControl weapon_control;
+    [HideInInspector] public WeaponInventory weapon_inventory;
+
     [HideInInspector] public GenericHealth health;
 
     [HideInInspector] public GeneralAIState general_ai_state = GeneralAIState.NONE;
@@ -34,11 +38,12 @@ public class Enemy : Entity
             Debug.LogError("No AILogicBase component can be found on enemy gameobject (" + name + ")");
         }
 
-        //get EnemyWeapon component on weapon object and init it
-        GameObject weapon_obj = transform.parent.FindChild("weapon").gameObject;
-        if (weapon_obj == null) Debug.LogError("Child 'weapon' of enemy parent cannot be found");
-        weapon = weapon_obj.GetComponent<EnemyWeapon>();
-        weapon.init(this);
+        Transform weapon_obj = transform.parent.FindChild("weapon");
+        if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
+        weapon_inventory = weapon_obj.GetComponent<WeaponInventory>();
+        weapon_inventory.init();
+        weapon_control = weapon_obj.GetComponent<EnemyWeaponControl>();
+        weapon_control.init(this);
 
         health = GetComponent<GenericHealth>();
         health.init(this);
@@ -46,7 +51,7 @@ public class Enemy : Entity
 
     private void Update()
     {
-        weapon.update();
+        weapon_control.update();
         health.update();
     }
 

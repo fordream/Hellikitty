@@ -3,24 +3,27 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(PlayerWeapon))]
 [RequireComponent(typeof(GrapplingHook))]
 [RequireComponent(typeof(GenericHealth))]
 public class Player : Entity
 {
-
+    //components
     [HideInInspector] public Controller2D controller;
     [HideInInspector] public PlayerMovement player_movement;
-    [HideInInspector] public PlayerWeapon weapon;
+
+    [HideInInspector] public PlayerWeaponControl weapon_control;
+    [HideInInspector] public WeaponInventory weapon_inventory;
+
     [HideInInspector] public GrapplingHook grappling_hook;
     [HideInInspector] public GenericHealth health;
 
+    //pos
     [HideInInspector] public WaypointNode current_node = null;
     [HideInInspector] public Vector3 pos;
 
     public LayerMask colliders;
-    bool grappling = false;
-    float grapple_angle = 0;
+    private bool grappling = false;
+    private float grapple_angle = 0;
 
     public void init()
     {
@@ -34,8 +37,10 @@ public class Player : Entity
 
         Transform weapon_obj = transform.parent.FindChild("weapon");
         if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
-        weapon = weapon_obj.GetComponent<PlayerWeapon>();
-        weapon.init();
+        weapon_inventory = weapon_obj.GetComponent<WeaponInventory>();
+        weapon_inventory.init();
+        weapon_control = weapon_obj.GetComponent<PlayerWeaponControl>();
+        weapon_control.init();
 
         grappling_hook = GetComponent<GrapplingHook>();
         grappling_hook.init();
@@ -66,6 +71,7 @@ public class Player : Entity
             player_movement.update();
         }
         health.update();
+        weapon_control.update();
 
         pos = transform.position;
 

@@ -102,11 +102,14 @@ public class GrapplingHook : MonoBehaviour
                 if (Input.GetMouseButtonUp(1))
                 {
                     hit = Physics2D.Raycast(transform.position, 
-                                            new Vector2(Mathf.Cos(parent.weapon.angle), Mathf.Sin(parent.weapon.angle)),
+                                            new Vector2(
+                                                Mathf.Cos(parent.weapon_inventory.equipped.angle), 
+                                                Mathf.Sin(parent.weapon_inventory.equipped.angle)
+                                            ),
                                             grapple_radius, colliders);
                     if (hit && hit.distance >= 4.0f)
                     {
-                        grapple_angle = parent.weapon.angle;
+                        grapple_angle = parent.weapon_inventory.equipped.angle;
                         grapple_state = GrappleState.SHOOTING_OUT;
 
                         num_chains = hit.distance / chain_seperation;

@@ -20,7 +20,9 @@ Assets/resources/bullets/chain.prefab
 Assets/resources/enemies/flying_enemy.prefab
 Assets/resources/misc/health_bar2.prefab
 Assets/resources/misc/health_bar1.prefab
-Assets/resources/misc/health_bar_grey.prefab
+Assets/resources/misc/health_bar_grey1.prefab
+Assets/resources/misc/health_bar_grey2.prefab
+Assets/resources/weapons/pistol.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/RockTerrainMaterial.prefab
@@ -46,4 +48,6 @@ Assets/resources/bullets/chain.prefab
 Assets/resources/enemies/flying_enemy.prefab
 Assets/resources/misc/health_bar1.prefab
 Assets/resources/misc/health_bar2.prefab
-Assets/resources/misc/health_bar_grey.prefab
+Assets/resources/misc/health_bar_grey1.prefab
+Assets/resources/misc/health_bar_grey2.prefab
+Assets/resources/weapons/pistol.prefab

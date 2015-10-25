@@ -35,7 +35,8 @@ public class GenericHealth : MonoBehaviour
     {
         GameObject bar1_asset = (GameObject)Resources.Load("misc/health_bar1");
         GameObject bar2_asset = (GameObject)Resources.Load("misc/health_bar2");
-        GameObject grey_bar_asset = (GameObject)Resources.Load("misc/health_bar_grey");
+        GameObject grey_bar1_asset = (GameObject)Resources.Load("misc/health_bar_grey1");
+        GameObject grey_bar2_asset = (GameObject)Resources.Load("misc/health_bar_grey2");
 
         int num_bars = 8;
         Vector3 pos = Vector3.zero;
@@ -49,13 +50,14 @@ public class GenericHealth : MonoBehaviour
             GameObject bar = Instantiate(n % 2 == 0 ? bar1_asset : bar2_asset);
             bar.transform.position = pos;
             bar.transform.parent = health_bar.transform;
-            pos.x += .13f;
             bars.Add(bar);
 
             pos.z = 1;
-            GameObject grey_bar = Instantiate(grey_bar_asset);
+            GameObject grey_bar = Instantiate(n % 2 == 0 ? grey_bar1_asset : grey_bar2_asset);
             grey_bar.transform.position = pos;
             grey_bar.transform.parent = health_bar.transform;
+
+            pos.x += .12f;
         }
         total_bar_width = pos.x;
     }
