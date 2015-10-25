@@ -36,7 +36,7 @@ public class Player : Entity
         player_movement.init();
 
         Transform weapon_obj = transform.parent.FindChild("weapon_base");
-        if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
+        if (weapon_obj == null) Debug.LogError("'weapon_base' object cannot be found in player parent's children");
         weapon_inventory = weapon_obj.GetComponent<WeaponInventory>();
         weapon_inventory.init(this);
         weapon_control = weapon_obj.GetComponent<PlayerWeaponControl>();

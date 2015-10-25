@@ -189,6 +189,7 @@ public class WaypointGrid
             for (int n = 0; n < t.origin_size_offsets.Length; ++n)
             {
                 t.path_terrain.surfaceOffset[n] = offset;
+                if (offset == 0 && n == 0) t.path_terrain.surfaceOffset[n] = 1.0f;
             }
             t.path_terrain.RecreateCollider();
         }

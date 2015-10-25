@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &157294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 435702}
+  - 114: {fileID: 11464252}
+  - 23: {fileID: 2372254}
+  - 33: {fileID: 3386886}
+  - 114: {fileID: 11437360}
+  m_Layer: 8
+  m_Name: IceCave
+  m_TagString: obstacle
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &435702
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.80000019, y: 1.35000002, z: -11.7191639}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!23 &2372254
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157294}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: bce4936df6bf8eb4dac748607b9f3372, type: 2}
+  - {fileID: 2100000, guid: ba0ccf46f42f4fb4b9a0c239b8160575, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &3386886
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157294}
+  m_Mesh: {fileID: 4300000, guid: 4d6b82e609ec95847bab8d7829f1e99d, type: 2}
+--- !u!114 &11437360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f66502d17e51d4aae0b1e16d1903a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill: 0
+  fillY: 0
+  fillZ: .0500000007
+  splitCorners: 1
+  smoothPath: 1
+  splitCount: 2
+  splitDist: 1
+  splitMiddle: 1
+  pixelsPerUnit: 64
+  vertexColor: {r: 1, g: 1, b: 1, a: 1}
+  stretchThreshold: .5
+  createTangents: 0
+  randomByWorldCoordinates: 0
+  uvOffset: {x: 0, y: 0}
+  slantAmount: 0
+  createCollider: 1
+  create3DCollider: 0
+  isTrigger: 0
+  depth: 4
+  smoothSphereCollisions: 0
+  sharpCorners: 0
+  sharpCornerDistance: 2
+  surfaceOffset:
+  - 0
+  - 0
+  - 0
+  - 0
+  physicsMaterial: {fileID: 0}
+  physicsMaterial2D: {fileID: 0}
+  collidersLeft: 1
+  collidersRight: 1
+  collidersTop: 1
+  collidersBottom: 1
+  colliderThickness: .100000001
+  directionOverrides: 6400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000640000006400000064000000
+  vertScales:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  terrainMaterial: {fileID: 11418554, guid: 55f1273954880af43b90e52c2925cb94, type: 2}
+--- !u!114 &11464252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153f28ebef7ee024d94614d7ff3d7de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closed: 1
+  pathVerts:
+  - {x: 16.7790985, y: -2.77279472}
+  - {x: 26.29319, y: -3.23085308}
+  - {x: 26.4645882, y: .651714802}
+  - {x: 29.2990646, y: -3.74569702}
+  - {x: 32.3184547, y: -1.82521343}
+  - {x: 38.3964081, y: -.952879429}
+  - {x: 45.1562233, y: -.634694099}
+  - {x: 50.1664162, y: -1.93006659}
+  - {x: 58.0670624, y: -5.4626689}
+  - {x: 69.2319107, y: -1.73397589}
+  - {x: 79.610817, y: -6.27467299}
+  - {x: 81.134079, y: -13.8454542}
+  - {x: 78.4962769, y: -21.2689705}
+  - {x: 77.9122314, y: -24.7161827}
+  - {x: 79.7519913, y: -33.7995758}
+  - {x: 81.6591873, y: -40.5115128}
+  - {x: 86.4636383, y: -46.5276451}
+  - {x: 86.415596, y: -47.4557266}
+  - {x: 92.9341278, y: -47.1064415}
+  - {x: 101.155228, y: -48.6640472}
+  - {x: 100.423004, y: -52.2436485}
+  - {x: 103.614365, y: -52.9401741}
+  - {x: 103.473656, y: -55.9106178}
+  - {x: 108.906128, y: -56.0156517}
+  - {x: 108.926102, y: -59.0995255}
+  - {x: 118.380127, y: -59.1587334}
+  - {x: 125.666351, y: -57.3789291}
+  - {x: 131.590363, y: -59.1527252}
+  - {x: 137.881363, y: -59.4200478}
+  - {x: 137.802277, y: -69.6168518}
+  - {x: 105.67823, y: -68.9275436}
+  - {x: 82.946907, y: -63.1345711}
+  - {x: 61.9121742, y: -62.7425041}
+  - {x: 27.621418, y: -18.8923721}
+  - {x: -16.7024803, y: -14.691268}
+  - {x: -23.0707283, y: 1.40758896}
+  - {x: -21.6067009, y: 11.718648}
+  - {x: -12.0585098, y: 8.99846172}
+  - {x: -2.30632496, y: 8.98118019}
+  - {x: -2.14266038, y: -3.03560734}
+  - {x: 10.9524708, y: -2.63197899}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 157294}
+  m_IsPrefabParent: 1

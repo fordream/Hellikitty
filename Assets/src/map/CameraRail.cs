@@ -212,6 +212,7 @@ public class CameraRail : MonoBehaviour {
         //if it is, calculate the next point
         if (Vector3.Distance(cameraPos, nextPoint) <= .5f)
         {
+            //cameraPos = nextPoint;
             getNextPoint();
         }
 
@@ -241,5 +242,12 @@ public class CameraRail : MonoBehaviour {
         //gets the next point and calculates the angle from the camera to the point
         nextPoint = getPoint(pointIndex);
         angleToNextPoint = Mathf.Atan2(cameraPos.y - nextPoint.y, cameraPos.x - nextPoint.x);
+
+        if (Vector3.Distance(cameraPos, nextPoint) >= .5f)
+        {
+            Debug.Log("lol");
+            cameraPos = nextPoint;
+            getNextPoint();
+        }
     }
 }
