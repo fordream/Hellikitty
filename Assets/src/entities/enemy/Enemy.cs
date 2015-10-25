@@ -47,6 +47,7 @@ public class Enemy : Entity
     private void Update()
     {
         gun.update();
+        health.update();
     }
 
     public override void destroy()

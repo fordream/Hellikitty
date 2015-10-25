@@ -31,9 +31,11 @@ public class RailgunBullet : Bullet
             pos.y += Mathf.Sin(angle) * particle_seperation;
             GameObject obj = (GameObject)Instantiate(railgun_particle, pos, Quaternion.identity);
 
-            Collider2D col = Physics2D.OverlapCircle(pos, 1.0f, colliders);
+            //check if any colliders are overlapping with a circle raycast
+            Collider2D col = Physics2D.OverlapCircle(pos, particle_seperation, colliders);
             if (col)
             {
+                //if the gameobject has a health component, deal damage to them
                 GenericHealth health = col.gameObject.GetComponent<GenericHealth>();
                 if (health != null) health.take_damage(damage);
             }

@@ -31,8 +31,12 @@ public class Player : Entity
         controller.init();
         player_movement = GetComponent<PlayerMovement>();
         player_movement.init();
-        gun = transform.parent.FindChild("gun").GetComponent<PlayerGun>();
+
+        Transform gun_obj = transform.parent.FindChild("gun");
+        if (gun_obj == null) Debug.LogError("'gun' object cannot be found in player parent's children");
+        gun = gun_obj.GetComponent<PlayerGun>();
         gun.init();
+
         grappling_hook = GetComponent<GrapplingHook>();
         grappling_hook.init();
         health = GetComponent<GenericHealth>();
@@ -61,6 +65,8 @@ public class Player : Entity
             update_scale();
             player_movement.update();
         }
+        health.update();
+
         pos = transform.position;
 
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
