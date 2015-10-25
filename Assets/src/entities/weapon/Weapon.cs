@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Vector3 pos;
     [HideInInspector] public float angle;
     public WeaponType type;
-    public float rate = 0;
+    public float attacks_per_ms = 0;
 
     private float rate_timer;
 
@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
     public void update_logic(bool activate)
     {
         rate_timer += Time.deltaTime;
-        if (activate && rate_timer >= .1f)
+        if (activate && rate_timer >= attacks_per_ms / 1000.0f)
         {
             rate_timer = 0;
             spawn(type);

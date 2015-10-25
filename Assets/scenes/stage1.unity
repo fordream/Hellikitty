@@ -2250,6 +2250,7 @@ MonoBehaviour:
   timeToWallUnstick: 0
   maxClimbAngle: 60
   maxDescendAngle: 40
+  max_jumps: 2
 --- !u!114 &1393286316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,7 +2335,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1393286311}
   m_Mass: 1
-  m_LinearDrag: 40
+  m_LinearDrag: 50
   m_AngularDrag: 0
   m_GravityScale: 0
   m_IsKinematic: 0

@@ -64,13 +64,13 @@ public class GenericHealth : MonoBehaviour
 
     private void update_health()
     {
-        if (current_hp <= 0) { parent.destroy(); return; }
-
         int bars_removed = (int)((current_hp / max_hp) * bars.Count);
         for (int n = 0; n < bars.Count; ++n)
         {
             bars[n].SetActive(n < bars_removed);
         }
+
+        if (current_hp <= 0) parent.destroy();
     }
 
     public void take_damage(float f)
