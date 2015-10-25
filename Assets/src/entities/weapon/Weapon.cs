@@ -44,8 +44,8 @@ public class Weapon : MonoBehaviour
 
     public void spawn(WeaponType type)
     {
-        if (type == WeaponType.PISTOL) Bullet.spawn<BasicBullet>(entity, pos).init(angle);
-        if (type == WeaponType.RAILGUN) Bullet.spawn<RailgunBullet>(entity, pos).init(angle);
-        if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<GrenadeBullet>(entity, pos).init(angle);
+        if (type == WeaponType.PISTOL) Bullet.spawn<BulletLogic.Asset.BasicAsset>(entity, pos).init(angle);
+        if (type == WeaponType.RAILGUN) Bullet.spawn<BulletLogic.Asset.RailgunAsset>(entity, pos).init(angle);
+        if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<BulletLogic.Asset.GrenadeAsset>(entity, pos).init(angle);
     }
 }
