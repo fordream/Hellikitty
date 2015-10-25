@@ -2769,7 +2769,7 @@ MonoBehaviour:
   grid_collidable_layers:
     serializedVersion: 2
     m_Bits: 264
-  debug_verbose_log: 1
+  debug_verbose_log: 0
 --- !u!4 &1595700258
 Transform:
   m_ObjectHideFlags: 0

@@ -41,6 +41,7 @@ public class GenericHealth : MonoBehaviour
         Vector3 pos = Vector3.zero;
         health_bar = new GameObject();
         health_bar.name = "health_bar(" + name + ")";
+        health_bar.transform.parent = parent.transform.parent.transform;
 
         for (int n = 0; n < num_bars; ++n)
         {
