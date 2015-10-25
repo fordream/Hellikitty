@@ -1494,7 +1494,7 @@ GameObject:
   - 212: {fileID: 963875214}
   - 114: {fileID: 963875216}
   m_Layer: 10
-  m_Name: gun
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1551,6 +1551,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0, z: 0}
   angle: 0
+  equipped_weapon_type: 0
+  starting_weapon_types: 
 --- !u!1001 &1007285803
 Prefab:
   m_ObjectHideFlags: 0
@@ -2328,7 +2330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   player_movement: {fileID: 0}
-  gun: {fileID: 0}
+  weapon: {fileID: 0}
   grappling_hook: {fileID: 0}
   health: {fileID: 0}
   pos: {x: 0, y: 0, z: 0}

@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(PlayerGun))]
+[RequireComponent(typeof(PlayerWeapon))]
 [RequireComponent(typeof(GrapplingHook))]
 [RequireComponent(typeof(GenericHealth))]
 public class Player : Entity
@@ -11,7 +11,7 @@ public class Player : Entity
 
     [HideInInspector] public Controller2D controller;
     [HideInInspector] public PlayerMovement player_movement;
-    [HideInInspector] public PlayerGun gun;
+    [HideInInspector] public PlayerWeapon weapon;
     [HideInInspector] public GrapplingHook grappling_hook;
     [HideInInspector] public GenericHealth health;
 
@@ -32,10 +32,10 @@ public class Player : Entity
         player_movement = GetComponent<PlayerMovement>();
         player_movement.init();
 
-        Transform gun_obj = transform.parent.FindChild("gun");
-        if (gun_obj == null) Debug.LogError("'gun' object cannot be found in player parent's children");
-        gun = gun_obj.GetComponent<PlayerGun>();
-        gun.init();
+        Transform weapon_obj = transform.parent.FindChild("weapon");
+        if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
+        weapon = weapon_obj.GetComponent<PlayerWeapon>();
+        weapon.init();
 
         grappling_hook = GetComponent<GrapplingHook>();
         grappling_hook.init();

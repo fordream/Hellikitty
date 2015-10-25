@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerGun : GunBase
+public class PlayerWeapon : WeaponBase
 {
-
     Player player;
 
     public void init() {
@@ -13,8 +12,7 @@ public class PlayerGun : GunBase
     void Update()
     {
         Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        update_gun_motion(player.gameObject, mouse_pos);
-
-        if (Input.GetMouseButtonUp(0)) Bullet.spawn<RailgunBullet>(pos).init(angle);
+        update_weapon_motion(player.gameObject, mouse_pos);
+        update_weapon_logic(Input.GetMouseButtonUp(0));
 	}
 }
