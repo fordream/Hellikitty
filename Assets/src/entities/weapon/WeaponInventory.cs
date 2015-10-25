@@ -12,12 +12,16 @@ public enum WeaponType
 
 public class WeaponInventory : MonoBehaviour
 {
+    private Entity parent;
+
     [HideInInspector] public Weapon equipped;
     [HideInInspector] public List<Weapon> weapons = new List<Weapon>();
     public GameObject[] starting_weapon_assets;
 
-    public void init()
+    public void init(Entity parent)
     {
+        this.parent = parent;
+
         if (starting_weapon_assets.Length == 0)
         {
             Debug.LogError("Starting weapon types must contain at least one weapon (set in editor)");
@@ -33,6 +37,7 @@ public class WeaponInventory : MonoBehaviour
     public void add_weapon(GameObject weapon)
     {
         GameObject weapon_obj = Instantiate(weapon);
+        weapon_obj.transform.parent = parent.transform;
         weapons.Add(weapon_obj.GetComponent<Weapon>());
         weapon_obj.SetActive(false);
     }

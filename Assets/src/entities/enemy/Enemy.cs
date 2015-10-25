@@ -38,10 +38,10 @@ public class Enemy : Entity
             Debug.LogError("No AILogicBase component can be found on enemy gameobject (" + name + ")");
         }
 
-        Transform weapon_obj = transform.parent.FindChild("weapon");
+        Transform weapon_obj = transform.parent.FindChild("weapon_base");
         if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
         weapon_inventory = weapon_obj.GetComponent<WeaponInventory>();
-        weapon_inventory.init();
+        weapon_inventory.init(this);
         weapon_control = weapon_obj.GetComponent<EnemyWeaponControl>();
         weapon_control.init(this);
 

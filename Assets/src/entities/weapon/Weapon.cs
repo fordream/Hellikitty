@@ -5,9 +5,8 @@ public class Weapon : MonoBehaviour
 {
     [HideInInspector] public Vector3 pos;
     [HideInInspector] public float angle;
-
+    public WeaponType type;
     public float rate = 0;
-    private WeaponType type;
 
     private float rate_timer;
 

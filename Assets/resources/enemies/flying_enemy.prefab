@@ -192,8 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0, z: 0}
   move_angle: 0
-  fire_radius: 8
-  move_away_radius: 5.5
+  fire_radius: 10.5
+  move_away_radius: 7
   move_away_layers:
     serializedVersion: 2
     m_Bits: 3328
@@ -1380,6 +1380,14 @@ Prefab:
       propertyPath: starting_weapon_assets.Array.data[0]
       value: 
       objectReference: {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
+    - target: {fileID: 0}
+      propertyPath: move_away_radius
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fire_radius
+      value: 10.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159200}
