@@ -12,7 +12,7 @@ public class GrenadeBullet : Bullet
     private int explode_after_ms;
     private float explode_timer = 0;
 
-    public void init(float angle, int explode_after_ms = 4000)
+    public void init(float angle, int explode_after_ms = 2500)
     {
         init_base();
         this.explode_after_ms = explode_after_ms;

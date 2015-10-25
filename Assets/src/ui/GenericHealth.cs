@@ -33,10 +33,10 @@ public class GenericHealth : MonoBehaviour
 
     private void create_bars()
     {
-        GameObject bar1_asset = (GameObject)Resources.Load("misc/health_bar1");
-        GameObject bar2_asset = (GameObject)Resources.Load("misc/health_bar2");
-        GameObject grey_bar1_asset = (GameObject)Resources.Load("misc/health_bar_grey1");
-        GameObject grey_bar2_asset = (GameObject)Resources.Load("misc/health_bar_grey2");
+        GameObject bar1_asset = (GameObject)Resources.Load("ui/health_bar1");
+        GameObject bar2_asset = (GameObject)Resources.Load("ui/health_bar2");
+        GameObject grey_bar1_asset = (GameObject)Resources.Load("ui/health_bar_grey1");
+        GameObject grey_bar2_asset = (GameObject)Resources.Load("ui/health_bar_grey2");
 
         int num_bars = 8;
         Vector3 pos = Vector3.zero;
@@ -78,6 +78,8 @@ public class GenericHealth : MonoBehaviour
         if (f < 0) Debug.LogWarning("take_damage only takes in positive numbers (" + f + ")");
         current_hp -= f;
         update_health();
+
+        ActionText.spawn_damage_text(transform.position, (int)Mathf.Round(f));
     }
 
     public void gain_hp(float f)
