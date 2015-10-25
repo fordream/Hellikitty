@@ -44,9 +44,9 @@ public class AILogicFlyingEnemyPath : AILogicBase
                                                           Map.grid.find_neighbour_node(Map.grid.get_node(dest.x, dest.y)), path_find_timeout_ms);
 
         if (temp_path.Count >= 2) path = temp_path;
-        else path.Clear();
+        else if (path != null) path.Clear();
 
-        if (path.Count >= 2)
+        if (path != null && path.Count >= 2)
         {
             current_path_index = 1;
             get_next_path_node();
