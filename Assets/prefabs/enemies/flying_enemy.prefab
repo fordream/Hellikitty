@@ -48,7 +48,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 451708}
   m_Layer: 0
-  m_Name: flying_enemy_shotgun
+  m_Name: flying_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 153370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.63999999, y: 0, z: -10}
-  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_LocalScale: {x: .699999988, y: .699999988, z: 1}
   m_Children:
   - {fileID: 434516}
   m_Father: {fileID: 451708}
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2, y: 3.5}
+  m_Size: {x: 1.79999995, y: 2.5}
 --- !u!114 &11415454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,7 +178,7 @@ MonoBehaviour:
   equipped: {fileID: 0}
   weapons: []
   starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
+  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!114 &11443758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1323,7 +1323,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b6726074e6f76434d89e93cb6697faa2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3171761fb5882664498adb4656ac6921, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -1379,7 +1379,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: starting_weapon_assets.Array.data[0]
       value: 
-      objectReference: {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
+      objectReference: {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
     - target: {fileID: 0}
       propertyPath: move_away_radius
       value: 7
@@ -1388,6 +1388,35 @@ Prefab:
       propertyPath: fire_radius
       value: 10.5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3171761fb5882664498adb4656ac6921,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Size.x
+      value: 1.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: starting_weapon_assets.Array.data[1]
+      value: 
+      objectReference: {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159200}

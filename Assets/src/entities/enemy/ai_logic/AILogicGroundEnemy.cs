@@ -12,10 +12,10 @@ public class AILogicGroundEnemy : AILogicBase
     private Enemy parent;
 
     [HideInInspector] public Vector3 pos;
-    [HideInInspector] public float move_angle;
     private Vector2 accel;
     private bool moving_right = false;
     private Rigidbody2D rigid_body;
+    private Vector2 velocity;
 
     private float friction = .9f;
     private float max_accel = 4.0f;
@@ -30,18 +30,22 @@ public class AILogicGroundEnemy : AILogicBase
     public LayerMask move_away_layers;
     public LayerMask sight_layers;
 
+    private Controller2D controller;
+
     private void Start()
     {
         parent = get_enemy_parent();
         parent.set_type(EnemyType.GROUND);
 
         rigid_body = GetComponent<Rigidbody2D>();
+        controller = GetComponent<Controller2D>();
     }
 
     bool is_player_in_sight(float radius)
     {
-        RaycastHit2D hit = Physics2D.Raycast(parent.weapon_inventory.equipped.transform.position, 
-                                             new Vector2(Mathf.Cos(move_angle), Mathf.Sin(move_angle)),
+        float angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
                                              radius, sight_layers);
 
         return hit.transform == Entities.player.transform;
@@ -72,33 +76,28 @@ public class AILogicGroundEnemy : AILogicBase
             case AIState.WALKING:
                 parent.general_ai_state = GeneralAIState.WALKING;
 
-                float vel_x = 0;
-                if (moving_right) vel_x = .1f;
-                else vel_x = -.1f;
-                rigid_body.AddForce(new Vector2(vel_x, 0), ForceMode2D.Impulse);
+                if (moving_right) velocity.x = 20.0f;
+                else velocity.x = -20.0f;
 
-                Vector3 velocity = rigid_body.velocity;
-                velocity.x = Mathf.Clamp(velocity.x, -4, 4);
-                rigid_body.velocity = velocity;
+                //velocity.x = Mathf.Clamp(velocity.x, -4, 4);
 
                 if (is_player_in_sight(move_away_radius)) ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
-                else if (is_player_in_sight(fire_radius)) parent.general_ai_state = GeneralAIState.SHOOTING;
+                if (is_player_in_sight(fire_radius)) parent.general_ai_state = GeneralAIState.SHOOTING;
 
                 break;
             case AIState.FIRE_AND_KEEP_DISTANCE:
                 parent.general_ai_state = GeneralAIState.SHOOTING;
 
-                //if (!is_player_in_sight(move_away_radius)) ai_state = AIState.WALKING;
+                if (!is_player_in_sight(move_away_radius)) ai_state = AIState.WALKING;
 
                 dist = Mathf.Sqrt(Mathf.Pow(pos.x - Entities.player.pos.x, 2) + Mathf.Pow(pos.y - Entities.player.pos.y, 2));
                 if (dist < move_away_radius)
                 {
-                    move_angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
-                    float best_angle = move_angle;
+                    float best_angle = Mathf.Atan2(Entities.player.pos.y - pos.y, Entities.player.pos.x - pos.x);
                     float closest_dist = -1;
                     const int num_casts = 12;
-                    float sx = Mathf.Cos(move_angle) * fire_radius;
-                    float sy = Mathf.Sin(move_angle) * fire_radius;
+                    float sx = Mathf.Cos(best_angle) * fire_radius;
+                    float sy = Mathf.Sin(best_angle) * fire_radius;
 
                     for (int n = 0; n < num_casts; ++n)
                     {
@@ -119,9 +118,8 @@ public class AILogicGroundEnemy : AILogicBase
                     }
 
                     if (closest_dist != -1) {
-                        move_angle = best_angle;
-                        accel.x += Mathf.Cos(move_angle) * speed_multiplier * 2.0f;
-                        accel.y += Mathf.Sin(move_angle) * speed_multiplier * 2.0f;
+                        accel.x += Mathf.Cos(best_angle) * speed_multiplier * 2.0f;
+                        accel.y += Mathf.Sin(best_angle) * speed_multiplier * 2.0f;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
                         accel.y = Mathf.Clamp(accel.y, -max_accel, max_accel);
                     }
@@ -136,12 +134,11 @@ public class AILogicGroundEnemy : AILogicBase
                 break;
         }
 
-        accel.x *= friction;
-        accel.y *= friction;
-        pos.x += accel.x * Time.deltaTime;
-        pos.y += accel.y * Time.deltaTime;
+        velocity.y += -10.0f * Time.deltaTime;
 
-        transform.position = pos;
+        controller.Move(velocity * Time.deltaTime);
+
+        if (controller.collisions.above || controller.collisions.below) velocity.y = 0;
 
         GetComponent<Collider2D>().enabled = true;
 	}

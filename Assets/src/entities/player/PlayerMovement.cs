@@ -26,9 +26,6 @@ public class PlayerMovement : MonoBehaviour {
     public float wallStickTime = .25f;
     private float timeToWallUnstick;
 
-    public float maxClimbAngle = 60;
-    public float maxDescendAngle = 40;
-
     private float hop_timer = 0;
     private bool hopping = false;
     private const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
