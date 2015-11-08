@@ -16,7 +16,7 @@ Assets/resources/particles/railgun_lightning.prefab
 Assets/resources/bullets/railgun_bullet.prefab
 Assets/resources/bullets/basic_bullet.prefab
 Assets/resources/bullets/chain.prefab
-Assets/prefabs/IceCave.prefab
+Assets/prefabs/terrain/IceCave.prefab
 Assets/resources/ui/health_bar2.prefab
 Assets/resources/ui/health_bar1.prefab
 Assets/resources/ui/health_bar_grey1.prefab
@@ -28,11 +28,15 @@ Assets/resources/bullets/grenade_bullet.prefab
 Assets/resources/ui/damage_text.prefab
 Assets/resources/weapons/weapon_shotgun.prefab
 Assets/resources/bullets/shotgun_bullet.prefab
-Assets/FerrIceCave.prefab
+Assets/prefabs/terrain/FerrIceCave.prefab
 Assets/prefabs/enemies/flying_enemy_grenade.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun.prefab
 Assets/prefabs/enemies/flying_enemy_railgun.prefab
 Assets/resources/particles/explosion.prefab
+Assets/prefabs/enemies/ground_enemy.prefab
+Assets/prefabs/particles/bloodExplosionParticleMedium.prefab
+Assets/prefabs/particles/Particle System.prefab
+Assets/prefabs/particles/jetPackFlareMasterYellow.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/Ferr/2DTerrain/TerrainMaterials/RockTerrainMaterial.prefab
@@ -65,9 +69,13 @@ Assets/resources/ui/health_bar_grey1.prefab
 Assets/resources/ui/health_bar_grey2.prefab
 Assets/resources/weapons/weapon_shotgun.prefab
 Assets/resources/bullets/shotgun_bullet.prefab
-Assets/FerrIceCave.prefab
-Assets/prefabs/IceCave.prefab
 Assets/prefabs/enemies/flying_enemy_grenade.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun.prefab
 Assets/prefabs/enemies/flying_enemy_railgun.prefab
 Assets/resources/particles/explosion.prefab
+Assets/prefabs/terrain/FerrIceCave.prefab
+Assets/prefabs/terrain/IceCave.prefab
+Assets/prefabs/enemies/ground_enemy.prefab
+Assets/prefabs/particles/bloodExplosionParticleMedium.prefab
+Assets/prefabs/particles/Particle System.prefab
+Assets/prefabs/particles/jetPackFlareMasterYellow.prefab

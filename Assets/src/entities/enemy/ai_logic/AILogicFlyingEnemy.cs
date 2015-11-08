@@ -22,7 +22,6 @@ public class AILogicFlyingEnemy : AILogicBase
     private float speed_multiplier = 1.0f;
 
     private AIState ai_state = AIState.MOVE_NEXT_NODE;
-    private AIState prev_ai_state = AIState.NONE;
 
     public float fire_radius = 8;
     public float move_away_radius = 5.5f;
@@ -64,7 +63,6 @@ public class AILogicFlyingEnemy : AILogicBase
         update_scale();
 
         float dist;
-        AIState temp_prev_ai_state = ai_state;
         RaycastHit2D hit;
 
         switch (ai_state) {
@@ -134,11 +132,10 @@ public class AILogicFlyingEnemy : AILogicBase
                 float scale_x = Mathf.Abs(transform.localScale.x);
                 if (transform.position.x < Entities.player.transform.position.x) scale_x = -scale_x;
                 transform.localScale = new Vector3(scale_x, transform.localScale.y, transform.localScale.z);
+                parent.facing_right = transform.localScale.x < 0;
 
                 break;
         }
-        parent.facing_right = transform.localScale.x < 0;
-        prev_ai_state = temp_prev_ai_state;
 
         accel.x *= friction;
         accel.y *= friction;

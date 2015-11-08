@@ -1,6 +1,7 @@
 Library
 obj
 Temp
+build
 *.csproj
 *.sln
 *.vs

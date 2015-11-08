@@ -14,6 +14,7 @@ public class GrapplingHook : MonoBehaviour
     Player parent;
 
     public LayerMask colliders;
+    public float min_grapple_radius = 1.0f;
     public float grapple_radius = 25.0f;
     public float grapple_speed = 30.0f;
     public float chain_seperation = .7f;
@@ -107,7 +108,7 @@ public class GrapplingHook : MonoBehaviour
                                                 Mathf.Sin(parent.weapon_inventory.equipped.angle)
                                             ),
                                             grapple_radius, colliders);
-                    if (hit && hit.distance >= 4.0f)
+                    if (hit && hit.distance >= min_grapple_radius)
                     {
                         grapple_angle = parent.weapon_inventory.equipped.angle;
                         grapple_state = GrappleState.SHOOTING_OUT;

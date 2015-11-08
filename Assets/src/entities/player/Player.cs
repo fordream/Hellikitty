@@ -81,7 +81,7 @@ public class Player : Entity
         if (pos.x < top_left.x - world_bounds || pos.x > bot_right.x + world_bounds ||
             pos.y < top_left.y - world_bounds || pos.y > bot_right.y + world_bounds)
         {
-            Application.LoadLevel(0);
+            //Application.LoadLevel(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1)) weapon_inventory.equip_weapon(weapon_inventory.weapons[0]);
         if (Input.GetKeyDown(KeyCode.Alpha2)) weapon_inventory.equip_weapon(weapon_inventory.weapons[1]);

@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
-  max_damage: 5
-  explosion_radius: 4
+  max_damage: 3.5
+  explosion_radius: 5
   explode_layers:
     serializedVersion: 2
     m_Bits: 3072
@@ -185,11 +185,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: max_damage
-      value: 5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: explode_layers.m_Bits
       value: 3072
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosion_radius
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

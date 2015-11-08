@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(AILogicFlyingEnemy))]
 public class AILogicFlyingEnemyPath : AILogicBase
 {
     Enemy parent;
