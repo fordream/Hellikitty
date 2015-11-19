@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11466726}
   - 61: {fileID: 6175348}
   - 50: {fileID: 5068620}
+  - 96: {fileID: 9682094}
   m_Layer: 0
   m_Name: shotgun_bullet
   m_TagString: Untagged
@@ -60,6 +61,51 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .209999993, y: .150000006}
+--- !u!96 &9682094
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163382}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: ddc940b1c22442640953cc5740bdb4c2, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: .150000006
+  m_StartWidth: .200000003
+  m_EndWidth: .200000003
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4278210445
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 4278211747
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 4278205061
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 4278215073
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 19888
+  m_MinVertexDistance: .100000001
+  m_Autodestruct: 0
 --- !u!114 &11466726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
-  damage: .75
+  damage: 1
   speed: 25
   player_owner_collide_layers:
     serializedVersion: 2
@@ -107,7 +153,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4226b1561abddd84189713ed32036aa5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 025ead8239e121844b5a74146ef18bf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -119,7 +165,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b4e0ca806ad59a546a5d4630a9b532ad, type: 2}
+      objectReference: {fileID: 2100000, guid: ddc940b1c22442640953cc5740bdb4c2, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 0
@@ -147,7 +193,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4226b1561abddd84189713ed32036aa5,
+      objectReference: {fileID: 21300000, guid: 025ead8239e121844b5a74146ef18bf0,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
@@ -171,7 +217,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage
-      value: .75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: player_owner_colliders.m_Bits
@@ -192,6 +238,38 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: speed
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_StartWidth
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_EndWidth
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Time
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[0].rgba
+      value: 4278210445
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[1].rgba
+      value: 4278211747
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[2].rgba
+      value: 4278205061
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[3].rgba
+      value: 4278215073
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[4].rgba
+      value: 19888
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

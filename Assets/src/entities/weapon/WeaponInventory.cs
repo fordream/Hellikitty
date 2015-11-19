@@ -8,7 +8,11 @@ public enum WeaponType
     PISTOL, 
     RAILGUN, 
     GRENADE_LAUNCHER, 
-    SHOTGUN
+    SHOTGUN,
+    SNIPER,
+    LASER,
+    ROCKET,
+    XRAY
 };
 
 public class WeaponInventory : MonoBehaviour

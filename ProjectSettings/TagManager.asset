@@ -7,6 +7,9 @@ TagManager:
   - obstacle
   - enemy
   - waypoint_debug_box
+  - Health
+  - End
+  - Music
   layers:
   - Default
   - TransparentFX

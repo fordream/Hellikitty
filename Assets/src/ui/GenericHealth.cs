@@ -6,7 +6,8 @@ public class GenericHealth : MonoBehaviour
 {
     private Entity parent;
     public float max_hp;
-    [HideInInspector] public float current_hp;
+    [HideInInspector]
+    public float current_hp;
 
     private List<GameObject> bars = new List<GameObject>();
     private GameObject health_bar;
@@ -22,12 +23,12 @@ public class GenericHealth : MonoBehaviour
 
         current_hp = max_hp;
         update_health();
-	}
+    }
 
     public void update()
     {
-        health_bar.transform.position = new Vector3(transform.position.x - (total_bar_width / 2.0f), 
-                                                    transform.position.y + (srenderer.bounds.size.y / 2.0f), 
+        health_bar.transform.position = new Vector3(transform.position.x - (total_bar_width / 2.0f),
+                                                    transform.position.y + (srenderer.bounds.size.y / 2.0f),
                                                     -20);
     }
 
@@ -52,12 +53,13 @@ public class GenericHealth : MonoBehaviour
             bar.transform.parent = health_bar.transform;
             bars.Add(bar);
 
-            pos.z = 1;
+            pos.z = 1; //originally 1
             GameObject grey_bar = Instantiate(n % 2 == 0 ? grey_bar1_asset : grey_bar2_asset);
             grey_bar.transform.position = pos;
             grey_bar.transform.parent = health_bar.transform;
 
-            pos.x += .12f;
+            pos.x += .30f; //Originally .12
+            
         }
         total_bar_width = pos.x;
     }
@@ -87,5 +89,22 @@ public class GenericHealth : MonoBehaviour
         if (f < 0) Debug.LogWarning("gain_hp only takes in positive numbers (" + f + ")");
         current_hp += f;
         update_health();
+    }
+    public void heal(float f)
+    {
+        if (f < 0) Debug.LogWarning("gain_hp only takes in positive numbers (" + f + ")");
+        current_hp = f;
+        update_health();
+    }
+
+
+    //lachlan additions
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "Health")
+        {
+            heal(85);
+            Destroy(coll.gameObject);
+        }
     }
 }

@@ -24,6 +24,15 @@ namespace BulletLogic.Asset
             GetComponent<Rigidbody2D>().AddForce(new Vector2(Mathf.Cos(angle) * speed, 5 + (Mathf.Sin(angle) * speed)), ForceMode2D.Impulse);
         }
 
+        void OnCollisionEnter2D(Collision2D coll)
+        {
+            if (coll.gameObject.tag == "Player")
+            {
+                explode();
+                destroy_all();
+            }
+        }
+
         private void Update()
         {
             explode_timer += Time.deltaTime;

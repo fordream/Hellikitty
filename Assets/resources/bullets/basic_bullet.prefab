@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11466726}
   - 61: {fileID: 6175348}
   - 50: {fileID: 5068620}
+  - 96: {fileID: 9612264}
   m_Layer: 0
   m_Name: basic_bullet
   m_TagString: Untagged
@@ -60,6 +61,51 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .209999993, y: .150000006}
+--- !u!96 &9612264
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163382}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: c0f734248d736024bbb31ae402d9d469, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: .100000001
+  m_StartWidth: .200000003
+  m_EndWidth: .200000003
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4279955711
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 4283039718
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 4282776319
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 4283298815
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 6683647
+  m_MinVertexDistance: .100000001
+  m_Autodestruct: 0
 --- !u!114 &11466726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,7 +153,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4226b1561abddd84189713ed32036aa5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f03aef54b534f654f98ae586a5662c80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -119,7 +165,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b4e0ca806ad59a546a5d4630a9b532ad, type: 2}
+      objectReference: {fileID: 2100000, guid: c0f734248d736024bbb31ae402d9d469, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 0
@@ -147,7 +193,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4226b1561abddd84189713ed32036aa5,
+      objectReference: {fileID: 21300000, guid: f03aef54b534f654f98ae586a5662c80,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
@@ -193,6 +239,46 @@ Prefab:
       propertyPath: speed
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[0].rgba
+      value: 4279955711
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_StartWidth
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_EndWidth
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Time
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[1].rgba
+      value: 4283039718
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[2].rgba
+      value: 4282776319
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[3].rgba
+      value: 4283298815
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[4].rgba
+      value: 6683647
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d58a33a68c7849439b188eaa6805e0c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 163382}

@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]//lachlan added audiosource
+
 public class Weapon : MonoBehaviour
 {
     [HideInInspector] public Entity entity;
@@ -44,6 +46,9 @@ public class Weapon : MonoBehaviour
 
     public void spawn(WeaponType type)
     {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();//lachlan added playing of audio
+
         if (type == WeaponType.PISTOL) Bullet.spawn<BulletLogic.Asset.BasicAsset>(entity, pos).init(angle);
         if (type == WeaponType.RAILGUN) Bullet.spawn<BulletLogic.Asset.RailgunAsset>(entity, pos).init(angle);
         if (type == WeaponType.GRENADE_LAUNCHER) Bullet.spawn<BulletLogic.Asset.GrenadeAsset>(entity, pos).init(angle);
@@ -51,8 +56,11 @@ public class Weapon : MonoBehaviour
         {
             for (int n = 0; n < 5; ++n)
             {
-                Bullet.spawn<BulletLogic.Asset.ShotgunAsset>(entity, pos).init(angle + UnityEngine.Random.Range(-Mathf.PI / 8.0f, Mathf.PI / 8.0f));
+                Bullet.spawn<BulletLogic.Asset.ShotgunAsset>(entity, pos).init(angle + UnityEngine.Random.Range(-Mathf.PI / 16.0f, Mathf.PI / 16.0f));
             }
         }
+        if (type == WeaponType.SNIPER) Bullet.spawn<BulletLogic.Asset.SniperAsset>(entity, pos).init(angle);
+        if (type == WeaponType.LASER) Bullet.spawn<BulletLogic.Asset.LaserAsset>(entity, pos).init(angle);
+        if (type == WeaponType.XRAY) Bullet.spawn<BulletLogic.Asset.XRayAsset>(entity, pos).init(angle);
     }
 }

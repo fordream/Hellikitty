@@ -14,6 +14,9 @@ public class Bullet : MonoBehaviour
         else if (typeof(T) == typeof(BulletLogic.Asset.RailgunAsset)) prefab_path = "railgun_bullet";
         else if (typeof(T) == typeof(BulletLogic.Asset.GrenadeAsset)) prefab_path = "grenade_bullet";
         else if (typeof(T) == typeof(BulletLogic.Asset.ShotgunAsset)) prefab_path = "shotgun_bullet";
+        else if (typeof(T) == typeof(BulletLogic.Asset.SniperAsset)) prefab_path = "sniper_bullet";
+        else if (typeof(T) == typeof(BulletLogic.Asset.LaserAsset)) prefab_path = "lasermach_bullet";
+        else if (typeof(T) == typeof(BulletLogic.Asset.XRayAsset)) prefab_path = "xray_bullet";
 
         GameObject bullet_obj;
         if (prefab_path != "")

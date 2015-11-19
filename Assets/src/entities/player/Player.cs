@@ -57,13 +57,27 @@ public class Player : Entity
         transform.localScale = scale;
     }
 
+    //Lachlan changed this to restart current level not the first level
+    //ie it used to restart the game on death
     public override void destroy()
     {
-        Application.LoadLevel(0);
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     void Update()
     {
+        //an addition by lachlan to skip levels as we please
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            int p = Application.loadedLevel;
+            Application.LoadLevel(p + 1);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            int o = Application.loadedLevel;
+            Application.LoadLevel(o - 1);
+        }
+
         grappling_hook.update();
         if (grappling_hook.grapple_state == GrapplingHook.GrappleState.NONE)
         {
@@ -81,12 +95,34 @@ public class Player : Entity
         if (pos.x < top_left.x - world_bounds || pos.x > bot_right.x + world_bounds ||
             pos.y < top_left.y - world_bounds || pos.y > bot_right.y + world_bounds)
         {
-            //Application.LoadLevel(0);
+            //Lachlan changed this to restart current level not the first level
+            //ie it used to restart the game on death (you should probably call void destroy here)
+            Application.LoadLevel(Application.loadedLevel);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1)) weapon_inventory.equip_weapon(weapon_inventory.weapons[0]);
         if (Input.GetKeyDown(KeyCode.Alpha2)) weapon_inventory.equip_weapon(weapon_inventory.weapons[1]);
         if (Input.GetKeyDown(KeyCode.Alpha3)) weapon_inventory.equip_weapon(weapon_inventory.weapons[2]);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) weapon_inventory.equip_weapon(weapon_inventory.weapons[3]);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) weapon_inventory.equip_weapon(weapon_inventory.weapons[4]);
+        if (Input.GetKeyDown(KeyCode.Alpha6)) weapon_inventory.equip_weapon(weapon_inventory.weapons[5]);
 
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
+    }
+
+    //lachlan additions
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "End")
+        {
+            int i = Application.loadedLevel;
+            Application.LoadLevel(i + 1);
+        }
+        if (coll.gameObject.tag == "Music")
+        {
+            AudioSource aud = coll.gameObject.GetComponent<AudioSource>();
+            aud.Play();//lachlan added playing of audio
+            coll.gameObject.transform.position = new Vector2(-10, -10);
+            //Destroy(coll.gameObject);
+        }
     }
 }

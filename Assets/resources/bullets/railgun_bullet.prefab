@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
-  damage: 1
+  damage: 4
   particle_seperation: .5
   player_owner_collide_layers:
     serializedVersion: 2
@@ -117,7 +117,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: player_owner_colliders.m_Bits

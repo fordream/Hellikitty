@@ -18,8 +18,8 @@ public class AILogicGroundEnemy : AILogicBase
     private Vector2 velocity;
 
     private float friction = .9f;
-    private float max_accel = 4.0f;
-    private float speed_multiplier = 1.0f;
+    private float max_accel = 4.0f; //originally 4.0f
+    private float speed_multiplier = 1.0f; //originally 1.0f
 
     private AIState ai_state = AIState.WALKING;
     private AIState prev_ai_state = AIState.NONE;
@@ -76,8 +76,8 @@ public class AILogicGroundEnemy : AILogicBase
             case AIState.WALKING:
                 parent.general_ai_state = GeneralAIState.WALKING;
 
-                if (moving_right) velocity.x = 20.0f;
-                else velocity.x = -20.0f;
+                if (moving_right) velocity.x = 8.0f; //originally 20.0f
+                else velocity.x = -8.0f; //-originally 20.0f
 
                 //velocity.x = Mathf.Clamp(velocity.x, -4, 4);
 

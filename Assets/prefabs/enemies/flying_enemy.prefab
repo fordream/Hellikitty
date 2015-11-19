@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 4
+  max_hp: 8
   current_hp: 0
 --- !u!114 &11434592
 MonoBehaviour:
@@ -1362,7 +1362,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: max_hp
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: type

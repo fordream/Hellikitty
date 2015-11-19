@@ -151,7 +151,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  terrainMaterial: {fileID: 11418554, guid: 55f1273954880af43b90e52c2925cb94, type: 2}
+  terrainMaterial: {fileID: 11418554, guid: 4d1a3edd279d8d94d941bc65b1bf4edc, type: 2}
 --- !u!114 &11464252
 MonoBehaviour:
   m_ObjectHideFlags: 1
