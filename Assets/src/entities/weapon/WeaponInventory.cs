@@ -2,55 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType
-{
-    NONE, 
-    PISTOL, 
-    RAILGUN, 
-    GRENADE_LAUNCHER, 
-    SHOTGUN,
-    SNIPER,
-    LASER,
-    ROCKET,
-    XRAY
-};
-
 public class WeaponInventory : MonoBehaviour
 {
     private Entity parent;
 
     [HideInInspector] public Weapon equipped;
     [HideInInspector] public List<Weapon> weapons = new List<Weapon>();
-    public GameObject[] starting_weapon_assets;
 
     public void init(Entity parent)
     {
         this.parent = parent;
 
-        foreach (GameObject weapon in starting_weapon_assets)
+        Weapon[] weapon_comps = GetComponents<Weapon>();
+
+        foreach (Weapon weapon in weapon_comps)
         {
-            add_weapon(weapon);
+            weapon.entity = parent;
+            weapons.Add(weapon);
+            if (weapon.initially_equipped) equip_weapon(weapon);
         }
-        if (weapons.Count > 0) equip_weapon(weapons[0]);
     }
 
-    public void add_weapon(GameObject weapon)
+    public void dequip_weapon()
     {
-        GameObject weapon_obj = Instantiate(weapon);
-        weapon_obj.transform.parent = parent.transform.parent.transform;
-        Weapon weapon_comp = weapon_obj.GetComponent<Weapon>();
-        weapon_comp.entity = parent;
-        weapons.Add(weapon_comp);
-        weapon_obj.SetActive(false);
+        if (equipped != null)
+        {
+            Destroy(equipped.weapon_asset_instance);
+        }
     }
 
     public void equip_weapon(Weapon weapon)
     {
-        if (equipped != null)
-        {
-            equipped.gameObject.SetActive(false);
-        }
-        weapon.gameObject.SetActive(true);
+        dequip_weapon();
+
+        if (weapon.weapon_asset == null) Debug.LogError("weapon asset was not assigned");
+
+        GameObject weapon_obj = Instantiate(weapon.weapon_asset);
+        weapon_obj.transform.parent = parent.transform.parent.transform;
+        weapon.weapon_asset_instance = weapon_obj;
+
         equipped = weapon;
     }
 }

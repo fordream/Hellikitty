@@ -319,8 +319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &20598970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3407,8 +3405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &128729046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11024,8 +11020,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &486817645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16089,8 +16083,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &656081660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16551,8 +16543,9 @@ GameObject:
   - 4: {fileID: 682730024}
   - 114: {fileID: 682730026}
   - 114: {fileID: 682730025}
+  - 114: {fileID: 682730027}
   m_Layer: 0
-  m_Name: weapon_base
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16584,8 +16577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &682730026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16598,6 +16589,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b51889bbf56134ab6834269b606b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &682730027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 682730023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b99a8f2f6230f749a83e8ff9d451477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
+  angle: 0
+  type: 0
+  weapon_asset: {fileID: 0}
+  weapon_asset_instance: {fileID: 0}
+  attack_rate_sec: 1
+  initially_equipped: 1
+  aim_radius: 1.25
+  damage: 10
+  speed: 30
+  num_bullets_shot: 5
+  bullet_spread_degrees: 10
 --- !u!1 &685548158
 GameObject:
   m_ObjectHideFlags: 0
@@ -18933,8 +18948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &717199942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19566,8 +19579,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: cde7926f126ed294299626b782de33b7, type: 2}
 --- !u!114 &755580888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19623,8 +19634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &767436684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19985,8 +19994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &790711199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23392,15 +23399,41 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 963875215}
-  - 114: {fileID: 963875216}
   - 114: {fileID: 963875217}
+  - 114: {fileID: 963875216}
+  - 114: {fileID: 963875214}
   m_Layer: 10
-  m_Name: weapon_base
+  m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &963875214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 963875213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c49fde931ba1a4191816a7b90b9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
+  angle: 0
+  type: 0
+  weapon_asset: {fileID: 0}
+  weapon_asset_instance: {fileID: 0}
+  attack_rate_sec: 1
+  initially_equipped: 1
+  aim_radius: 1.25
+  damage: 8
+  max_distance: 10
+  colliders:
+    serializedVersion: 2
+    m_Bits: 2304
 --- !u!4 &963875215
 Transform:
   m_ObjectHideFlags: 0
@@ -23437,13 +23470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 4e39c82fea9e14741bb3533ca2e3e7a7, type: 2}
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
-  - {fileID: 159712, guid: cde7926f126ed294299626b782de33b7, type: 2}
-  - {fileID: 159712, guid: 7c58a08f5f5fbf6489af3064889e79ac, type: 2}
-  - {fileID: 159712, guid: f9843e4699cfd984e8df180a20c97422, type: 2}
-  - {fileID: 159712, guid: ea9770d6bb13b304891cba969283a321, type: 2}
 --- !u!1 &965480357
 GameObject:
   m_ObjectHideFlags: 0
@@ -23487,8 +23513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &965480360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23987,8 +24011,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &992356061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24141,7 +24163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 4
+  max_hp: 50
   current_hp: 0
 --- !u!212 &1004279816
 SpriteRenderer:
@@ -24221,7 +24243,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 1.90734863e-06, y: -9.53674316e-07}
   serializedVersion: 2
-  m_Size: {x: 2, y: 2.5}
+  m_Size: {x: 1, y: 2}
 --- !u!1 &1004292250
 GameObject:
   m_ObjectHideFlags: 0
@@ -24750,8 +24772,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1042239206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27364,8 +27384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1074063259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27599,8 +27617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: cde7926f126ed294299626b782de33b7, type: 2}
 --- !u!114 &1078686563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27710,8 +27726,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1102479042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30017,8 +30031,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1197052621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33294,8 +33306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: cde7926f126ed294299626b782de33b7, type: 2}
 --- !u!114 &1296233223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33401,8 +33411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1322171519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35725,7 +35733,7 @@ GameObject:
   - 114: {fileID: 1393286318}
   - 50: {fileID: 1393286320}
   m_Layer: 10
-  m_Name: player_base
+  m_Name: base
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35781,7 +35789,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 3}
+  m_Size: {x: 1, y: 2}
 --- !u!114 &1393286315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35862,7 +35870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 85
+  max_hp: 800
   current_hp: 0
 --- !u!114 &1393286319
 MonoBehaviour:
@@ -42016,8 +42024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: cde7926f126ed294299626b782de33b7, type: 2}
 --- !u!114 &1647290478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42073,8 +42079,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1647417702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42864,8 +42868,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1703873619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48898,8 +48900,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1801984200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49091,8 +49091,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1808151806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49252,8 +49250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1821805211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53975,8 +53971,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &1988206637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54047,8 +54041,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!114 &2004306282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54104,8 +54096,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipped: {fileID: 0}
   weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 2a6d1aa9c36b6094fa2119b58943c8a6, type: 2}
 --- !u!114 &2006670381
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,25 +6,23 @@ namespace BulletLogic.Asset
     public class RailgunAsset : BulletLogicBase
     {
         private float angle;
-        private const float MAX_DISTANCE = 10.0f;
+        private float max_distance;
+        private float damage;
+        private LayerMask colliders;
 
-        public float damage;
-        public float particle_seperation = .5f;
+        private const float PARTICLE_SEP = .5f;
 
-        public LayerMask player_owner_collide_layers;
-        public LayerMask enemy_owner_collide_layers;
-        [HideInInspector] public LayerMask colliders;
-
-        public void init(float angle)
+        public void init(float angle, float damage, float max_distance, LayerMask colliders)
         {
-            colliders = entity == Entities.player ? player_owner_collide_layers : enemy_owner_collide_layers;
-
             this.angle = angle;
+            this.damage = damage;
+            this.max_distance = max_distance;
+            this.colliders = colliders;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)),
-                                                 MAX_DISTANCE, colliders);
-            float dist = hit.transform == null ? MAX_DISTANCE : hit.distance;
-            float num_particles = dist / particle_seperation;
+                                                 max_distance, colliders);
+            float dist = hit.transform == null ? max_distance : hit.distance;
+            float num_particles = dist / PARTICLE_SEP;
 
             Vector3 pos = transform.position;
             pos.z = -20;
@@ -32,12 +30,12 @@ namespace BulletLogic.Asset
 
             for (int n = 0; n < num_particles; ++n)
             {
-                pos.x += Mathf.Cos(angle) * particle_seperation;
-                pos.y += Mathf.Sin(angle) * particle_seperation;
+                pos.x += Mathf.Cos(angle) * PARTICLE_SEP;
+                pos.y += Mathf.Sin(angle) * PARTICLE_SEP;
                 GameObject obj = (GameObject)Instantiate(railgun_particle, pos, Quaternion.identity);
 
                 //check if any colliders are overlapping with a circle raycast
-                Collider2D col = Physics2D.OverlapCircle(pos, particle_seperation, colliders);
+                Collider2D col = Physics2D.OverlapCircle(pos, PARTICLE_SEP, colliders);
                 if (col)
                 {
                     //if the gameobject has a health component, deal damage to them

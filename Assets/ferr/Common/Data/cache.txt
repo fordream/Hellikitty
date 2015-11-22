@@ -41,7 +41,6 @@ Assets/resources/bullets/laser_bullet.prefab
 Assets/resources/bullets/sniper_bullet.prefab
 Assets/resources/bullets/lasermach_bullet.prefab
 Assets/resources/weapons/weapon_Turret.prefab
-Assets/resources/weapons/weapon_nothing.prefab
 Assets/HealthPack.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun (1).prefab
 Assets/materials/menu asset materials/UICanvas_v3.prefab
@@ -92,7 +91,6 @@ Assets/resources/bullets/laser_bullet.prefab
 Assets/resources/bullets/sniper_bullet.prefab
 Assets/resources/bullets/lasermach_bullet.prefab
 Assets/resources/weapons/weapon_Turret.prefab
-Assets/resources/weapons/weapon_nothing.prefab
 Assets/HealthPack.prefab
 Assets/prefabs/terrain/FerrIce.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun (1).prefab

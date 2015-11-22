@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Controller2D))]
+[RequireComponent(typeof(PlatformCollision))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(GrapplingHook))]
 [RequireComponent(typeof(GenericHealth))]
 public class Player : Entity
 {
     //components
-    [HideInInspector] public Controller2D controller;
+    [HideInInspector] public PlatformCollision controller;
     [HideInInspector] public PlayerMovement player_movement;
 
     [HideInInspector] public PlayerWeaponControl weapon_control;
@@ -29,13 +29,13 @@ public class Player : Entity
         pos = Map.grid.grid_to_world(Map.grid.world_to_grid(transform.position));
         current_node = Map.grid.get_node(Map.grid.world_to_grid(pos));
 
-        controller = GetComponent<Controller2D>();
+        controller = GetComponent<PlatformCollision>();
         controller.init();
         player_movement = GetComponent<PlayerMovement>();
         player_movement.init();
 
-        Transform weapon_obj = transform.parent.FindChild("weapon_base");
-        if (weapon_obj == null) Debug.LogError("'weapon_base' object cannot be found in player parent's children");
+        Transform weapon_obj = transform.parent.FindChild("weapon");
+        if (weapon_obj == null) Debug.LogError("'weapon' object cannot be found in player parent's children");
         weapon_inventory = weapon_obj.GetComponent<WeaponInventory>();
         weapon_inventory.init(this);
         weapon_control = weapon_obj.GetComponent<PlayerWeaponControl>();

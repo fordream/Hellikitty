@@ -14,8 +14,9 @@ public class PlayerWeaponControl : MonoBehaviour
 
     public void update()
     {
+        if (inventory.equipped == null) return;
+
         Vector2 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        inventory.equipped.update_motion(parent.gameObject, mouse_pos);
-        inventory.equipped.update_logic(Input.GetMouseButton(0));
+        inventory.equipped.update(parent.gameObject, mouse_pos, Input.GetMouseButton(0));
 	}
 }

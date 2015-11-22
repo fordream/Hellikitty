@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Controller2D : RaycastController {
+public class PlatformCollision : RaycastController {
 
     public CollisionInfo collisions;
     [HideInInspector] public Vector2 playerInput;

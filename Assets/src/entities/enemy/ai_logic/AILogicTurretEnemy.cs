@@ -30,7 +30,7 @@ public class AILogicTurretEnemy : AILogicBase
     public LayerMask move_away_layers;
     public LayerMask sight_layers;
 
-    private Controller2D controller;
+    private PlatformCollision controller;
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class AILogicTurretEnemy : AILogicBase
         parent.set_type(EnemyType.GROUND);
 
         rigid_body = GetComponent<Rigidbody2D>();
-        controller = GetComponent<Controller2D>();
+        controller = GetComponent<PlatformCollision>();
     }
 
     bool is_player_in_sight(float radius)

@@ -31,7 +31,7 @@ public class AILogicGroundEnemy : AILogicBase
     public LayerMask move_away_layers;
     public LayerMask sight_layers;
 
-    private Controller2D controller;
+    private PlatformCollision controller;
 
     //hopping
     private float hop_timer = 0;
@@ -43,7 +43,7 @@ public class AILogicGroundEnemy : AILogicBase
         parent.set_type(EnemyType.GROUND);
 
         rigid_body = GetComponent<Rigidbody2D>();
-        controller = GetComponent<Controller2D>();
+        controller = GetComponent<PlatformCollision>();
     }
 
     bool is_player_in_sight(float radius)
