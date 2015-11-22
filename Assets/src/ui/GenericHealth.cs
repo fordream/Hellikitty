@@ -53,12 +53,12 @@ public class GenericHealth : MonoBehaviour
             bar.transform.parent = health_bar.transform;
             bars.Add(bar);
 
-            pos.z = 1; //originally 1
+            pos.z = 1;
             GameObject grey_bar = Instantiate(n % 2 == 0 ? grey_bar1_asset : grey_bar2_asset);
             grey_bar.transform.position = pos;
             grey_bar.transform.parent = health_bar.transform;
 
-            pos.x += .30f; //Originally .12
+            pos.x += .31f;
             
         }
         total_bar_width = pos.x;

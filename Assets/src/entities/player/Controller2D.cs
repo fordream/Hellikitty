@@ -4,8 +4,7 @@ using System.Collections;
 public class Controller2D : RaycastController {
 
     public CollisionInfo collisions;
-    [HideInInspector]
-    public Vector2 playerInput;
+    [HideInInspector] public Vector2 playerInput;
 
     public float maxClimbAngle = 60;
     public float maxDescendAngle = 40;

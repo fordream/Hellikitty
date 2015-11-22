@@ -13,6 +13,8 @@ public class EnemyWeaponControl : MonoBehaviour
     }
 
     public void update() {
+        if (inventory.equipped == null) return;
+
         inventory.equipped.update_motion(parent.gameObject, Entities.player.transform.position);
         inventory.equipped.update_logic(parent.general_ai_state == GeneralAIState.SHOOTING);
 	}

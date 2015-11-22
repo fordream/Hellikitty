@@ -27,16 +27,11 @@ public class WeaponInventory : MonoBehaviour
     {
         this.parent = parent;
 
-        if (starting_weapon_assets.Length == 0)
-        {
-            Debug.LogError("Starting weapon types must contain at least one weapon (set in editor)");
-        }
-
         foreach (GameObject weapon in starting_weapon_assets)
         {
             add_weapon(weapon);
         }
-        equip_weapon(weapons[0]);
+        if (weapons.Count > 0) equip_weapon(weapons[0]);
     }
 
     public void add_weapon(GameObject weapon)

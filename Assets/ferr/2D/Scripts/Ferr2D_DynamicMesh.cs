@@ -72,7 +72,7 @@ public class Ferr2D_DynamicMesh
     		(float)System.Math.Round(mVerts[i].x, 3),
     		(float)System.Math.Round(mVerts[i].y, 3),
     		(float)System.Math.Round(mVerts[i].z, 3));
-    	
+
         aMesh.Clear();
         aMesh.vertices  = mVerts  .ToArray();
         aMesh.uv        = mUVs    .ToArray();
@@ -89,7 +89,39 @@ public class Ferr2D_DynamicMesh
         } else {
             aMesh.tangents = null;
         }
-        aMesh.RecalculateBounds ();
+        aMesh.RecalculateBounds();
+
+        for (int n = mNorms.Count; n < mVerts.Count; ++n)
+        {
+            mNorms.Add(Vector3.zero);
+        }
+
+        for (int n = 0; n < aMesh.vertices.Length; n += 3) {
+            if (n + 3 >= aMesh.vertices.Length) break;
+
+            mNorms[n] = new Vector3(1, 0, 0);
+            mNorms[n + 1] = new Vector3(0, 1, 0);
+            mNorms[n + 2] = new Vector3(0, 0, 1);
+
+            continue;
+
+
+            Vector3 v1 = aMesh.vertices[n];
+            Vector3 v2 = aMesh.vertices[n % 3 == 2 ? n - 2 : n + 1];
+
+            float dx = v2.x - v1.x;
+            float dy = v2.y - v1.y;
+
+            Vector2 target = new Vector3(-dy, dx, 0);
+            mNorms[n] = target;
+            float angle = Mathf.Atan2(target.y, target.x) * (180.0f / Mathf.PI) + 90;
+            if (angle < 70 || angle > 120) mNorms[n] = Vector3.zero;
+
+            float angle2 = Mathf.Atan2(dy, dx) * (180.0f / Mathf.PI) + 90;
+
+            if (n < 3) Debug.Log(mNorms[n] + ", " + angle + ", " + angle2);
+        }
+        aMesh.SetNormals(mNorms);
     }
     /// <summary>
     /// This extrude is pretty specific to the Ferr2DT path stuff, but it extrudes a 2D mesh out a certain

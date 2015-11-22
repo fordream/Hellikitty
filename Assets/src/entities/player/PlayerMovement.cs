@@ -5,9 +5,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private Player parent;
 
-    private float gravity;
-    private float maxJumpVelocity;
-    private float minJumpVelocity;
+    public float gravity = -100.0f;
     public Vector3 velocity;
     private float velocityXSmoothing;
 
@@ -15,8 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     public Vector2 wallJumpOff;
     public Vector2 wallLeap;
 
-    public float maxJumpHeight = 4;
-    public float minJumpHeight = 1;
+    public float jumpHeight = 10.0f;
     public float timeToJumpApex = .4f;
     public float accelerationTimeAirborne = .2f;
     public float accelerationTimeGrounded = .1f;
@@ -26,9 +23,9 @@ public class PlayerMovement : MonoBehaviour {
     public float wallStickTime = .25f;
     private float timeToWallUnstick;
 
-    private float hop_timer = 0;
     private bool hopping = false;
     private const float MAX_HOP_FALLVEL = -4.0f;        //if you want to jump while hopping, make sure the fall velocity is greater than this
+    public float hop_jump_height = 10.0f;
 
     private int num_jumps = 0;
     public int max_jumps = 2;
@@ -37,15 +34,11 @@ public class PlayerMovement : MonoBehaviour {
     public void init()
     {
         parent = GetComponent<Player>();
-
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
     public void update()
     {
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y -= gravity * Time.deltaTime;
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         int wallDirX = (parent.controller.collisions.left) ? -1 : 1;
@@ -85,11 +78,11 @@ public class PlayerMovement : MonoBehaviour {
                     velocity.y = wallLeap.y;
                 }
             }
-            else if ((hopping && hop_timer >= 1) || parent.controller.collisions.below || num_jumps < max_jumps)
+            else if (hopping || parent.controller.collisions.below || num_jumps < max_jumps)
             {
                 hopping = false;
                 ++num_jumps;
-                velocity.y = maxJumpVelocity;
+                velocity.y = jumpHeight;
             }
         }
 
@@ -97,15 +90,13 @@ public class PlayerMovement : MonoBehaviour {
 
         if (parent.controller.collisions.above || parent.controller.collisions.below) velocity.y = 0;
 
-        hop_timer += Time.deltaTime;
-        if (parent.controller.collisions.below)
+        if (velocity.y <= 0 && parent.controller.collisions.below)
         {
             hopping = false;
             num_jumps = 0;
             if (input.x != 0)
             {
-                hop_timer = 0;
-                velocity.y = 7.0f;
+                velocity.y = hop_jump_height;
                 hopping = true;
             }
         }

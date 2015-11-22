@@ -20,8 +20,7 @@ public class Player : Entity
     //pos
     [HideInInspector] public WaypointNode current_node = null;
     [HideInInspector] public Vector3 pos;
-
-    public LayerMask colliders;
+    
     private bool grappling = false;
     private float grapple_angle = 0;
 

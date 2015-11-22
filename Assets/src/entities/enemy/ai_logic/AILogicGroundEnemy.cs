@@ -15,11 +15,12 @@ public class AILogicGroundEnemy : AILogicBase
     private Vector2 accel;
     private bool moving_right = false;
     private Rigidbody2D rigid_body;
-    private Vector2 velocity;
+    private Vector3 velocity;
+    public float gravity = 50;
 
     private float friction = .9f;
-    private float max_accel = 4.0f; //originally 4.0f
-    private float speed_multiplier = 1.0f; //originally 1.0f
+    private float max_accel = 4.0f;
+    private float speed_multiplier = 1.0f;
 
     private AIState ai_state = AIState.WALKING;
     private AIState prev_ai_state = AIState.NONE;
@@ -31,6 +32,10 @@ public class AILogicGroundEnemy : AILogicBase
     public LayerMask sight_layers;
 
     private Controller2D controller;
+
+    //hopping
+    private float hop_timer = 0;
+    public float hop_jump_height = 10.0f;
 
     private void Start()
     {
@@ -61,6 +66,8 @@ public class AILogicGroundEnemy : AILogicBase
 
     void Update()
     {
+        velocity.y -= gravity * Time.deltaTime;
+
         moving_right = Entities.player.transform.position.x > transform.position.x;
         update_scale();
 
@@ -72,14 +79,15 @@ public class AILogicGroundEnemy : AILogicBase
         float dist;
         RaycastHit2D hit;
 
-        switch (ai_state) {
+        switch (ai_state)
+        {
             case AIState.WALKING:
                 parent.general_ai_state = GeneralAIState.WALKING;
 
-                if (moving_right) velocity.x = 8.0f; //originally 20.0f
-                else velocity.x = -8.0f; //-originally 20.0f
+                if (moving_right) velocity.x += .25f;
+                else velocity.x -= .25f;
 
-                //velocity.x = Mathf.Clamp(velocity.x, -4, 4);
+                velocity.x = Mathf.Clamp(velocity.x, -4, 4);
 
                 if (is_player_in_sight(move_away_radius)) ai_state = AIState.FIRE_AND_KEEP_DISTANCE;
                 if (is_player_in_sight(fire_radius)) parent.general_ai_state = GeneralAIState.SHOOTING;
@@ -117,7 +125,8 @@ public class AILogicGroundEnemy : AILogicBase
                         }
                     }
 
-                    if (closest_dist != -1) {
+                    if (closest_dist != -1)
+                    {
                         accel.x += Mathf.Cos(best_angle) * speed_multiplier * 2.0f;
                         accel.y += Mathf.Sin(best_angle) * speed_multiplier * 2.0f;
                         accel.x = Mathf.Clamp(accel.x, -max_accel, max_accel);
@@ -134,12 +143,12 @@ public class AILogicGroundEnemy : AILogicBase
                 break;
         }
 
-        velocity.y += -10.0f * Time.deltaTime;
+        GetComponent<Collider2D>().enabled = true;
 
         controller.Move(velocity * Time.deltaTime);
 
         if (controller.collisions.above || controller.collisions.below) velocity.y = 0;
 
-        GetComponent<Collider2D>().enabled = true;
+        if (controller.collisions.below) velocity.y = hop_jump_height;
 	}
 }

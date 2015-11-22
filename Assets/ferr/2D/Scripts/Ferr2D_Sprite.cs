@@ -49,6 +49,8 @@ public class Ferr2D_Sprite : MonoBehaviour
     }
     public  void   Rebuild    ()
     {
+        UnityEngine.Debug.Log("rebuilding...");
+
         Mesh m = GetComponent<MeshFilter>().sharedMesh;
         string name = GetMeshName();
         if (m == null || m.name != name)
