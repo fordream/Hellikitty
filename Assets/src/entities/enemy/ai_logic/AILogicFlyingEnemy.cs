@@ -39,7 +39,7 @@ public class AILogicFlyingEnemy : AILogicBase
 
     bool is_player_in_sight(float radius)
     {
-        RaycastHit2D hit = Physics2D.Raycast(parent.weapon_inventory.equipped.transform.position, 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, 
                                              new Vector2(Mathf.Cos(move_angle), Mathf.Sin(move_angle)),
                                              radius, sight_layers);
 

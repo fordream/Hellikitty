@@ -49,6 +49,7 @@ Assets/resources/weapons/rocket.prefab
 Assets/resources/weapons/xray.prefab
 Assets/resources/bullets/xray_bullet.prefab
 Assets/resources/weapons/grenade_launcher.prefab
+Assets/prefabs/enemies/flying_enemy 1.prefab
 
 [Ferr2DT_PathTerrain]
 Assets/resources/misc/waypoint_debug_box.prefab
@@ -100,3 +101,4 @@ Assets/resources/weapons/sniper.prefab
 Assets/resources/weapons/turret.prefab
 Assets/resources/weapons/xray.prefab
 Assets/resources/bullets/pistol_bullet.prefab
+Assets/prefabs/enemies/flying_enemy 1.prefab
