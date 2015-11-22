@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 430332}
   - 212: {fileID: 21261254}
   m_Layer: 0
-  m_Name: weapon_shotgun
+  m_Name: pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_GameObject: {fileID: 159712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20}
-  m_LocalScale: {x: .100000001, y: .125, z: .100000001}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd485a10817db2c4fa0935f4d6e195d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c873b283d2f13414db5974cf51786559, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -64,19 +64,19 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cd485a10817db2c4fa0935f4d6e195d9,
+      objectReference: {fileID: 21300000, guid: c873b283d2f13414db5974cf51786559,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
-      value: .100000001
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.y
-      value: .125
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
-      value: .100000001
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.z
@@ -84,28 +84,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: type
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
       propertyPath: attacks_per_ms
-      value: 1000
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 9ff091156a2f2b549a6272ede0cf3412, type: 3}
+      objectReference: {fileID: 8300000, guid: 9d58a33a68c7849439b188eaa6805e0c, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0

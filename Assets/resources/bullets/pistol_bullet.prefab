@@ -14,7 +14,7 @@ GameObject:
   - 50: {fileID: 5068620}
   - 96: {fileID: 9612264}
   m_Layer: 0
-  m_Name: basic_bullet
+  m_Name: pistol_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,17 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 0}
-  damage: 1
-  speed: 25
-  player_owner_collide_layers:
-    serializedVersion: 2
-    m_Bits: 2304
-  enemy_owner_collide_layers:
-    serializedVersion: 2
-    m_Bits: 1280
-  colliders:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!212 &21213086
 SpriteRenderer:
   m_ObjectHideFlags: 1

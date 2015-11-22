@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 430332}
   - 212: {fileID: 21261254}
   m_Layer: 0
-  m_Name: weapon_xRay
+  m_Name: laser_rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cf31c79d42ce9df4fb5e7a5d2a09ccd6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1027f58d27290da4b9e4c462866e27f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -64,7 +64,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cf31c79d42ce9df4fb5e7a5d2a09ccd6,
+      objectReference: {fileID: 21300000, guid: 1027f58d27290da4b9e4c462866e27f2,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -84,23 +84,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: type
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: attacks_per_ms
-      value: 600
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 74f73ce9db9631a4093fecf6d8568bcb, type: 3}
+      objectReference: {fileID: 8300000, guid: e7876269ea4655b4ba2b821df1119690, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Volume
-      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

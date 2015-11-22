@@ -1,6 +1,5 @@
 
 [Ferr2DT_TerrainMaterial]
-Assets/resources/weapons/weapon_grenade_launcher.prefab
 Assets/resources/misc/waypoint_debug_box.prefab
 Assets/prefabs/enemies/flying_enemy.prefab
 Assets/resources/ui/health_bar_grey1.prefab
@@ -24,15 +23,15 @@ Assets/ferr/2DTerrain/TerrainMaterials/CaveTerrainMaterial.prefab
 Assets/resources/ui/damage_text.prefab
 Assets/prefabs/terrain/FerrDesert.prefab
 Assets/resources/bullets/chain.prefab
-Assets/resources/weapons/weapon_shotgun.prefab
+Assets/resources/weapons/shotgun.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/ForegroundTerrainMaterial.prefab
 Assets/resources/ui/health_bar1.prefab
-Assets/resources/bullets/basic_bullet.prefab
+Assets/resources/bullets/pistol_bullet.prefab
 Assets/ferr/2DTerrain/Examples/Assets/FerrlibLogoSmall.prefab
 Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
-Assets/resources/weapons/weapon_pistol.prefab
+Assets/resources/weapons/pistol.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
-Assets/resources/weapons/weapon_railgun.prefab
+Assets/resources/weapons/railgun.prefab
 Assets/prefabs/enemies/ground_enemy.prefab
 Assets/resources/bullets/grenade_bullet.prefab
 Assets/prefabs/terrain/FerrIce.prefab
@@ -40,18 +39,18 @@ Assets/resources/bullets/rocket_bullet.prefab
 Assets/resources/bullets/laser_bullet.prefab
 Assets/resources/bullets/sniper_bullet.prefab
 Assets/resources/bullets/lasermach_bullet.prefab
-Assets/resources/weapons/weapon_Turret.prefab
+Assets/resources/weapons/turret.prefab
 Assets/HealthPack.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun (1).prefab
 Assets/materials/menu asset materials/UICanvas_v3.prefab
-Assets/resources/weapons/weapon_laserRifle.prefab
-Assets/resources/weapons/weapon_Sniper.prefab
-Assets/resources/weapons/weapon_Rocket.prefab
-Assets/resources/weapons/weapon_xRay.prefab
+Assets/resources/weapons/laser_rifle.prefab
+Assets/resources/weapons/sniper.prefab
+Assets/resources/weapons/rocket.prefab
+Assets/resources/weapons/xray.prefab
 Assets/resources/bullets/xray_bullet.prefab
+Assets/resources/weapons/grenade_launcher.prefab
 
 [Ferr2DT_PathTerrain]
-Assets/resources/weapons/weapon_grenade_launcher.prefab
 Assets/resources/misc/waypoint_debug_box.prefab
 Assets/prefabs/enemies/flying_enemy.prefab
 Assets/resources/ui/health_bar_grey1.prefab
@@ -74,15 +73,11 @@ Assets/ferr/2DTerrain/TerrainMaterials/PipeMaterial.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/CaveTerrainMaterial.prefab
 Assets/resources/ui/damage_text.prefab
 Assets/resources/bullets/chain.prefab
-Assets/resources/weapons/weapon_shotgun.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/ForegroundTerrainMaterial.prefab
 Assets/resources/ui/health_bar1.prefab
-Assets/resources/bullets/basic_bullet.prefab
 Assets/ferr/2DTerrain/Examples/Assets/FerrlibLogoSmall.prefab
 Assets/ferr/2DTerrain/Examples/Assets/Tumbleweed.prefab
-Assets/resources/weapons/weapon_pistol.prefab
 Assets/ferr/2DTerrain/TerrainMaterials/SandTerrainMaterial.prefab
-Assets/resources/weapons/weapon_railgun.prefab
 Assets/prefabs/enemies/ground_enemy.prefab
 Assets/resources/bullets/grenade_bullet.prefab
 Assets/prefabs/terrain/FerrDesert.prefab
@@ -90,13 +85,18 @@ Assets/resources/bullets/rocket_bullet.prefab
 Assets/resources/bullets/laser_bullet.prefab
 Assets/resources/bullets/sniper_bullet.prefab
 Assets/resources/bullets/lasermach_bullet.prefab
-Assets/resources/weapons/weapon_Turret.prefab
 Assets/HealthPack.prefab
 Assets/prefabs/terrain/FerrIce.prefab
 Assets/prefabs/enemies/flying_enemy_shotgun (1).prefab
 Assets/materials/menu asset materials/UICanvas_v3.prefab
-Assets/resources/weapons/weapon_laserRifle.prefab
-Assets/resources/weapons/weapon_Sniper.prefab
-Assets/resources/weapons/weapon_Rocket.prefab
-Assets/resources/weapons/weapon_xRay.prefab
 Assets/resources/bullets/xray_bullet.prefab
+Assets/resources/weapons/grenade_launcher.prefab
+Assets/resources/weapons/laser_rifle.prefab
+Assets/resources/weapons/pistol.prefab
+Assets/resources/weapons/railgun.prefab
+Assets/resources/weapons/rocket.prefab
+Assets/resources/weapons/shotgun.prefab
+Assets/resources/weapons/sniper.prefab
+Assets/resources/weapons/turret.prefab
+Assets/resources/weapons/xray.prefab
+Assets/resources/bullets/pistol_bullet.prefab

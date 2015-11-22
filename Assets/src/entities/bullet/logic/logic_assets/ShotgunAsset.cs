@@ -6,23 +6,18 @@ namespace BulletLogic.Asset
     public class ShotgunAsset : BulletLogicBase
     {
         private float angle;
+        private float damage;
+        private float speed;
+        private LayerMask colliders;
 
-        public float damage;
-        public float speed = 10.0f;
-
-        public LayerMask player_owner_collide_layers;
-        public LayerMask enemy_owner_collide_layers;
-        [HideInInspector] public LayerMask colliders;
-
-        public void init(float angle, float damage, float speed, int decay_in_ms = 4000)
+        public void init(float angle, float damage, float speed, LayerMask colliders, int decay_in_ms = 4000)
         {
-            colliders = entity == Entities.player ? player_owner_collide_layers : enemy_owner_collide_layers;
-
             add_logic<BulletLogicDecay>().init(decay_in_ms);
 
             this.angle = angle;
             this.damage = damage;
             this.speed = speed;
+            this.colliders = colliders;
             transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 360));
         }
 

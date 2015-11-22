@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 430332}
   - 212: {fileID: 21261254}
   m_Layer: 0
-  m_Name: weapon_Sniper
+  m_Name: sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

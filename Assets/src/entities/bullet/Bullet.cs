@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     public static T spawn<T>(Entity entity, Vector2 pos, float depth = -20) where T : BulletLogicBase
     {
         string prefab_path = "";
-        if (typeof(T) == typeof(BulletLogic.Asset.BasicAsset)) prefab_path = "basic_bullet";
+        if (typeof(T) == typeof(BulletLogic.Asset.PistolAsset)) prefab_path = "pistol_bullet";
         else if (typeof(T) == typeof(BulletLogic.Asset.RailgunAsset)) prefab_path = "railgun_bullet";
         else if (typeof(T) == typeof(BulletLogic.Asset.GrenadeAsset)) prefab_path = "grenade_bullet";
         else if (typeof(T) == typeof(BulletLogic.Asset.ShotgunAsset)) prefab_path = "shotgun_bullet";

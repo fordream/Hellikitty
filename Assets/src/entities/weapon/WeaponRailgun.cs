@@ -9,7 +9,7 @@ public class WeaponRailgun : Weapon
 
     private void Awake()
     {
-        weapon_asset = (GameObject)Resources.Load("weapons/weapon_railgun");
+        weapon_asset = (GameObject)Resources.Load("weapons/railgun");
     }
 
     private void Update()
