@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &136594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 418828}
-  - 114: {fileID: 11447066}
-  - 114: {fileID: 11434592}
-  m_Layer: 0
-  m_Name: weapon_base
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &153370
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,18 +54,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &418828
-Transform:
-  m_ObjectHideFlags: 1
+--- !u!1 &190040
+GameObject:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .442276567, y: .481186718, z: 1}
-  m_Children: []
-  m_Father: {fileID: 451708}
-  m_RootOrder: 0
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 465398}
+  - 114: {fileID: 11415120}
+  - 114: {fileID: 11460890}
+  - 114: {fileID: 11454504}
+  m_Layer: 0
+  m_Name: weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &434516
 Transform:
   m_ObjectHideFlags: 1
@@ -102,12 +91,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.48000002, y: -2.61999989, z: 0}
+  m_LocalPosition: {x: 21.2999992, y: 6.26389313, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 418828}
+  - {fileID: 465398}
   - {fileID: 491734}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &465398
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .442276567, y: .481186718, z: 1}
+  m_Children: []
+  m_Father: {fileID: 451708}
   m_RootOrder: 0
 --- !u!4 &491734
 Transform:
@@ -151,6 +152,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.79999995, y: 2.5}
+--- !u!114 &11415120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b51889bbf56134ab6834269b606b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11415454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,23 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f14c28355894d14eafdd9ae4f6d94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_hp: 8
+  max_hp: 50
   current_hp: 0
---- !u!114 &11434592
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e27364bce4084f4485619b0b1070931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equipped: {fileID: 0}
-  weapons: []
-  starting_weapon_assets:
-  - {fileID: 159712, guid: 24028b00926b2f7408a72b503917cd38, type: 2}
 --- !u!114 &11443758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,17 +197,31 @@ MonoBehaviour:
   sight_layers:
     serializedVersion: 2
     m_Bits: 3328
---- !u!114 &11447066
+--- !u!114 &11454504
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136594}
+  m_GameObject: {fileID: 190040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b51889bbf56134ab6834269b606b13, type: 3}
+  m_Script: {fileID: 11500000, guid: bb80f99009aedce42817274400fbcb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
+  angle: 0
+  type: 0
+  weapon_asset: {fileID: 0}
+  weapon_asset_instance: {fileID: 0}
+  attack_rate_sec: 1
+  initially_equipped: 1
+  aim_radius: 1.25
+  damage: 10
+  speed: 30
+  colliders:
+    serializedVersion: 2
+    m_Bits: 1280
 --- !u!114 &11455094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,6 +238,19 @@ MonoBehaviour:
   weapon_inventory: {fileID: 0}
   health: {fileID: 0}
   general_ai_state: 0
+--- !u!114 &11460890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e27364bce4084f4485619b0b1070931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipped: {fileID: 0}
+  weapons: []
 --- !u!114 &11494420
 MonoBehaviour:
   m_ObjectHideFlags: 1
